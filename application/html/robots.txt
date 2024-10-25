@@ -1,0 +1,2 @@
+# Sitemap: https://www.brasiliaeaqui.com.br/sitemap.xml
+User-agent: *

@@ -1,0 +1,12 @@
+{
+    "require": {
+        "twig/twig": "*",
+        "phroute/phroute": "*",
+        "illuminate/pagination": "*",
+        "illuminate/database": "*",
+        "phpmailer/phpmailer": "*"
+    },
+    "autoload": {
+        "psr-4": {"App\\": "app/class"}
+    }
+}
