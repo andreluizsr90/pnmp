@@ -8,9 +8,10 @@ class Example extends Controller {
 
 	public function home() {
 		$this->setVar('home', 'funcionando....');
+		$this->setVar('existsNotification', false);
 		$this->setVar('logins', UserLogins::all());
 		
-		$this->setResponse('home.html');
+		$this->setResponse('login.html');
 	}
 
 }
