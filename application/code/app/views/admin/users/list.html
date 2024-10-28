@@ -20,7 +20,7 @@
         <div>
           <div class="d-sm-flex d-none gap-3 no-block justify-content-end align-items-center">
             <div class="d-flex gap-2">
-                <button type="button" class="btn btn-primary">Novo Usuário</button>
+                <a href="{{ route }}/insert" class="btn btn-dark">Novo</a>
             </div>
           </div>
         </div>
@@ -68,12 +68,16 @@
                       </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 text-end">
+                        <div class="col-6">
                           <div class="mb-4">
                             {% if searchActive %}
-                            <a href="{{ route }}" class="btn btn-dark">Reiniciar Pesquisa</a>
+                            <a href="{{ route }}" class="btn btn-primary">Reiniciar pesquisa</a>
                             {% endif %}
-                            <button type="submit" class="btn btn-primary">Pesquisar</button>
+                          </div>
+                        </div>
+                        <div class="col-6 text-end">
+                          <div class="mb-4">
+                            <button type="submit" class="btn btn-dark">Pesquisar</button>
                           </div>
                         </div>
                     </div>
@@ -121,12 +125,12 @@
               </td>
               <td class="text-end">
                 <div class="btn-group mb-2" role="group" aria-label="Action Group">
-                    <button type="button" class="btn btn-dark">
+                    <a href="{{ route }}/{{ item.id }}" class="btn btn-dark">
                       <i class="ti ti-edit fs-4"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger">
+                    </a>
+                    <a href="{{ route }}/delete/{{ item.id }}" class="btn btn-danger confirm-delete">
                       <i class="ti ti-trash fs-4"></i>
-                    </button>
+                    </a>
                   </div>
               </td>
             </tr>

@@ -4,6 +4,7 @@
         "phroute/phroute": "*",
         "illuminate/pagination": "*",
         "illuminate/database": "*",
+        "laravel/serializable-closure": "*",
         "phpmailer/phpmailer": "*"
     },
     "autoload": {

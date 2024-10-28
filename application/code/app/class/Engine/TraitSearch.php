@@ -22,11 +22,11 @@ trait TraitSearch {
 
 		$searchFilter = [];
 		foreach ($_GET as $key => $value) {
-			if(array_key_exists($key, $this->model::$searchFilterFields) && !empty($value)) {
+			if(array_key_exists($key, $this->searchFilterFields) && !empty($value)) {
 				$searchFilter[$key] = $value;
-				if($this->model::$searchFilterFields[$key]["type"] == 'strict') {
+				if($this->searchFilterFields[$key]["type"] == 'strict') {
 					$records = !is_null($records) ? $records->where($key, $value) : $this->model::where($key, $value);
-				}else if($this->model::$searchFilterFields[$key]["type"] == 'like') {
+				}else if($this->searchFilterFields[$key]["type"] == 'like') {
 					$records = !is_null($records) ? $records->where($key, 'like', '%'.$value.'%') : $this->model::where($key, 'like', '%'.$value.'%');
 				}
 				

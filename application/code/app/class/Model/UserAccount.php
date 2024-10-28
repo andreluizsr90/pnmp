@@ -8,17 +8,6 @@ class UserAccount extends BaseModel {
 	
 	protected $table = 'user_account';
 	public $timestamps = false;
-    public static $searchFilterFields = [
-        "permission_id" => [
-            'type' => 'strict'
-        ],
-        "name" => [
-            'type' => 'like'
-        ],
-        "email" => [
-            'type' => 'strict'
-        ],
-    ];
 
     /**
      * Get the phone associated with the user.

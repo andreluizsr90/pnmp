@@ -5,6 +5,7 @@ class Controller {
 
 	private $twig;
 	private $vars = [];
+	private $roles = [];
 	private $response;
 
 	function __construct() {
@@ -17,10 +18,12 @@ class Controller {
 
 		$this->twig->addExtension(new \Twig\Extension\DebugExtension());
 		
+		$this->roles = require(PATH_APP . "/resources/roles.php");
+		
 		$this->vars['datetime'] = date('Y-m-d H:i:s');
 		$this->vars['url_site'] = URL_SITE;
 		$this->vars['url_assets'] = URL_ASSETS;
-		$this->vars['lang'] = require(PATH_APP . "/translation/pt-br.php");
+		$this->vars['lang'] = require(PATH_APP . "/resources/translation/pt-br.php");
 
 		if(isset($_SESSION['user_account']))  {
 			$this->vars['user'] = $_SESSION['user_account'];
@@ -33,6 +36,10 @@ class Controller {
 			}
 		}
 
+	}
+
+	protected function flashDataPost($message, $type = 'error') {
+		$this->flash($_SERVER['REQUEST_URI'], $message, $type, $_POST, true);
 	}
 
 	protected function flash($redirect, $message, $type = 'info', $data = false, $isRecord = false) {

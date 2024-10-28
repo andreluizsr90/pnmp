@@ -1,0 +1,83 @@
+{% extends "master/layout.html" %}
+
+{% block maincontent %}
+
+<div class="font-weight-medium shadow-none position-relative overflow-hidden mb-7">
+    <div class="card-body px-0">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h4 class="font-weight-medium  mb-0">Usuários</h4>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a class="text-muted text-decoration-none" href="#">Administração
+                </a>
+              </li>
+              <li class="breadcrumb-item">
+                <a class="text-muted text-decoration-none" href="{{ route }}">Usuários
+                </a>
+              </li>
+              <li class="breadcrumb-item text-muted" aria-current="page">Inserir</li>
+            </ol>
+          </nav>
+        </div>
+        <div>
+          <div class="d-sm-flex d-none gap-3 no-block justify-content-end align-items-center">
+            <div class="d-flex gap-2">
+                <a href="{{ route }}" class="btn btn-danger">Cancelar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card w-100 position-relative overflow-hidden">
+    <div class="card-body p-4">
+                         
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <form method="POST" class="mt-3 form-horizontal">
+            <div class="form-group row">
+                <label for="name" class="col-sm-3 col-form-label">Nome</label>
+                <div class="col-sm-9">
+                    <input required name="name" type="text" class="form-control" id="name" value="{{ record.name }}" />
+                </div>
+            </div>
+            <div class="form-group row my-3">
+                <label for="email" class="col-sm-3 col-form-label">Email</label>
+                <div class="col-sm-9">
+                    <input required name="email" type="email" class="form-control" id="email" value="{{ record.email }}" placeholder="name@example.com" />
+                </div>
+            </div>
+            <div class="form-group row my-3">
+                <label for="phone" class="col-sm-3 col-form-label">Telefone</label>
+                <div class="col-sm-9">
+                    <input name="phone" type="text" class="form-control" id="phone" value="{{ record.phone }}" />
+                </div>
+            </div>
+            <div class="form-group row my-3">
+                <label for="permission_id" class="col-sm-3 col-form-label">Permissão</label>
+                <div class="col-sm-9">
+                  <select required name="permission_id" class="select2 form-control">
+                    <option value="">Todos</option>
+                    {% for item in permissions %}
+                    <option value="{{ item.id }}" {{ record.permission_id == item.id ? 'selected' }}>{{ item.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-12 text-center">
+                  <a href="{{ route }}" class="btn btn-danger">Cancelar</a>
+                  <button type="submit" class="btn btn-dark">Salvar</button>
+                </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  {% endblock %}

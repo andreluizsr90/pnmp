@@ -273,6 +273,24 @@
          {% endif %}
 
         $(".select2").select2();
+
+        $(".confirm-delete").click((e) => {
+            e.preventDefault();
+
+            let url = e.currentTarget.getAttribute('href');
+
+            Swal.fire({
+               title: "Confirma a exclusão do registro?",
+               showCancelButton: true,
+               confirmButtonText: "Sim"
+            }).then((result) => {
+               if (result.isConfirmed) {
+                  window.location = url;
+               }
+            });
+
+            return false;
+        });
       </script>
 
       {% block javascript %}{% endblock %}
