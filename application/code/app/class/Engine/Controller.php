@@ -20,9 +20,10 @@ class Controller {
 		$this->vars['datetime'] = date('Y-m-d H:i:s');
 		$this->vars['url_site'] = URL_SITE;
 		$this->vars['url_assets'] = URL_ASSETS;
+		$this->vars['lang'] = require(PATH_APP . "/translation/pt-br.php");
 
-		if(isset($_SESSION['AdmBackOfficeUser']))  {
-			$this->vars['user'] = $_SESSION['AdmBackOfficeUser'];
+		if(isset($_SESSION['user_account']))  {
+			$this->vars['user'] = $_SESSION['user_account'];
 		}
 
 		if(isset($_SESSION['flash']))  {

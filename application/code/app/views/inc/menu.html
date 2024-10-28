@@ -3,15 +3,21 @@
               <!-- Dashboard -->
               <!-- =================== -->
               <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                <a class="sidebar-link" href="{{ url_site }}" aria-expanded="false">
                   <iconify-icon icon="solar:screencast-2-linear" class="aside-icon"></iconify-icon>
                   <span class="hide-menu">Dashboard</span>
                 </a>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:screencast-2-linear" class="aside-icon"></iconify-icon>
+                  <span class="hide-menu">Administração</span>
+                </a>
                 <ul aria-expanded="false" class="collapse first-level">
                   <li class="sidebar-item">
-                    <a href="../horizontal/index6.html" class="sidebar-link">
+                    <a href="{{ url_site }}/admin/users" class="sidebar-link">
                       <i class="ti ti-circle"></i>
-                      <span class="hide-menu">General Dashboard</span>
+                      <span class="hide-menu">Usuários</span>
                     </a>
                   </li>
                 </ul>

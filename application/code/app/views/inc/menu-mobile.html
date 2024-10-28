@@ -1,18 +1,24 @@
 
             <!-- ---------------------------------- -->
-            <!-- Home -->
+            <!-- Dashboard -->
             <!-- ---------------------------------- -->
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{{ url_site }}" id="get-url">
+                <iconify-icon icon="solar:screencast-2-linear" class="aside-icon"></iconify-icon>
+                <span class="hide-menu">Dashboard</span>
+              </a>
+            </li>
 
             <li class="nav-small-cap">
                 <iconify-icon icon="solar:menu-dots-bold" class="nav-small-cap-icon fs-4"></iconify-icon>
-                <span class="hide-menu">Personal</span>
+                <span class="hide-menu">Administração</span>
               </li>
               <!-- ---------------------------------- -->
               <!-- Dashboard -->
               <!-- ---------------------------------- -->
               <li class="sidebar-item">
-                <a class="sidebar-link" href="" id="get-url">
+                <a class="sidebar-link" href="{{ url_site }}/admin/users" id="get-url">
                   <iconify-icon icon="solar:screencast-2-linear" class="aside-icon"></iconify-icon>
-                  <span class="hide-menu">General</span>
+                  <span class="hide-menu">Usuários</span>
                 </a>
               </li>
