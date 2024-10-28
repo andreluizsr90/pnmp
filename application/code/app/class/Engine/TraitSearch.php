@@ -24,9 +24,9 @@ trait TraitSearch {
 		foreach ($_GET as $key => $value) {
 			if(array_key_exists($key, $this->searchFilterFields) && !empty($value)) {
 				$searchFilter[$key] = $value;
-				if($this->searchFilterFields[$key]["type"] == 'strict') {
+				if($this->searchFilterFields[$key] == 'strict') {
 					$records = !is_null($records) ? $records->where($key, $value) : $this->model::where($key, $value);
-				}else if($this->searchFilterFields[$key]["type"] == 'like') {
+				}else if($this->searchFilterFields[$key] == 'like') {
 					$records = !is_null($records) ? $records->where($key, 'like', '%'.$value.'%') : $this->model::where($key, 'like', '%'.$value.'%');
 				}
 				

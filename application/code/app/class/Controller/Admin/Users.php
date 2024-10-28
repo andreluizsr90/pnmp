@@ -21,6 +21,13 @@ class Users extends Controller {
         "email" => 'strict'
     ];
 
+    public $rolesCrud = [
+        "view" => 'USER_VIEW',
+        "ins" => 'USER_ADD',
+        "edt" => 'USER_UPD',
+        "del" => 'USER_DEL'
+    ];
+
 	public function allAdditional() {
 		$this->setVar('permissions', PermissionMdl::all());
 	}
@@ -33,7 +40,7 @@ class Users extends Controller {
 		}
 		
 		if(!is_null($checkEmailUnique)) {
-			$message = strtr($this->getVar('lang')['field_duplicated'], ['{$1}' => 'email', '{$2}' => $_POST['email']]);
+			$message = sprintf($this->getVar('lang')['field_duplicated'], 'email', $_POST['email']);
             $this->flashDataPost($message);
 		}
 

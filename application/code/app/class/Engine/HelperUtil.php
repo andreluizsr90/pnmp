@@ -11,4 +11,18 @@ class HelperUtil {
     return password_verify($password, $hash);
   }
 
+  public static function isUserAllowed(string $role) {
+    if(isset($_SESSION['user_account'])) {
+      if(!in_array('DEV', $_SESSION['user_account']["roles"]) && !in_array($role, $_SESSION['user_account']["roles"])) {
+        return false;
+      }
+
+      return true;
+    } else {
+      return false;
+    }
+
+    return true;
+  }
+
 }

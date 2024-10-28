@@ -20,7 +20,7 @@
         <div>
           <div class="d-sm-flex d-none gap-3 no-block justify-content-end align-items-center">
             <div class="d-flex gap-2">
-                <a href="{{ route }}/insert" class="btn btn-dark">Novo</a>
+              {{ 'USER_ADD'|hasRole ? '<a href="{{ route }}/insert" class="btn btn-dark">Novo</a>' }}
             </div>
           </div>
         </div>
@@ -125,13 +125,9 @@
               </td>
               <td class="text-end">
                 <div class="btn-group mb-2" role="group" aria-label="Action Group">
-                    <a href="{{ route }}/{{ item.id }}" class="btn btn-dark">
-                      <i class="ti ti-edit fs-4"></i>
-                    </a>
-                    <a href="{{ route }}/delete/{{ item.id }}" class="btn btn-danger confirm-delete">
-                      <i class="ti ti-trash fs-4"></i>
-                    </a>
-                  </div>
+                  {{ 'USER_UPD'|hasRole ? '<a href="{{ route }}/{{ item.id }}" class="btn btn-dark"><i class="ti ti-edit fs-4"></i></a>' }}
+                  {{ 'USER_DEL'|hasRole ? '<a href="{{ route }}/delete/{{ item.id }}" class="btn btn-danger confirm-delete"><i class="ti ti-trash fs-4"></i></a>' }}
+                </div>
               </td>
             </tr>
             {% else %}

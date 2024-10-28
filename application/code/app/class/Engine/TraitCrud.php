@@ -2,8 +2,12 @@
 namespace App\Engine;
 
 trait TraitCrud {
-
+    
     function index() {
+        if(property_exists($this, 'rolesCrud') && !empty($this->rolesCrud['view'])) {
+            $this->checkRole($this->rolesCrud['view']);
+        }
+
         if(method_exists($this, 'search')) {
             $this->search();
         } else {
@@ -41,6 +45,9 @@ trait TraitCrud {
     }
 
     function insert() {
+        if(property_exists($this, 'rolesCrud') && !empty($this->rolesCrud['ins'])) {
+            $this->checkRole($this->rolesCrud['ins']);
+        }
 
         if(method_exists($this, 'insertAdditional')) {
             $this->insertAdditional();
@@ -55,6 +62,9 @@ trait TraitCrud {
     }
 
     function edit($id) {
+        if(property_exists($this, 'rolesCrud') && !empty($this->rolesCrud['edt'])) {
+            $this->checkRole($this->rolesCrud['edt']);
+        }
 
         if(method_exists($this, 'editAdditional')) {
             $this->editAdditional();
@@ -70,6 +80,10 @@ trait TraitCrud {
     }
 
     function delete($id) {
+        if(property_exists($this, 'rolesCrud') && !empty($this->rolesCrud['del'])) {
+            $this->checkRole($this->rolesCrud['del']);
+        }
+
 		$this->model::where('id', $id)->first()->delete();
 		$this->flash(URL_SITE . '/' . $this->route, $this->getVar('lang')['action_success'], 'success');
     }
@@ -97,9 +111,8 @@ trait TraitCrud {
             $record->save();
             $this->flash(URL_SITE . '/' . $this->route, $this->getVar('lang')['action_success'], 'success');
         } catch (\Throwable $th) {
-            $message = strtr($this->getVar('lang')['action_generic_error'], ['{$1}' => $th->getMessage()]);
-            $this->flash($_SERVER['REQUEST_URI'], $message, 'error', $_POST, true);
-            exit;
+            $message = sprintf($this->getVar('lang')['action_generic_error'], $th->getMessage());
+            $this->flashDataPost($message);
         }
 		
 	}

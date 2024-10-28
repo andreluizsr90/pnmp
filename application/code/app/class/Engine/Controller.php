@@ -17,7 +17,11 @@ class Controller {
 		));
 
 		$this->twig->addExtension(new \Twig\Extension\DebugExtension());
-		
+
+		$this->twig->addFilter(new \Twig\TwigFilter('hasRole', function ($string) {
+			return HelperUtil::isUserAllowed($string);
+		}));
+
 		$this->roles = require(PATH_APP . "/resources/roles.php");
 		
 		$this->vars['datetime'] = date('Y-m-d H:i:s');
@@ -37,6 +41,13 @@ class Controller {
 		}
 
 	}
+
+    protected function checkRole(string $role) {
+		if(!HelperUtil::isUserAllowed($role)) {
+			$this->flash(URL_SITE, $this->getVar('lang')['user_no_permission'], 'error');
+			exit;
+		}
+    }
 
 	protected function flashDataPost($message, $type = 'error') {
 		$this->flash($_SERVER['REQUEST_URI'], $message, $type, $_POST, true);
