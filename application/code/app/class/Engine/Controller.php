@@ -42,6 +42,10 @@ class Controller {
 
 	}
 
+    protected function getAllRoles() {
+		return $this->roles;
+    }
+
     protected function checkRole(string $role) {
 		if(!HelperUtil::isUserAllowed($role)) {
 			$this->flash(URL_SITE, $this->getVar('lang')['user_no_permission'], 'error');

@@ -280,9 +280,9 @@
             let url = e.currentTarget.getAttribute('href');
 
             Swal.fire({
-               title: "Confirma a exclusão do registro?",
+               title: "{{ lang.action_delete_confirm }}",
                showCancelButton: true,
-               confirmButtonText: "Sim"
+               confirmButtonText: "{{ lang.yes }}"
             }).then((result) => {
                if (result.isConfirmed) {
                   window.location = url;

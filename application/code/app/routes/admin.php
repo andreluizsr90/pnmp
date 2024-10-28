@@ -9,4 +9,11 @@
 	
 		});
 
+		$router->group(['prefix' => 'permission'], function($router){		
+			
+			$ctrl = new App\Controller\Admin\Permission();
+			include(PATH_ROUTES . "/type/crud.php");
+	
+		});
+
 	});

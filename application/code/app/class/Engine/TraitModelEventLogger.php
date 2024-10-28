@@ -12,15 +12,15 @@ trait TraitModelEventLogger {
             static::$eventName(function (Model $model) use ($eventName) {
                 try {
 
-                    App\Model\LogAction::create([
-                        'user_account_id' => (isset($_SESSION['user_account']) ? $_SESSION['user_account']['id'] : null),
-                        'owner_type' => get_class($model),
-                        'owner_id' => $model->id,
-                        'action_type' => static::getActionName($eventName),
-                        'old_value' => json_encode($model->getDirty()),
-                        'new_value' => json_encode($model->getOriginal()),
-                        'created_at' => date("Y-m-d H:i:s"),
-                    ]);
+                    $log = new App\Model\LogAction();
+                    $log->user_account_id = (isset($_SESSION['user_account']) ? $_SESSION['user_account']['id'] : null);
+                    $log->owner_type = get_class($model);
+                    $log->owner_id = $model->id;
+                    $log->action_type = static::getActionName($eventName);
+                    $log->old_value = json_encode($model->getDirty());
+                    $log->new_value = json_encode($model->getOriginal());
+                    $log->created_at = date("Y-m-d H:i:s");
+                    $log->save();
 
                     return true;
                     

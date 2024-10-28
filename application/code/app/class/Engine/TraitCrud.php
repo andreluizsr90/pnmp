@@ -65,6 +65,7 @@ trait TraitCrud {
         if(property_exists($this, 'rolesCrud') && !empty($this->rolesCrud['edt'])) {
             $this->checkRole($this->rolesCrud['edt']);
         }
+		$this->setVar('record', $this->model::where('id', $id)->first());
 
         if(method_exists($this, 'editAdditional')) {
             $this->editAdditional();
@@ -74,7 +75,6 @@ trait TraitCrud {
             $this->allAdditional();
         }
         
-		$this->setVar('record', $this->model::where('id', $id)->first());
 		$this->setVar('route', URL_SITE . $this->route);
     	$this->setResponse($this->path . '/form.html');
     }
@@ -109,6 +109,11 @@ trait TraitCrud {
 
         try {
             $record->save();
+
+            if(method_exists($this, 'postSave')) {
+                $this->postSave($record);
+            }
+
             $this->flash(URL_SITE . '/' . $this->route, $this->getVar('lang')['action_success'], 'success');
         } catch (\Throwable $th) {
             $message = sprintf($this->getVar('lang')['action_generic_error'], $th->getMessage());
