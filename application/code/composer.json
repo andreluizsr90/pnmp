@@ -3,6 +3,7 @@
         "twig/twig": "*",
         "phroute/phroute": "*",
         "illuminate/pagination": "*",
+        "illuminate/events": "*",
         "illuminate/database": "*",
         "laravel/serializable-closure": "*",
         "phpmailer/phpmailer": "*"
