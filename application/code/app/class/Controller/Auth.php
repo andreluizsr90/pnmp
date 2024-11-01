@@ -24,7 +24,7 @@ class Auth extends Controller {
 			$this->flash(URL_SITE . $route, $this->getVar('lang')['user_invalid_login'], 'error');
     	}
 
-    	$user = UserAccountMdl::where('email', $email)->first();
+    	$user = UserAccountMdl::where(['email' => $email])->first();
     	if (is_null($user)) {
 			$this->flash(URL_SITE . $route, $this->getVar('lang')['user_invalid_login'], 'error');
     	}
@@ -37,7 +37,7 @@ class Auth extends Controller {
 			'id' => $user->id,
 			'name' => $user->name,
 			'email' => $user->email,
-			'roles' => $user->roles(),
+			'roles' => $user->profile->roles,
 		];
 
     	header('Location: ' . URL_SITE);

@@ -6,21 +6,12 @@
     <div class="card-body px-0">
       <div class="d-flex justify-content-between align-items-center">
         <div>
-          <h4 class="font-weight-medium  mb-0">Permissões</h4>
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item">
-                <a class="text-muted text-decoration-none" href="#">Administração
-                </a>
-              </li>
-              <li class="breadcrumb-item text-muted" aria-current="page">Permissões</li>
-            </ol>
-          </nav>
+          <h4 class="font-weight-medium  mb-0">Medicamentos</h4>
         </div>
         <div>
           <div class="d-sm-flex d-none gap-3 no-block justify-content-end align-items-center">
             <div class="d-flex gap-2">
-              {% if 'PERM_ADD'|hasRole %}<a href="{{ route }}/insert" class="btn btn-dark">Novo</a>{% endif %}
+              {% if 'MEDICINE_ADD'|hasRole %}<a href="{{ route }}/insert" class="btn btn-dark">Novo</a>{% endif %}
             </div>
           </div>
         </div>
@@ -43,10 +34,43 @@
                   <div class="accordion-body px-3 fw-normal">
                     <form method="get">
                     <div class="row">
-                      <div class="col-lg-4">
+                      <div class="col-3">
                         <div class="mb-4">
                           <label for="name" class="form-label">Nome</label>
                           <input name="name" value="{{ searchFilter.name }}" type="text" class="form-control" id="name" />
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <div class="mb-4">
+                          <label for="type" class="form-label">Tipo</label>
+                            <select name="type" class="select2 form-control">
+                                <option value="">Todos</option>
+                                {% for key in field_type %}
+                                <option value="{{ key }}" {{ searchFilter.type == key ? 'selected' }}>{{ lang.medicines_type[key] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <div class="mb-4">
+                          <label for="dosage" class="form-label">Tipo de dosagem</label>
+                            <select name="dosage" class="select2 form-control">
+                                <option value="">Todos</option>
+                                {% for key in field_dosage %}
+                                <option value="{{ key }}" {{ searchFilter.dosage == key ? 'selected' }}>{{ lang.medicines_dosage[key] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <div class="mb-4">
+                          <label for="presentation" class="form-label">Apresentação</label>
+                            <select name="presentation" class="select2 form-control">
+                                <option value="">Todos</option>
+                                {% for key in field_presentation %}
+                                <option value="{{ key }}" {{ searchFilter.presentation == key ? 'selected' }}>{{ lang.medicines_presentation[key] }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                       </div>
                     </div>
@@ -75,7 +99,13 @@
           <thead class="text-dark fs-4">
             <tr>
               <th>
-                <h6 class="fs-4 fw-semibold mb-0">Permissão</h6>
+                <h6 class="fs-4 fw-semibold mb-0">Código</h6>
+              </th>
+              <th>
+                <h6 class="fs-4 fw-semibold mb-0">Nome</h6>
+              </th>
+              <th>
+                <h6 class="fs-4 fw-semibold mb-0">Informações</h6>
               </th>
               <th></th>
             </tr>
@@ -84,18 +114,24 @@
             {% for item in records %}
             <tr>
               <td>
+                <p class="mb-0 fw-normal">{{ item.code }}</p>
+              </td>
+              <td>
                 <p class="mb-0 fw-normal">{{ item.name }}</p>
+              </td>
+              <td>
+                <p class="mb-0 fw-normal">{{ lang.medicines_type[item.type] }} / {{ lang.medicines_dosage[item.dosage] }} / {{ lang.medicines_presentation[item.presentation] }}</p>
               </td>
               <td class="text-end">
                 <div class="btn-group mb-2" role="group" aria-label="Action Group">
-                  {% if  'PERM_UPD'|hasRole %}<a href="{{ route }}/{{ item.id }}" class="btn btn-dark"><i class="ti ti-edit fs-4"></i></a>{% endif %}
-                  {% if  'PERM_DEL'|hasRole %}<a href="{{ route }}/delete/{{ item.id }}" class="btn btn-danger confirm-delete"><i class="ti ti-trash fs-4"></i></a>{% endif %}
+                  {% if  'MEDICINE_UPD'|hasRole %}<a href="{{ route }}/{{ item._id }}" class="btn btn-dark"><i class="ti ti-edit fs-4"></i></a>{% endif %}
+                  {% if  'MEDICINE_DEL'|hasRole %}<a href="{{ route }}/delete/{{ item._id }}" class="btn btn-danger confirm-delete"><i class="ti ti-trash fs-4"></i></a>{% endif %}
                 </div>
               </td>
             </tr>
             {% else %}
             <tr>
-              <td colspan="3" class="text-center">
+              <td colspan="4" class="text-center">
                 -- Nenhum registro encontrado --
               </td>
             </tr>

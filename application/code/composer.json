@@ -2,11 +2,10 @@
     "require": {
         "twig/twig": "*",
         "phroute/phroute": "*",
-        "illuminate/pagination": "*",
-        "illuminate/events": "*",
-        "illuminate/database": "*",
-        "laravel/serializable-closure": "*",
-        "phpmailer/phpmailer": "*"
+        "phpmailer/phpmailer": "*",
+        "leroy-merlin-br/mongolid": "^3.7",
+        "phpoffice/phpspreadsheet": "^3.3",
+        "mongodb/mongodb": "^1.15"
     },
     "autoload": {
         "psr-4": {"App\\": "app/class"}

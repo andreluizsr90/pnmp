@@ -6,20 +6,7 @@
     <div class="card-body px-0">
       <div class="d-flex justify-content-between align-items-center">
         <div>
-          <h4 class="font-weight-medium  mb-0">Usuários</h4>
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item">
-                <a class="text-muted text-decoration-none" href="#">Administração
-                </a>
-              </li>
-              <li class="breadcrumb-item">
-                <a class="text-muted text-decoration-none" href="{{ route }}">Usuários
-                </a>
-              </li>
-              <li class="breadcrumb-item text-muted" aria-current="page">Inserir</li>
-            </ol>
-          </nav>
+          <h4 class="font-weight-medium  mb-0">Perfils de acesso: {{ record._id ? 'Atualizar' : 'Novo' }}</h4>
         </div>
         <div>
           <div class="d-sm-flex d-none gap-3 no-block justify-content-end align-items-center">
@@ -45,11 +32,11 @@
                 </div>
             </div>
             <div class="row my-3">
-              <label for="name" class="col-sm-3 col-form-label">Ações</label>
+              <label for="name" class="col-sm-3 col-form-label">Permissões</label>
               <div class="col-sm-9">
                 {% for role in roles %}
                 <div class="form-check">
-                  <input name="roles[]" class="form-check-input" type="checkbox" value="{{ role }}" id="check-{{ role }}" {{ role in roles_exists ? 'checked' }}>
+                  <input name="roles[]" class="form-check-input" type="checkbox" value="{{ role }}" id="check-{{ role }}" {{ role in record.roles ? 'checked' }}>
                   <label class="form-check-label" for="check-{{ role }}">
                     {{ lang.roles[role] ?? role }}
                   </label>

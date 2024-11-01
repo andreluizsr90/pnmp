@@ -1,8 +1,6 @@
 <?php
 namespace App\Engine;
 
-use voku\helper\HtmlDomParser;
-
 class HelperStrings {
 
     public static function random($length = 10, $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ') {

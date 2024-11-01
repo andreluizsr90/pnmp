@@ -3,7 +3,7 @@ namespace App\Controller\Admin;
 
 use App\Engine\Controller;
 use App\Engine\{TraitSearch, TraitCrud, HelperUtil};
-use App\Model\Permission as PermissionMdl;
+use App\Model\UserProfile as UserProfileMdl;
 
 class Users extends Controller {
 	use TraitSearch, TraitCrud;
@@ -11,12 +11,12 @@ class Users extends Controller {
 	public $model = "App\Model\UserAccount";
 	public $route = "/admin/users";
 	public $path = "admin/users";
-	public $orderSearch = ['name' => 'asc'];
+	public $orderSearch = ['name' => 1];
 
-    public $formFields = ['name','email','phone','permission_id'];
+    public $formFields = ['name','email','phone','profile_user:int'];
 
     public $searchFilterFields = [
-        "permission_id" => 'strict',
+        "profile_user" => 'strict:int',
         "name" => 'like',
         "email" => 'strict'
     ];
@@ -29,14 +29,14 @@ class Users extends Controller {
     ];
 
 	public function allAdditional() {
-		$this->setVar('permissions', PermissionMdl::all());
+		$this->setVar('profiles', UserProfileMdl::all());
 	}
 
 	public function saveAdditional($record, $isNew) {
 		if($isNew) {
-			$checkEmailUnique = $this->model::where('email', $_POST['email'])->first();
+			$checkEmailUnique = $this->model::where(['email' => $_POST['email']])->first();
 		} else {
-			$checkEmailUnique = $this->model::where('email', $_POST['email'])->where('id', '!=', $record->id)->first();
+			$checkEmailUnique = $this->model::where(['email' => $_POST['email'], 'id' => ['$ne' =>  $record->id]])->first();
 		}
 		
 		if(!is_null($checkEmailUnique)) {

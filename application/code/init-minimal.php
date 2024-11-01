@@ -7,13 +7,11 @@
   * Database Configuration
   */
   # Configuração de conexão com a base de dados
-  $capsule = new \Illuminate\Database\Capsule\Manager;
+  use Mongolid\Connection\Manager;
+  use Mongolid\Connection\Connection;
   
-  $capsule->addConnection(CFG_DB);
+  $connection = new Connection(CFG_DB);
+  $connection->defaultDatabase = 'pnmp';
 
-  $capsule->setEventDispatcher(
-		new \Illuminate\Events\Dispatcher(new \Illuminate\Container\Container)
-	);
-  
-  $capsule->setAsGlobal();
-  $capsule->bootEloquent();
+  $manager = new Manager();
+  $manager->setConnection($connection);

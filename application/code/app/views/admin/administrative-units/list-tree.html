@@ -1,0 +1,112 @@
+{% extends "master/layout.html" %}
+
+{% block maincontent %}
+
+<div class="font-weight-medium shadow-none position-relative overflow-hidden mb-7">
+    <div class="card-body px-0">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h4 class="font-weight-medium  mb-0">Unidades administrativas</h4>
+        </div>
+        <div>
+          <div class="d-sm-flex d-none gap-3 no-block justify-content-end align-items-center">
+            <div class="d-flex gap-2">
+              <a href="{{ route }}" class="btn btn-primary">Visualização em lista</a>
+              {% if 'INST_ADD'|hasRole %}<a href="{{ route }}/import" class="btn btn-dark">Importar dados</a>{% endif %}
+              {% if 'INST_ADD'|hasRole %}<a href="{{ route }}/insert{{ item_code ? '?parent_code=' ~ item_code }}" class="btn btn-dark">Novo</a>{% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card w-100 position-relative overflow-hidden">
+    <div class="card-body p-4">
+        
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+            {% for key,item in tree_titles %}
+                {% if key != (tree_titles|length - 1) %}
+              <li class="breadcrumb-item">
+                    <a class="text-muted text-decoration-none" href="?code={{ item.code }}"> {{ item.name }}</a>
+              </li>
+              {% endif %}
+            {% endfor %}
+            </ol>
+        </nav>
+
+        {% if tree_titles|length > 0 %}
+        <div class="row mb-4">
+            <div class="col-6">
+              <h4 class="font-weight-medium mt-3">{{ tree_titles[(tree_titles|length - 1)].name }}</h4>
+            </div>
+            <div class="col-6 text-end">
+                {% if tree_titles|length > 1 %}
+                <a href="?code={{ tree_titles[(tree_titles|length - 2)].code }}" class="btn btn-dark">Voltar</a>
+                {% else %}
+                <a href="{{ route }}/tree-view" class="btn btn-dark">Voltar</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    
+      <div class="table-responsive mb-4 border rounded-1">
+        <table class="table table-hover text-nowrap mb-0 align-middle">
+          <thead class="text-dark fs-4">
+            <tr>
+                <th></th>
+              <th>
+                <h6 class="fs-4 fw-semibold mb-0">Código</h6>
+              </th>
+              <th>
+                <h6 class="fs-4 fw-semibold mb-0">Nome</h6>
+              </th>
+              <th>
+                <h6 class="fs-4 fw-semibold mb-0">Unidade adminsitrativa pai</h6>
+              </th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in records %}
+            <tr>
+                <td>
+                    <a href="?code={{ item.code }}" class="justify-content-center btn btn-sm btn-rounded btn-outline-dark d-flex align-items-center">
+                        <i class="ti ti-eye fs-4"></i>
+                        Visualizar
+                    </a>
+                </td>
+              <td>
+                <p class="mb-0 fw-normal">{{ item.code }}</p>
+              </td>
+              <td>
+                <a href="?code={{ item.code }}">
+                    <p class="mb-0 fw-normal">{{ item.name }}</p>
+                </a>
+              </td>
+              <td>
+                <p class="mb-0 fw-normal">{{ item.parent ? item.parent.name }}</p>
+              </td>
+              <td class="text-end">
+                <div class="btn-group mb-2" role="group" aria-label="Action Group">
+                  {% if  'INST_UPD'|hasRole %}<a href="{{ route }}/{{ item._id }}" class="btn btn-dark"><i class="ti ti-edit fs-4"></i></a>{% endif %}
+                  {% if  'INST_DEL'|hasRole %}<a href="{{ route }}/delete/{{ item._id }}" class="btn btn-danger confirm-delete"><i class="ti ti-trash fs-4"></i></a>{% endif %}
+                </div>
+              </td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="4" class="text-center">
+                -- Nenhum registro encontrado --
+              </td>
+            </tr>
+            {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}

@@ -23,11 +23,35 @@
                     </a>
                   </li>
                   {% endif %}
-                  {% if 'PERM_VIEW'|hasRole %}
+                  {% if 'PROFILE_VIEW'|hasRole %}
                   <li class="sidebar-item">
-                    <a href="{{ url_site }}/admin/permission" class="sidebar-link">
+                    <a href="{{ url_site }}/admin/profiles" class="sidebar-link">
                       <i class="ti ti-circle"></i>
-                      <span class="hide-menu">Permissões</span>
+                      <span class="hide-menu">Perfils de acesso</span>
+                    </a>
+                  </li>
+                  {% endif %}
+                  {% if 'MEDICINE_VIEW'|hasRole %}
+                  <li class="sidebar-item">
+                    <a href="{{ url_site }}/admin/medicines" class="sidebar-link">
+                      <i class="ti ti-circle"></i>
+                      <span class="hide-menu">Medicamentos</span>
+                    </a>
+                  </li>
+                  {% endif %}
+                  {% if 'INST_VIEW'|hasRole %}
+                  <li class="sidebar-item">
+                    <a href="{{ url_site }}/admin/institutions" class="sidebar-link">
+                      <i class="ti ti-circle"></i>
+                      <span class="hide-menu">Instituições</span>
+                    </a>
+                  </li>
+                  {% endif %}
+                  {% if 'UNIT_VIEW'|hasRole %}
+                  <li class="sidebar-item">
+                    <a href="{{ url_site }}/admin/administrative-units" class="sidebar-link">
+                      <i class="ti ti-circle"></i>
+                      <span class="hide-menu">Unidades administrativas</span>
                     </a>
                   </li>
                   {% endif %}

@@ -11,23 +11,15 @@ trait TraitCrud {
         if(method_exists($this, 'search')) {
             $this->search();
         } else {
-            $records = null;
+            $records = $this->model::all();
             if(property_exists($this, 'orderSearch')) {
                 if(is_array($this->orderSearch)) {
-                    foreach ($this->orderSearch as $key => $value) {
-                        if(is_null($records)) {
-                            $records = $this->model::orderBy($key, $value);
-                        } else {
-                            $records = $records->orderBy($key, $value);
-                        }
-                    }
+                    $records->sort($this->orderSearch);
                 } else {
-                    $records = $this->model::orderBy($this->orderSearch);
+                    $records->sort([$this->orderSearch => 1]);
                 }
-                $records = $records->get();
-            } else {
-                $records = $this->model::all();
             }
+            
 
             $this->setVar('records', $records);
         }
@@ -65,7 +57,7 @@ trait TraitCrud {
         if(property_exists($this, 'rolesCrud') && !empty($this->rolesCrud['edt'])) {
             $this->checkRole($this->rolesCrud['edt']);
         }
-		$this->setVar('record', $this->model::where('id', $id)->first());
+		$this->setVar('record', $this->model::first($id));
 
         if(method_exists($this, 'editAdditional')) {
             $this->editAdditional();
@@ -84,7 +76,7 @@ trait TraitCrud {
             $this->checkRole($this->rolesCrud['del']);
         }
 
-		$this->model::where('id', $id)->first()->delete();
+		$this->model::first($id)->delete();
 		$this->flash(URL_SITE . '/' . $this->route, $this->getVar('lang')['action_success'], 'success');
     }
 
@@ -92,13 +84,18 @@ trait TraitCrud {
 		if(is_null($id)) {
 			$record = new $this->model;
 		} else {
-			$record = $this->model::where('id', $id)->first();
+			$record = $this->model::first($id);
 		}
 
         if(property_exists($this, 'formFields')) {
             foreach ($this->formFields as $value) {
-                if(array_key_exists($value, $_POST)) {
-                    $record->$value = $_POST[$value];
+                $info = explode(":", $value);
+                if(array_key_exists($info[0], $_POST) && !empty($_POST[$info[0]])) {
+                    if(count($info) > 1) {
+                        $record->{$info[0]} = ($info[1] == "int" ? intval($_POST[$info[0]]) : $_POST[$info[0]]);
+                    } else {
+                        $record->{$info[0]} = $_POST[$info[0]];
+                    }
                 }
             }
         }
