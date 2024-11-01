@@ -21,20 +21,10 @@ final class InitialMigration extends AbstractMigration
     {
 
         // create the table permission
-        $tablePer = $this->table('permission');
+        $tablePer = $this->table('user_profile');
         $tablePer->addColumn('name', 'string', ['limit' => 100, 'null' => false])
             ->addColumn('is_internal', 'boolean', ['signed' => false])
-            ->create();
-
-        // create the permisson roles
-        $tablePerRoles = $this->table('permission_roles');
-        $tablePerRoles->addColumn('permission_id', 'integer', ['null' => false])
-            ->addColumn('role', 'string', ['limit' => 100, 'null' => false])
-            ->addIndex(['permission_id', 'role'], [
-                  'unique' => true,
-                  'name' => 'uq_permission_role',
-            ])
-            ->addForeignKey('permission_id', 'permission', 'id', ['delete'=> 'NO_ACTION', 'update'=> 'NO_ACTION'])
+            ->addColumn('roles', 'text', ['null' => false])
             ->create();
 
         // create the table users
@@ -43,8 +33,8 @@ final class InitialMigration extends AbstractMigration
             ->addColumn('email', 'string', ['limit' => 150, 'null' => false])
             ->addColumn('password', 'string', ['limit' => 150, 'null' => false])
             ->addColumn('phone', 'string', ['limit' => 50, 'null' => true])
-            ->addColumn('permission_id', 'integer', ['null' => false])
-            ->addForeignKey('permission_id', 'permission', 'id', ['delete'=> 'NO_ACTION', 'update'=> 'NO_ACTION'])
+            ->addColumn('user_profile_id', 'integer', ['null' => false])
+            ->addForeignKey('user_profile_id', 'user_profile', 'id', ['delete'=> 'NO_ACTION', 'update'=> 'NO_ACTION'])
             ->create();
 
         // create the table to log actions
@@ -62,20 +52,17 @@ final class InitialMigration extends AbstractMigration
          * Migrate Up.
          */
         if ($this->isMigratingUp()) {
-            $tablePer = $this->table('permission');
-            $tablePer->insert(['name'  => 'Developer', 'is_internal' => true])->saveData();
+            $tablePer = $this->table('user_profile');
+            $tablePer->insert(['name'  => 'Developer', 'is_internal' => true, 'roles' => "['DEV']"])->saveData();
 
-            $rowPer = $this->fetchRow('SELECT id FROM permission');
-    
-            $tablePerRoles = $this->table('permission_roles');
-            $tablePerRoles->insert(['permission_id' => $rowPer['id'], 'role'  => 'DEV'])->saveData();
+            $rowPer = $this->fetchRow('SELECT id FROM user_profile');
     
             $tableUser = $this->table('user_account');
             $tableUser->insert([
                 'name'  => 'André Rodrigues',
                 'email'  => 'andreluizweb@gmail.com',
                 'password'  => '$2y$10$V7J3r.1hOJ45HTxr4nhqvuqyFbOZzgskY6QTaRw7X2gBF/bVjTx8.', // teste123
-                'permission_id'  => $rowPer['id']
+                'user_profile_id'  => $rowPer['id']
             ])->saveData();
         }
 

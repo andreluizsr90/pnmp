@@ -11,7 +11,7 @@ return
         'default_environment' => 'development',
         'development' => [
             'adapter' => 'sqlsrv',
-            'host' => '192.168.1.67',
+            'host' => '192.168.1.4',
             'name' => 'pnmp',
             'user' => 'sa',
             'pass' => 'MyPass@word',
