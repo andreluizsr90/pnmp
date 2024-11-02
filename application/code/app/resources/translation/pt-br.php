@@ -45,5 +45,6 @@ return [
         'UNIT_ADD' => 'Adicionar unidade administrativa',
         'UNIT_UPD' => 'Atualizar unidade administrativa',
         'UNIT_DEL' => 'Remover unidade administrativa',
+        'UNIT_IMPORT' => 'Importar unidades administrativas',
     ]
 ];

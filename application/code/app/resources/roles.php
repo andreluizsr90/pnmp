@@ -20,5 +20,6 @@ return [
     'UNIT_VIEW',
     'UNIT_ADD',
     'UNIT_UPD',
-    'UNIT_DEL'
+    'UNIT_DEL',
+    'UNIT_IMPORT'
 ];

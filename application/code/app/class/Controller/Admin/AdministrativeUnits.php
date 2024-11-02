@@ -29,7 +29,8 @@ class AdministrativeUnits extends Controller {
         "view" => 'UNIT_VIEW',
         "ins" => 'UNIT_ADD',
         "edt" => 'UNIT_UPD',
-        "del" => 'UNIT_DEL'
+        "del" => 'UNIT_DEL',
+        "imp" => 'UNIT_IMPORT'
     ];
 
 	private function getNamesTree($code = null, $data = []) {
@@ -109,6 +110,8 @@ class AdministrativeUnits extends Controller {
 	}
 
 	public function importForm() {
+        $this->checkRole($this->rolesCrud['imp']);
+
 		$this->setVar('route', URL_SITE . $this->route);
     	$this->setResponse($this->path . '/form-import.html');
 	}
@@ -146,6 +149,7 @@ class AdministrativeUnits extends Controller {
 	}
 
 	public function import() {
+        $this->checkRole($this->rolesCrud['imp']);
 
 		$fileToUpload = $_FILES["fileToUpload"]["tmp_name"] ?? null;
 		if(is_null($fileToUpload)) {

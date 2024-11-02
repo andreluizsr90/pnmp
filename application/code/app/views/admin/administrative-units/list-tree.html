@@ -12,8 +12,8 @@
           <div class="d-sm-flex d-none gap-3 no-block justify-content-end align-items-center">
             <div class="d-flex gap-2">
               <a href="{{ route }}" class="btn btn-primary">Visualização em lista</a>
-              {% if 'INST_ADD'|hasRole %}<a href="{{ route }}/import" class="btn btn-dark">Importar dados</a>{% endif %}
-              {% if 'INST_ADD'|hasRole %}<a href="{{ route }}/insert{{ item_code ? '?parent_code=' ~ item_code }}" class="btn btn-dark">Novo</a>{% endif %}
+              {% if 'UNIT_ADD'|hasRole %}<a href="{{ route }}/import" class="btn btn-dark">Importar dados</a>{% endif %}
+              {% if 'UNIT_ADD'|hasRole %}<a href="{{ route }}/insert{{ item_code ? '?parent_code=' ~ item_code }}" class="btn btn-dark">Novo</a>{% endif %}
             </div>
           </div>
         </div>
@@ -90,8 +90,8 @@
               </td>
               <td class="text-end">
                 <div class="btn-group mb-2" role="group" aria-label="Action Group">
-                  {% if  'INST_UPD'|hasRole %}<a href="{{ route }}/{{ item._id }}" class="btn btn-dark"><i class="ti ti-edit fs-4"></i></a>{% endif %}
-                  {% if  'INST_DEL'|hasRole %}<a href="{{ route }}/delete/{{ item._id }}" class="btn btn-danger confirm-delete"><i class="ti ti-trash fs-4"></i></a>{% endif %}
+                  {% if  'UNIT_UPD'|hasRole %}<a href="{{ route }}/{{ item._id }}" class="btn btn-dark"><i class="ti ti-edit fs-4"></i></a>{% endif %}
+                  {% if  'UNIT_DEL'|hasRole %}<a href="{{ route }}/delete/{{ item._id }}" class="btn btn-danger confirm-delete"><i class="ti ti-trash fs-4"></i></a>{% endif %}
                 </div>
               </td>
             </tr>
