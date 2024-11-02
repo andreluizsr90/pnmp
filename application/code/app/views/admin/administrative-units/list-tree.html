@@ -13,7 +13,7 @@
             <div class="d-flex gap-2">
               <a href="{{ route }}" class="btn btn-primary">Visualização em lista</a>
               {% if 'UNIT_ADD'|hasRole %}<a href="{{ route }}/import" class="btn btn-dark">Importar dados</a>{% endif %}
-              {% if 'UNIT_ADD'|hasRole %}<a href="{{ route }}/insert{{ item_code ? '?parent_code=' ~ item_code }}" class="btn btn-dark">Novo</a>{% endif %}
+              {% if 'UNIT_ADD'|hasRole %}<a href="{{ route }}/insert{{ item_id ? '?parent_id=' ~ item_id }}" class="btn btn-dark">Novo</a>{% endif %}
             </div>
           </div>
         </div>
@@ -29,7 +29,7 @@
             {% for key,item in tree_titles %}
                 {% if key != (tree_titles|length - 1) %}
               <li class="breadcrumb-item">
-                    <a class="text-muted text-decoration-none" href="?code={{ item.code }}"> {{ item.name }}</a>
+                    <a class="text-muted text-decoration-none" href="?id={{ item._id }}"> {{ item.name }}</a>
               </li>
               {% endif %}
             {% endfor %}
@@ -43,7 +43,7 @@
             </div>
             <div class="col-6 text-end">
                 {% if tree_titles|length > 1 %}
-                <a href="?code={{ tree_titles[(tree_titles|length - 2)].code }}" class="btn btn-dark">Voltar</a>
+                <a href="?id={{ tree_titles[(tree_titles|length - 2)].id }}" class="btn btn-dark">Voltar</a>
                 {% else %}
                 <a href="{{ route }}/tree-view" class="btn btn-dark">Voltar</a>
                 {% endif %}
@@ -72,7 +72,7 @@
             {% for item in records %}
             <tr>
                 <td>
-                    <a href="?code={{ item.code }}" class="justify-content-center btn btn-sm btn-rounded btn-outline-dark d-flex align-items-center">
+                    <a href="?id={{ item._id }}" class="justify-content-center btn btn-sm btn-rounded btn-outline-dark d-flex align-items-center">
                         <i class="ti ti-eye fs-4"></i>
                         Visualizar
                     </a>
@@ -81,7 +81,7 @@
                 <p class="mb-0 fw-normal">{{ item.code }}</p>
               </td>
               <td>
-                <a href="?code={{ item.code }}">
+                <a href="?id={{ item._id }}">
                     <p class="mb-0 fw-normal">{{ item.name }}</p>
                 </a>
               </td>

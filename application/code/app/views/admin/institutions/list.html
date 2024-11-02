@@ -78,6 +78,9 @@
                 <h6 class="fs-4 fw-semibold mb-0">Nome</h6>
               </th>
               <th>
+                <h6 class="fs-4 fw-semibold mb-0 text-center">Tipo</h6>
+              </th>
+              <th>
                 <h6 class="fs-4 fw-semibold mb-0">Informações</h6>
               </th>
               <th></th>
@@ -91,6 +94,14 @@
               </td>
               <td>
                 <p class="mb-0 fw-normal">{{ item.name }}</p>
+              </td>
+              <td class="text-center">
+                {% for type in item.types %}
+                {% set color = (type == "NOTIFICATION" ? 'warning' : (type == "TREATMENT" ? 'primary' : 'secondary')) %}
+                <span class="badge bg-{{ color }}-subtle text-{{ color }} mb-1 fs-2 gap-1 d-inline-flex align-items-center">
+                  {{ lang.institution_types[type] }}
+                </span> {{ type == 'MEDICINE_STORE' and item.institution_supplier ? item.supplier.name }}  <br />
+                {% endfor %}
               </td>
               <td>
                 <p class="mb-0 fw-normal fs-1">

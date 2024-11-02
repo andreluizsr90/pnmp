@@ -3,6 +3,8 @@ namespace App\Controller\Admin;
 
 use App\Engine\Controller;
 use App\Engine\{TraitSearch, TraitCrud, HelperUtil};
+use App\Model\Institution as InstitutionMdl;
+use App\Model\AdministrativeUnit as AdministrativeUnitMdl;
 
 class Institutions extends Controller {
 	use TraitSearch, TraitCrud;
@@ -20,7 +22,8 @@ class Institutions extends Controller {
 		"address_2",
 		"postal_code",
 		"city",
-		"parent_code"
+		"parent_code",
+		"types"
 	];
 
     public $searchFilterFields = [
@@ -34,6 +37,25 @@ class Institutions extends Controller {
         "edt" => 'INST_UPD',
         "del" => 'INST_DEL'
     ];
+
+	public function allAdditional() {
+		$this->setVar('institution_types', ["NOTIFICATION","TREATMENT","MEDICINE_STORE"]);
+	}
+ 
+	function saveAdditional($record, $isNew) {
+		$administrativeUnitId = (int) $_POST["administrative_unit"][count($_POST["administrative_unit"]) - 1];
+		$record->unit()->attach(AdministrativeUnitMdl::first($administrativeUnitId));
+
+		if(empty($_POST["institution_supplier"])) {
+			unset($record->institution_supplier);
+		} else {
+			$record->supplier()->attach(InstitutionMdl::first((int) $_POST["institution_supplier"]));
+		}
+		
+		if(!isset($_POST["types"])) {
+			$record->types = [];
+		}
+	}
 
 }
 

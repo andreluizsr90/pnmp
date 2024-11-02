@@ -1,6 +1,26 @@
 <?php
 
     require(__DIR__ . "/init-minimal.php");
+
+    $mongoClient = (new \MongoDB\Client(CFG_DB, [], ['serverApi' => new \MongoDB\Driver\ServerApi(\MongoDB\Driver\ServerApi::V1)]));
+
+    $mongoClient->pnmp->drop();
+
+    $collAdministrativeUnit = $mongoClient->selectCollection('pnmp', 'administrative_unit');
+    $collAdministrativeUnit->createIndexes([
+        [ 'key' => [ 'code' => 1 ], 'unique' => true ],
+    ]);
+    $collAdministrativeUnit->createIndexes([
+        [ 'key' => [ 'types' => 1 ] ],
+    ]);
+
+    $collInstitutions = $mongoClient->selectCollection('pnmp', 'institution');
+    $collInstitutions->createIndexes([
+        [ 'key' => [ 'code' => 1 ], 'unique' => true ],
+    ]);
+    $collInstitutions->createIndexes([
+        [ 'key' => [ 'types' => 1 ] ],
+    ]);
     
     $profile = new \App\Model\UserProfile();
     $profile->name = 'Developer';
@@ -16,13 +36,4 @@
     
     $user->profile()->attach($profile);
     $user->save();
-
-    $mongoClient = (new \MongoDB\Client(CFG_DB, [], ['serverApi' => new \MongoDB\Driver\ServerApi(\MongoDB\Driver\ServerApi::V1)]));
-
-    $collection = $mongoClient->selectCollection('pnmp', 'administrative_unit');
-    $indexName = $collection->createIndexes([
-        [ 'key' => [ 'code' => 1 ], 'unique' => true ],
-    ]);
-
-    //$mongoClient->pnmp->drop();
     

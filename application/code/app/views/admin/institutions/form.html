@@ -23,7 +23,7 @@
     <div class="card-body p-4">
                          
       <div class="row">
-        <div class="col-md-6 mx-auto">
+        <div class="col-md-8 mx-auto">
           <form method="POST" class="mt-3 form-horizontal">
             <div class="form-group row my-2">
                 <label for="code" class="col-sm-4 col-form-label">Código</label>
@@ -67,6 +67,30 @@
                     <input required name="city" type="text" class="form-control" id="city" value="{{ record.city }}" />
                 </div>
             </div>
+            <div class="form-group row my-2">
+                <label for="city" class="col-sm-4 col-form-label">Unidade Administrativa:</label>
+                <div class="col-sm-8" id="administrative-unit">
+                </div>
+            </div>
+            <hr />
+            <div class="row my-3">
+              <label for="types" class="col-sm-4 col-form-label">Tipo de instituição</label>
+              <div class="col-sm-8">
+                {% for institution_type in institution_types %}
+                <div class="form-check">
+                  <input name="types[]" class="form-check-input types-field" type="checkbox" value="{{ institution_type }}" onchange="checkMedicineIsMarked(this)" id="check-{{ institution_type }}" {{ institution_type in record.types ? 'checked' }}>
+                  <label class="form-check-label" for="check-{{ institution_type }}">
+                    {{ lang.institution_types[institution_type] ?? institution_type }}
+                  </label>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="form-group row my-2" id="dynamic-institution-supplier">
+                <label for="city" class="col-sm-4 col-form-label">Instituição de fornecimento:</label>
+                <div class="col-sm-8" id="institution-supplier">
+                </div>
+            </div>
             <div class="row my-3">
                 <div class="col-12 text-center">
                   <a href="{{ route }}" class="btn btn-danger">Cancelar</a>
@@ -80,4 +104,69 @@
     </div>
   </div>
 
+  {% endblock %}
+
+  {% block javascript %}
+  <script src="{{ url_assets }}/js/pnmp/PnmpSelectFieldMultilevel.class.js?id=5" type="text/javascript"></script> <!-- jquery -->
+  <script src="{{ url_assets }}/js/pnmp/PnmpSelectFieldApi.class.js" type="text/javascript"></script> <!-- jquery -->
+  <script>   
+    var adminunit;
+
+    var checkMedicineIsMarked = (obj) => {
+      if($(obj).val() != "MEDICINE_STORE") {
+        return;
+      }
+      
+      let selected = false;
+      $(".types-field").each((index, element) => {
+        if($(element).prop('checked') == true && $(element).val() == "MEDICINE_STORE"){
+          selected = true;
+        }
+      });
+      
+      if(selected) {
+          $("#dynamic-institution-supplier").removeClass("d-none");
+
+          PnmpSelectFieldApi.init(
+            "{{ url_site }}/api/institutions/by-type", // URL API
+            "institution-supplier", // ID of the place to add field
+            "institution_supplier", // Field Name
+            {"type": "MEDICINE_STORE", "ignore" : "{{ record._id }}"},
+            false, // Is Required
+            '{{ record.institution_supplier ? record.institution_supplier : 'false' }}'
+          );
+      } else {
+        $("#institution-supplier").html("");
+        $("#dynamic-institution-supplier").addClass("d-none");
+      }
+    };
+    
+    (function(){
+    
+      adminunit = new PnmpSelectFieldMultilevel(
+      "{{ url_site }}/api/administrative-units/by-parent-id", // URL API Parent
+      "{{ url_site }}/api/administrative-units/parents-by-id", // URL API Unique
+        "adminunit", // Local variable name
+        "administrative-unit", // ID of the place to add field
+        "administrative_unit" // Field Name
+      );
+      adminunit.init('{{record.administrative_unit}}');
+
+      {% if "MEDICINE_STORE" in record.types  %}
+      
+        PnmpSelectFieldApi.init(
+          "{{ url_site }}/api/institutions/by-type", // URL API
+          "institution-supplier", // ID of the place to add field
+          "institution_supplier", // Field Name
+          {"type": "MEDICINE_STORE", "ignore" : "{{ record._id }}"},
+          false, // Is Required
+          '{{ record.institution_supplier ? record.institution_supplier : 'false' }}'
+        );
+        $("#dynamic-institution-supplier").removeClass("d-none");
+      {% else %}
+        $("#dynamic-institution-supplier").addClass("d-none");
+      {% endif %}
+    })();
+
+  </script>
   {% endblock %}

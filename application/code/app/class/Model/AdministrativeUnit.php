@@ -7,9 +7,9 @@ class AdministrativeUnit extends BaseModel {
 	
 	protected $collection = 'administrative_unit';
 
-    public function getParent()
+    public function parent()
     {
-        return !is_null($this->parent_code) ? AdministrativeUnit::where(['code' => $this->parent_code])->first() : null;
+        return $this->referencesOne(AdministrativeUnit::class, 'parent_id');
     }
 	
 }

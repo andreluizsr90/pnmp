@@ -3,6 +3,7 @@ namespace App\Controller\Admin;
 
 use App\Engine\Controller;
 use App\Engine\{TraitSearch, TraitCrud, HelperUtil};
+use App\Model\AdministrativeUnit as AdministrativeUnitMdl;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -18,7 +19,7 @@ class AdministrativeUnits extends Controller {
     public $formFields = [
 		"code",
 		"name",
-		"parent_code"
+		"parent_id"
 	];
 
     public $searchFilterFields = [
@@ -33,19 +34,19 @@ class AdministrativeUnits extends Controller {
         "imp" => 'UNIT_IMPORT'
     ];
 
-	private function getNamesTree($code = null, $data = []) {
-		if(is_null($code)) {
+	private function getNamesTree($id = null, $data = []) {
+		if(is_null($id)) {
 			return [];
 		}
 
-		$record = $this->model::where(['code' => $code ])->first();
+		$record = $this->model::where(['_id' => (int) $id ])->first();
 
-		if(!is_null($record->parent_code)) {
-			$data = $this->getNamesTree($record->parent_code, $data);
+		if(!is_null($record->parent_id)) {
+			$data = $this->getNamesTree($record->parent_id, $data);
 		}
 
 		$data[] = [
-			'code' => $code,
+			'id' => $id,
 			'name' => $record->name
 		];
 
@@ -54,7 +55,7 @@ class AdministrativeUnits extends Controller {
 
     
     function insertAdditional() {
-		$this->setVar('parent_code', $_GET["parent_code"] ?? null);
+		$this->setVar('parent_id', $_GET["parent_id"] ?? null);
     }
 
 	
@@ -64,12 +65,17 @@ class AdministrativeUnits extends Controller {
             $this->checkRole($this->rolesCrud['view']);
         }
 
-		$code = $_GET["code"] ?? null;
+		$id = $_GET["id"] ?? null;
+		if(is_null($id)) {
+			$where = ['parent_id' => ['$exists' => false ] ];
+		} else {
+			$where = ['parent_id' => (int) $id ];
+		}
 
-		$this->setVar('item_code', $code);
-		$this->setVar('tree_titles', $this->getNamesTree($code));
+		$this->setVar('item_id', $id);
+		$this->setVar('tree_titles', $this->getNamesTree($id));
 
-		$records = $this->model::where(['parent_code' => $code ]);
+		$records = $this->model::where($where);
 		if(property_exists($this, 'orderSearch')) {
 			if(is_array($this->orderSearch)) {
 				$records->sort($this->orderSearch);
@@ -99,13 +105,18 @@ class AdministrativeUnits extends Controller {
 	}
 
 	public function saveAdditional($record, $isNew) {
-		if(!empty($_POST['parent_code'])) {
-			$parent = $this->model::where(['code' => $_POST['parent_code']])->first();
+		if(!empty($_POST['parent_id'])) {
+			$parent = $this->model::where(['_id' => (int) $_POST['parent_id']])->first();
 			if(!is_null($parent)) {
 				$parent_code_all = empty($parent->parent_code_all) ? [] : $parent->parent_code_all;
 				$parent_code_all[] = $parent->code;
 				$record->parent_code_all = $parent_code_all;
 			}
+
+			$record->parent()->attach(AdministrativeUnitMdl::first((int) $_POST['parent_id']));
+		} else {
+			unset($record->parent_id);
+			unset($record->parent_code_all);
 		}
 	}
 
@@ -186,6 +197,11 @@ class AdministrativeUnits extends Controller {
 					break;
 				}
 
+				if($column == 'C') {
+					$record->$field = $data;
+					continue;
+				}
+
 				foreach ($this->formFields as $value) {
 					$info = explode(":", $value);
 					if($info[0] == $field && !is_null($data)) {
@@ -213,6 +229,9 @@ class AdministrativeUnits extends Controller {
 					$parent_code_all = empty($parent->parent_code_all) ? [] : $parent->parent_code_all;
 					$parent_code_all[] = $parent->code;
 					$record->parent_code_all = $parent_code_all;
+
+					$record->parent()->attach($parent);
+					unset($record->parent_code);
 				}
 			}
 

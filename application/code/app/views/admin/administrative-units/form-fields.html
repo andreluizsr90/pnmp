@@ -12,13 +12,13 @@
         </div>
     </div>
     <div class="form-group row my-3">
-        <label for="parent_code" class="col-sm-4 col-form-label">Unidade Administrativa Pai</label>
+        <label for="parent_id" class="col-sm-4 col-form-label">Unidade Administrativa Pai</label>
         <div class="col-sm-8">
-          <select name="parent_code" class="select2 form-control">
+          <select name="parent_id" class="select2 form-control">
             <option value="">-- Nenhum --</option>
             {% for unit in administrative_units_parent %}
-              {% if unit.code != record.code %}
-                <option value="{{ unit.code }}" {{ record.parent_code == unit.code or parent_code == unit.code ? 'selected' }}>{{ unit.name }}</option>
+              {% if unit._id != record._id %}
+                <option value="{{ unit._id }}" {{ record.parent_id == unit._id or parent_id == unit._id ? 'selected' }}>{{ unit.name }}</option>
               {% endif %}
             {% endfor %}
           </select>

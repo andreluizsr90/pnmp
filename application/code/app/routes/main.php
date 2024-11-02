@@ -26,6 +26,37 @@
 	});
 
 
+	$router->group(['prefix' => 'api'], function($router){
+
+		$router->group(['prefix' => 'administrative-units'], function($router){
+			$ctrl = new App\Controller\Api\AdministrativeUnits();
+
+			$router->get('/by-parent-id', function() use ($ctrl) {
+				$ctrl->getByParentId();
+				return $ctrl->getResponse();
+			});
+
+			$router->get('/parents-by-id', function() use ($ctrl) {
+				$ctrl->getParentsById();
+				return $ctrl->getResponse();
+			});
+
+			$router->get('/by-id', function() use ($ctrl) {
+				$ctrl->getById();
+				return $ctrl->getResponse();
+			});
+		});
+
+		$router->group(['prefix' => 'institutions'], function($router){
+			$ctrl = new App\Controller\Api\Institutions();
+
+			$router->get('/by-type', function() use ($ctrl) {
+				$ctrl->getByType();
+				return $ctrl->getResponse();
+			});
+		});
+	});
+
 	$router->group(['before' => 'authUserAccount'], function($router){
 		$router->get('/', function() {
 			$ctrl = new App\Controller\Dashboard();

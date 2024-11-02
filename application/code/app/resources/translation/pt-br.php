@@ -23,6 +23,11 @@ return [
         'AMPOULE' => 'Ampoula',
         'CAPSULE' => 'Cápsula'
     ],
+    'institution_types' => [
+        'NOTIFICATION' => 'Notificação',
+        'TREATMENT' => 'Tratamento',
+        'MEDICINE_STORE' => 'Armazenamento de Medicamento'
+    ],
     'roles' => [
         'DEV' => 'Desenvolvedor',
         'USER_VIEW' => 'Visualizar usuários',
