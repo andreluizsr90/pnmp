@@ -16,27 +16,11 @@
               <!-- ---------------------------------- -->
               <!-- Dashboard -->
               <!-- ---------------------------------- -->
-              {% if 'USER_VIEW'|hasRole %}
+              {% if 'UNIT_VIEW'|hasRole %}
               <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ url_site }}/admin/users" id="get-url">
+                <a class="sidebar-link" href="{{ url_site }}/admin/administrative-units" id="get-url">
                   <iconify-icon icon="solar:screencast-2-linear" class="aside-icon"></iconify-icon>
-                  <span class="hide-menu">Usuários</span>
-                </a>
-              </li>
-              {% endif %}
-              {% if 'PROFILE_VIEW'|hasRole %}
-              <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ url_site }}/admin/profiles" id="get-url">
-                  <iconify-icon icon="solar:screencast-2-linear" class="aside-icon"></iconify-icon>
-                  <span class="hide-menu">Perfils de acesso</span>
-                </a>
-              </li>
-              {% endif %}
-              {% if 'MEDICINE_VIEW'|hasRole %}
-              <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ url_site }}/admin/medicines" id="get-url">
-                  <iconify-icon icon="solar:screencast-2-linear" class="aside-icon"></iconify-icon>
-                  <span class="hide-menu">Medicamentos</span>
+                  <span class="hide-menu">Unidades administrativas</span>
                 </a>
               </li>
               {% endif %}
@@ -48,11 +32,27 @@
                 </a>
               </li>
               {% endif %}
-              {% if 'UNIT_VIEW'|hasRole %}
+              {% if 'MEDICINE_VIEW'|hasRole %}
               <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ url_site }}/admin/administrative-units" id="get-url">
+                <a class="sidebar-link" href="{{ url_site }}/admin/medicines" id="get-url">
                   <iconify-icon icon="solar:screencast-2-linear" class="aside-icon"></iconify-icon>
-                  <span class="hide-menu">Unidades administrativas</span>
+                  <span class="hide-menu">Medicamentos</span>
+                </a>
+              </li>
+              {% endif %}
+              {% if 'PROFILE_VIEW'|hasRole %}
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ url_site }}/admin/profiles" id="get-url">
+                  <iconify-icon icon="solar:screencast-2-linear" class="aside-icon"></iconify-icon>
+                  <span class="hide-menu">Perfils de acesso</span>
+                </a>
+              </li>
+              {% endif %}
+              {% if 'USER_VIEW'|hasRole %}
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ url_site }}/admin/users" id="get-url">
+                  <iconify-icon icon="solar:screencast-2-linear" class="aside-icon"></iconify-icon>
+                  <span class="hide-menu">Usuários</span>
                 </a>
               </li>
               {% endif %}

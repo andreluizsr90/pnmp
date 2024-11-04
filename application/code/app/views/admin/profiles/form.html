@@ -23,25 +23,33 @@
     <div class="card-body p-4">
                          
       <div class="row">
-        <div class="col-md-6 mx-auto">
+        <div class="col-12">
           <form method="POST" class="mt-3 form-horizontal">
             <div class="form-group row">
-                <label for="name" class="col-sm-3 col-form-label">Nome</label>
-                <div class="col-sm-9">
+                <label for="name" class="col-sm-2 col-form-label">Nome</label>
+                <div class="col-sm-4">
                     <input required name="name" type="text" class="form-control" id="name" value="{{ record.name }}" />
                 </div>
             </div>
             <div class="row my-3">
-              <label for="name" class="col-sm-3 col-form-label">Permissões</label>
-              <div class="col-sm-9">
+              <label for="name" class="col-sm-2 col-form-label">Permissões</label>
+              <div class="col-sm-10">
+                <div class="row">
                 {% for role in roles %}
-                <div class="form-check">
-                  <input name="roles[]" class="form-check-input" type="checkbox" value="{{ role }}" id="check-{{ role }}" {{ role in record.roles ? 'checked' }}>
-                  <label class="form-check-label" for="check-{{ role }}">
-                    {{ lang.roles[role] ?? role }}
-                  </label>
-                </div>
+                  {% if role == '' %}
+                  </div><div class="row my-3">
+                  {% else %}
+                  <div class="col-6">
+                    <div class="form-check">
+                      <input name="roles[]" class="form-check-input" type="checkbox" value="{{ role }}" id="check-{{ role }}" {{ role in record.roles ? 'checked' }}>
+                      <label class="form-check-label" for="check-{{ role }}">
+                        {{ lang.roles[role] ?? role }}
+                      </label>
+                    </div>
+                  </div>
+                  {% endif %}
                 {% endfor %}
+              </div>
               </div>
             </div>
             <div class="row my-3">

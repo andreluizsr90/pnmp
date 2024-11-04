@@ -14,5 +14,13 @@ class UserAccount extends BaseModel {
     {
         return $this->referencesOne(UserProfile::class, 'profile_user');
     }
-	
+
+    /**
+     * Get the phone associated with the user.
+     */
+    public function institution()
+    {
+        return $this->referencesOne(Institution::class, 'institution_id');
+    }
+    
 }

@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 use App\Engine\Controller;
 use App\Engine\{TraitSearch, TraitCrud, HelperUtil};
 use App\Model\UserProfile as UserProfileMdl;
+use App\Model\Institution as InstitutionMdl;
 
 class Users extends Controller {
 	use TraitSearch, TraitCrud;
@@ -44,7 +45,16 @@ class Users extends Controller {
             $this->flashDataPost($message);
 		}
 
-		$record->password = HelperUtil::passwordGenerate("123");
+		if(empty($_POST["institution_id"])) {
+			$message = sprintf($this->getVar('lang')['field_required'], 'institution_id');
+            $this->flashDataPost($message);
+		} else {
+			$record->institution()->attach(InstitutionMdl::first((int) $_POST["institution_id"]));
+		}
+		
+		$record->is_active = !empty($_POST["is_active"]);
+
+		// $record->password = HelperUtil::passwordGenerate("123");
 	}
 
 }

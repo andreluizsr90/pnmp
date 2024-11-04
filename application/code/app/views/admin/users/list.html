@@ -107,8 +107,8 @@
                 </div>
               </td>
               <td>
-                <span class="badge bg-success-subtle text-success fw-semibold fs-2 gap-1 d-inline-flex align-items-center">
-                  <i class="ti ti-circle fs-3"></i>active
+                <span class="badge bg-{{ item.is_active ? 'success' : 'danger' }}-subtle text-{{ item.is_active ? 'success' : 'danger' }} fw-semibold fs-2 gap-1 d-inline-flex align-items-center">
+                  <i class="ti ti-circle fs-3"></i> {{ item.is_active ? 'Ativado' : 'Desativado' }}
                 </span>
               </td>
               <td>

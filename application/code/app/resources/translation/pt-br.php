@@ -6,7 +6,7 @@ return [
     'action_delete_confirm' => 'Confirma e exclusão do registro?',
     'user_invalid_login' => 'Email ou senha inválidos',
     'user_no_permission' => 'Sem permissão para executar essa ação.',
-    'field_empty' => 'O campo %s é de preenchimento obrigatório.',
+    'field_required' => 'O campo %s é de preenchimento obrigatório.',
     'field_duplicated' => 'Duplicado! Já existe um registro com %s: %s',
     'yes' => 'Sim',
     'medicines_type' => [
