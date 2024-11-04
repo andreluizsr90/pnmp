@@ -31,7 +31,8 @@
     $user = new \App\Model\UserAccount();
     $user->name = 'André Rodrigues';
     $user->email = 'andreluizweb@gmail.com';
-    $user->password = '$2y$10$V7J3r.1hOJ45HTxr4nhqvuqyFbOZzgskY6QTaRw7X2gBF/bVjTx8.'; // teste123
+    $user->is_active = true;
+    $user->password = \App\Engine\HelperUtil::passwordGenerate("123");
     $user->save();
     
     $user->profile()->attach($profile);
