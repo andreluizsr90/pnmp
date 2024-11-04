@@ -1,11 +1,12 @@
 class PnmpSelectFieldMultilevel {
-    constructor(urlParent, url, variableInstance, placeId, fieldName) {
+    constructor(urlParent, url, variableInstance, placeId, fieldName, callback = null) {
       this.urlParent = urlParent;
       this.url = url;
       this.variableInstance = variableInstance;
       this.placeId = placeId;
       this.fieldName = fieldName;
       this.nextLevel = 0;
+      this.callback = callback;
     }
     
     template(level, data, selected) { 
@@ -37,6 +38,9 @@ class PnmpSelectFieldMultilevel {
         this.selectLevel(level, selectedField.val());
       } else {
         this.eraseLevels(level);
+        if(this.callback != null) {
+          this.callback(selectedField.val());
+        }
       }
     }
     
@@ -77,6 +81,7 @@ class PnmpSelectFieldMultilevel {
     }
 
     init(selected = null) {
+      $("#" + this.placeId).html("");
       if(selected.length == 0) {
         this.selectLevel(0);
       } else {
@@ -119,6 +124,11 @@ class PnmpSelectFieldMultilevel {
             parents.shift();
             if(parents.length > 0){
               cls.selectLevelsLoaded(parents, cls.nextLevel);
+            } else {
+              if(cls.callback != null) {
+                console.log($(prefixNextFieldId + "-field").val());
+                cls.callback($(prefixNextFieldId + "-field").val());
+              }
             }
           }
         }

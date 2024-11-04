@@ -50,8 +50,8 @@
 		$router->group(['prefix' => 'institutions'], function($router){
 			$ctrl = new App\Controller\Api\Institutions();
 
-			$router->get('/by-type', function() use ($ctrl) {
-				$ctrl->getByType();
+			$router->get('/by-filter', function() use ($ctrl) {
+				$ctrl->getByFilter();
 				return $ctrl->getResponse();
 			});
 		});
