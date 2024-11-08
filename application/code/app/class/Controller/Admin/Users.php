@@ -5,6 +5,7 @@ use App\Engine\Controller;
 use App\Engine\{TraitSearch, TraitCrud, HelperUtil};
 use App\Model\UserProfile as UserProfileMdl;
 use App\Model\Institution as InstitutionMdl;
+use App\Model\AdministrativeUnit as AdministrativeUnitMdl;
 
 class Users extends Controller {
 	use TraitSearch, TraitCrud;
@@ -51,6 +52,14 @@ class Users extends Controller {
 		} else {
 			$record->institution()->attach(InstitutionMdl::first((int) $_POST["institution_id"]));
 		}
+
+		if(empty($_POST["unit_view_id"])) {
+			unset($record->unit_view_id);
+		} else {
+			$record->unit_view()->attach(AdministrativeUnitMdl::first((int) $_POST["unit_view_id"]));
+		}
+
+		
 		
 		$record->is_active = !empty($_POST["is_active"]);
 

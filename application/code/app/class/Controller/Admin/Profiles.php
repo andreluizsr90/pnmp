@@ -12,7 +12,7 @@ class Profiles extends Controller {
 	public $path = "admin/profiles";
 	public $orderSearch = ['name' => 1];
 
-    public $formFields = ['name'];
+    public $formFields = ['name', 'view_type'];
 
     public $searchFilterFields = ["name" => 'like'];
 
@@ -25,6 +25,7 @@ class Profiles extends Controller {
 
 	public function allAdditional() {
 		$this->setVar('roles', $this->getAllRoles());
+		$this->setVar('view_type', ['ALL', 'UNIT','INSTITUTION']);
 	}
 
 	public function saveAdditional($record, $isNew) {

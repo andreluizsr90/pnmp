@@ -126,7 +126,6 @@ class PnmpSelectFieldMultilevel {
               cls.selectLevelsLoaded(parents, cls.nextLevel);
             } else {
               if(cls.callback != null) {
-                console.log($(prefixNextFieldId + "-field").val());
                 cls.callback($(prefixNextFieldId + "-field").val());
               }
             }

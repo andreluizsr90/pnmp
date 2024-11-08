@@ -7,20 +7,19 @@ class UserAccount extends BaseModel {
 	
 	protected $collection = 'user_account';
 
-    /**
-     * Get the phone associated with the user.
-     */
     public function profile()
     {
         return $this->referencesOne(UserProfile::class, 'profile_user');
     }
 
-    /**
-     * Get the phone associated with the user.
-     */
     public function institution()
     {
         return $this->referencesOne(Institution::class, 'institution_id');
+    }
+
+    public function unit_view()
+    {
+        return $this->referencesOne(AdministrativeUnit::class, 'unit_view_id');
     }
     
 }

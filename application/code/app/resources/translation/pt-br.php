@@ -28,6 +28,11 @@ return [
         'TREATMENT' => 'Tratamento',
         'MEDICINE_STORE' => 'Armazenamento de Medicamento'
     ],
+    'user_view_type' => [
+        'ALL' => 'Sem Restrição',
+        'UNIT' => 'Unidade administrativa',
+        'INSTITUTION' => 'Instituição'
+    ],
     'roles' => [
         'DEV' => 'Desenvolvedor',
         'USER_VIEW' => 'Visualizar usuários',
