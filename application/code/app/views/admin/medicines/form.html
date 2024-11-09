@@ -38,26 +38,32 @@
                 </div>
             </div>
             <div class="form-group row my-2">
-                <label for="type" class="col-sm-4 col-form-label">Tipo</label>
+                <label for="dosage" class="col-sm-4 col-form-label">Dosagem</label>
                 <div class="col-sm-8">
-                  <select required name="type" class="select2 form-control">
-                      <option value="">-- Selecione --</option>
-                      {% for key in field_type %}
-                      <option value="{{ key }}" {{ record.type == key ? 'selected' }}>{{ lang.medicines_type[key] }}</option>
-                      {% endfor %}
-                  </select>
+                    <input required name="dosage" type="text" class="form-control" id="dosage" value="{{ record.dosage }}" />
                 </div>
             </div>
             <div class="form-group row my-2">
-                <label for="dosage" class="col-sm-4 col-form-label">Tipo de Dosagem</label>
+                <label for="dosage_unit" class="col-sm-4 col-form-label">Unidade de Dosagem</label>
                 <div class="col-sm-8">
-                <select required name="dosage" class="select2 form-control">
+                <select required name="dosage_unit" class="select2 form-control">
                     <option value="">-- Selecione --</option>
-                    {% for key in field_dosage %}
-                    <option value="{{ key }}" {{ record.dosage == key ? 'selected' }}>{{ lang.medicines_dosage[key] }}</option>
+                    {% for key in field_dosage_unit %}
+                    <option value="{{ key }}" {{ record.dosage_unit == key ? 'selected' }}>{{ lang.medicines_dosage_unit[key] }}</option>
                     {% endfor %}
                 </select>
               </div>
+            </div>
+            <div class="form-group row my-2">
+                <label for="category" class="col-sm-4 col-form-label">Category</label>
+                <div class="col-sm-8">
+                  <select required name="category" class="select2 form-control">
+                      <option value="">-- Selecione --</option>
+                      {% for key in field_category %}
+                      <option value="{{ key }}" {{ record.category == key ? 'selected' }}>{{ lang.medicines_category[key] }}</option>
+                      {% endfor %}
+                  </select>
+                </div>
             </div>
             <div class="form-group row my-2">
                 <label for="presentation" class="col-sm-4 col-form-label">Apresentação</label>

@@ -9,11 +9,11 @@ return [
     'field_required' => 'O campo %s é de preenchimento obrigatório.',
     'field_duplicated' => 'Duplicado! Já existe um registro com %s: %s',
     'yes' => 'Sim',
-    'medicines_type' => [
+    'medicines_category' => [
         'ORAL' => 'Oral',
         'INJECTABLE' => 'Injetável',
     ],
-    'medicines_dosage' => [
+    'medicines_dosage_unit' => [
         'MG' => 'MG',
         'ML' => 'ML',
     ],

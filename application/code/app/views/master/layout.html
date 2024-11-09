@@ -267,8 +267,10 @@
       <script src="{{ url_assets }}/libs/select2/dist/js/select2.full.min.js"></script>
       <script src="{{ url_assets }}/libs/select2/dist/js/select2.min.js"></script>
       <script src="{{ url_assets }}/libs/jquery-toast-plugin/jquery.toast.min.js"></script>
+      <script src="https://unpkg.com/imask"></script>
       
       <script>
+      (function(){
          {% if flash %}
             {% if flash.type == 'success' %}
             $.toast({
@@ -305,6 +307,11 @@
 
             return false;
         });
+
+        $(".postal_code").each(function() {
+            IMask(this, { mask: '00000-000', lazy: false });
+        });
+      })();
       </script>
 
       {% block javascript %}{% endblock %}

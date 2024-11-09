@@ -109,7 +109,7 @@
     var validateProfileUser = (obj) => {
       var viewType = $($(obj).find("option:selected")[0]).attr('data-view_type');
       unitview();
-      if(viewType == 'ALL') {
+      if(viewType == 'UNIT') {
         $("#unit_view_field").removeClass("d-none");
         $("#unit_view_field select").attr("required", true);
       } else {

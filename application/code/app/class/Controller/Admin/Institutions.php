@@ -5,6 +5,7 @@ use App\Engine\Controller;
 use App\Engine\{TraitSearch, TraitCrud, HelperUtil};
 use App\Model\Institution as InstitutionMdl;
 use App\Model\AdministrativeUnit as AdministrativeUnitMdl;
+use App\Model\Address as AddressMdl;
 
 class Institutions extends Controller {
 	use TraitSearch, TraitCrud;
@@ -17,11 +18,7 @@ class Institutions extends Controller {
     public $formFields = [
 		"code",
 		"name",
-		"phone",
-		"address_1",
-		"address_2",
-		"postal_code",
-		"city",
+		"phones",
 		"parent_code",
 		"types"
 	];
@@ -45,6 +42,14 @@ class Institutions extends Controller {
 	function saveAdditional($record, $isNew) {
 		$administrativeUnitId = (int) $_POST["administrative_unit"][count($_POST["administrative_unit"]) - 1];
 		$record->unit()->attach(AdministrativeUnitMdl::first($administrativeUnitId));
+
+		$address = new AddressMdl();
+		$address->line_1 = $_POST["line_1"];
+		$address->line_2 = $_POST["line_2"];
+		$address->city = $_POST["city"];
+		$address->postal_code = $_POST["postal_code"];
+
+		$record->location()->add($address);
 
 		if(empty($_POST["institution_supplier"])) {
 			unset($record->institution_supplier);

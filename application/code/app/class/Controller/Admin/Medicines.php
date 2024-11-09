@@ -15,15 +15,16 @@ class Medicines extends Controller {
     public $formFields = [
 		"code",
 		"name",
-		"type",
-		"dosage",
+		"category",
+		"dosage:int",
+		"dosage_unit",
 		"presentation"
 	];
 
     public $searchFilterFields = [
 		"name" => 'like',
-		"type" => 'strict',
-		"dosage" => 'strict',
+		"category" => 'strict',
+		"dosage_unit" => 'strict',
 		"presentation" => 'strict'
 	];
 
@@ -35,8 +36,8 @@ class Medicines extends Controller {
     ];
 
 	public function allAdditional() {
-		$this->setVar('field_type', ['ORAL', 'INJECTABLE']);
-		$this->setVar('field_dosage', ['MG', 'ML']);
+		$this->setVar('field_category', ['ORAL', 'INJECTABLE']);
+		$this->setVar('field_dosage_unit', ['MG', 'ML']);
 		$this->setVar('field_presentation', ['BOTTLE', 'TABLET', 'AMPOULE', 'CAPSULE', 'INJECTABLE']);
 	}
 

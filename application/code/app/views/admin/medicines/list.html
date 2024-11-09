@@ -43,21 +43,21 @@
                       <div class="col-3">
                         <div class="mb-4">
                           <label for="type" class="form-label">Tipo</label>
-                            <select name="type" class="select2 form-control">
+                            <select name="vategory" class="select2 form-control">
                                 <option value="">Todos</option>
-                                {% for key in field_type %}
-                                <option value="{{ key }}" {{ searchFilter.type == key ? 'selected' }}>{{ lang.medicines_type[key] }}</option>
+                                {% for key in field_vategory %}
+                                <option value="{{ key }}" {{ searchFilter.vategory == key ? 'selected' }}>{{ lang.medicines_vategory[key] }}</option>
                                 {% endfor %}
                             </select>
                         </div>
                       </div>
                       <div class="col-3">
                         <div class="mb-4">
-                          <label for="dosage" class="form-label">Tipo de dosagem</label>
-                            <select name="dosage" class="select2 form-control">
+                          <label for="dosage_unit" class="form-label">Unidade de dosagem</label>
+                            <select name="dosage_unit" class="select2 form-control">
                                 <option value="">Todos</option>
-                                {% for key in field_dosage %}
-                                <option value="{{ key }}" {{ searchFilter.dosage == key ? 'selected' }}>{{ lang.medicines_dosage[key] }}</option>
+                                {% for key in field_dosage_unit %}
+                                <option value="{{ key }}" {{ searchFilter.dosage_unit == key ? 'selected' }}>{{ lang.medicines_dosage_unit[key] }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -120,7 +120,7 @@
                 <p class="mb-0 fw-normal">{{ item.name }}</p>
               </td>
               <td>
-                <p class="mb-0 fw-normal">{{ lang.medicines_type[item.type] }} / {{ lang.medicines_dosage[item.dosage] }} / {{ lang.medicines_presentation[item.presentation] }}</p>
+                <p class="mb-0 fw-normal">{{ lang.medicines_category[item.category] }} / {{ lang.medicines_dosage_unit[item.dosage_unit] }} / {{ lang.medicines_presentation[item.presentation] }}</p>
               </td>
               <td class="text-end">
                 <div class="btn-group mb-2" role="group" aria-label="Action Group">
