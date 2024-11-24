@@ -4,9 +4,10 @@ namespace App\Controller;
 use App\Engine\Controller;
 use App\Engine\HelperUtil;
 use App\Model\UserAccount as UserAccountMdl;
+use App\Model\Institution as InstitutionMdl;
 
 class Auth extends Controller {
-	private $route = '/login';
+	protected $route = '/login';
 	public function logIn() {
 		$this->setResponse('auth\login.html');
 	}
@@ -34,14 +35,28 @@ class Auth extends Controller {
 		}
 
     	$_SESSION['user_account'] = [
-			'id' => $user->id,
+			'id' => $user->_id,
 			'name' => $user->name,
 			'email' => $user->email,
+			'view' => $user->profile->view_type,
+			'institution' => $user->institution->convertToArray(),
 			'roles' => $user->profile->roles,
 		];
 
+    	$_SESSION['user_view'] = $user->institution->convertToArray();
+
     	header('Location: ' . URL_SITE);
 
+
+    }
+
+    public function changeInstitution($institutionId) {
+		
+		$institution = InstitutionMdl::where(["_id" => (int) $institutionId])->first();
+    	$_SESSION['user_view'] = $institution->convertToArray();
+
+		http_response_code(200);
+		exit;
 
     }
 

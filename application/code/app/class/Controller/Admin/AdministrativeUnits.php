@@ -95,7 +95,6 @@ class AdministrativeUnits extends Controller {
             $this->allAdditional();
         }
 
-		$this->setVar('route', URL_SITE . $this->route);
     	$this->setResponse($this->path . '/list-tree.html');
     }
 
@@ -123,7 +122,6 @@ class AdministrativeUnits extends Controller {
 	public function importForm() {
         $this->checkRole($this->rolesCrud['imp']);
 
-		$this->setVar('route', URL_SITE . $this->route);
     	$this->setResponse($this->path . '/form-import.html');
 	}
 
@@ -252,7 +250,6 @@ class AdministrativeUnits extends Controller {
 			}
 		}
 
-		$this->setVar('route', URL_SITE . $this->route);
 		$this->setVar('process_result', $result);
     	$this->setResponse($this->path . '/form-import-result.html');
 	}

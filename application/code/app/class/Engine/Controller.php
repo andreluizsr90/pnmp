@@ -22,6 +22,11 @@ class Controller {
 			return HelperUtil::isUserAllowed($string);
 		}));
 
+		$this->twig->addFilter(new \Twig\TwigFilter('quantityUntilFinish', function ($string) {
+			$datediff = strtotime($string) - time();
+			return round($datediff / (60 * 60 * 24));
+		}));
+
 		$this->roles = require(PATH_APP . "/resources/roles.php");
 		
 		$this->vars['datetime'] = date('Y-m-d H:i:s');
@@ -29,8 +34,16 @@ class Controller {
 		$this->vars['url_assets'] = URL_ASSETS;
 		$this->vars['lang'] = require(PATH_APP . "/resources/translation/pt-br.php");
 
+		if(property_exists($this, 'route'))  {
+			$this->vars['route'] = URL_SITE . $this->route;
+		}
+
 		if(isset($_SESSION['user_account']))  {
 			$this->vars['user'] = $_SESSION['user_account'];
+		}
+
+		if(isset($_SESSION['user_view']))  {
+			$this->vars['institution'] = $_SESSION['user_view'];
 		}
 
 		if(isset($_SESSION['flash']))  {

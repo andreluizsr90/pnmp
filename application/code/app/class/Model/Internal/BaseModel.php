@@ -68,4 +68,8 @@ class BaseModel extends \Mongolid\Model\AbstractModel {
 
         return $counter->sequence;
     }
+    
+    public static function getColl() {
+        return (new $this)->getCollection();
+    }
 }

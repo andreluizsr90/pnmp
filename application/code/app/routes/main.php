@@ -58,6 +58,12 @@
 	});
 
 	$router->group(['before' => 'authUserAccount'], function($router){
+		$router->get('/change-institution/{id}', function($id) {
+			$ctrl = new App\Controller\Auth();
+			$ctrl->changeInstitution($id);
+			return $ctrl->getResponse();
+		});
+
 		$router->get('/', function() {
 			$ctrl = new App\Controller\Dashboard();
 			$ctrl->init();
@@ -65,5 +71,7 @@
 		});
 
 		require(PATH_ROUTES . '/admin.php');  
+
+		require(PATH_ROUTES . '/medicines.php');  
 
 	});
