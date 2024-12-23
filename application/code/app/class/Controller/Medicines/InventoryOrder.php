@@ -48,6 +48,7 @@ class InventoryOrder extends Controller {
 
 		$this->setVar('supplier', InstitutionMdl::first($this->getVar('institution')["institution_supplier"]));
 		$this->setVar('medicines', MedicineMdl::all());
+    	$this->setVar('route', $this->routeToReturn);
     	$this->setResponse($this->path . '/form-new.html');
 
     }

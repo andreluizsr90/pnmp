@@ -2,419 +2,92 @@
 
 {% block maincontent %}
 <div class="row">
+
+   <!-- Our Visitors -->
+   <div class="col-lg-8">
+      <div class="card">
+         <div class="card-body">
+            <h4 class="card-title">Quantidade de medicamentos por vencer</h4>
+            <div id="our-visitors" class="mt-4"></div>
+         </div>
+         <div class="card-body d-flex align-items-center justify-content-center border-top mt-1">
+            <ul class="list-inline mb-0 hstack justify-content-center">
+            <li class="list-inline-item px-2 me-0">
+               <div class="d-flex align-items-center gap-2 fs-3" style="color: var(--bs-red)">
+                  <iconify-icon icon="ri:circle-fill" class="fs-2"></iconify-icon>30 dias
+               </div>
+            </li>
+            <li class="list-inline-item px-2 me-0">
+               <div class="d-flex align-items-center gap-2 fs-3" style="color: var(--bs-orange)">
+                  <iconify-icon icon="ri:circle-fill" class="fs-2"></iconify-icon>60 dias
+               </div>
+            </li>
+            <li class="list-inline-item px-2 me-0">
+               <div class="d-flex align-items-center gap-2 fs-3" style="color: var(--bs-blue)">
+                  <iconify-icon icon="ri:circle-fill" class="fs-2"></iconify-icon>90 dias
+               </div>
+            </li>
+            <li class="list-inline-item px-2 me-0">
+               <div class="d-flex align-items-center gap-2 fs-3" style="color: var(--bs-green)">
+                  <iconify-icon icon="ri:circle-fill" class="fs-2"></iconify-icon>superior
+               </div>
+            </li>
+            </ul>
+         </div>
+      </div>
+   </div>
+
+   
     <!-- Recent Comments -->
     <div class="col-lg-4">
-       <div class="card">
-          <div class="card-body">
-             <div class="d-md-flex align-items-center justify-content-between mb-4">
-                <div class="mb-3 mb-md-0">
-                   <h4 class="card-title">Recent Comments</h4>
-                   <p class="card-subtitle">
-                      Latest Comments on users from Material
-                   </p>
-                </div>
-             </div>
-             <!-- ============================================================== -->
-             <!-- Comment widgets -->
-             <!-- ============================================================== -->
-             <div class="comment-widgets widgets">
-                <!-- Comment Row -->
-                <div class="comment-row hstack align-items-start gap-6 pb-9 border-bottom">
-                   <span class="round flex-shrink-0">
-                   <img src="../assets/images/profile/user-10.jpg" class="rounded-circle" alt="user" width="44" height="44">
-                   </span>
-                   <div class="comment-text w-100">
-                      <h5 class="text-nowrap">
-                         James Anderson
-                      </h5>
-                      <p class="fs-3 mb-8">
-                         Lorem Ipsum is simply dummy text of the printing and
-                         type setting industry.
-                      </p>
-                      <div class="comment-footer d-md-flex align-items-center justify-content-between">
-                         <div class="hstack gap-6 mb-2 mb-md-0">
-                            <span class="
-                               badge
-                               bg-warning-subtle
-                               text-warning
-                               ">Pending</span>
-                            <ul class="action-icons list-unstyled mb-0 hstack gap-6">
-                               <li>
-                                  <a href="javascript:void(0)" class="d-flex fs-5">
-                                     <iconify-icon icon="solar:pen-new-square-linear"></iconify-icon>
-                                  </a>
-                               </li>
-                               <li>
-                                  <a href="javascript:void(0)" class="d-flex fs-5">
-                                     <iconify-icon icon="solar:check-circle-linear"></iconify-icon>
-                                  </a>
-                               </li>
-                               <li>
-                                  <a href="javascript:void(0)" class="d-flex fs-5">
-                                     <iconify-icon icon="solar:heart-linear"></iconify-icon>
-                                  </a>
-                               </li>
-                            </ul>
-                         </div>
-                         <div class="ms-auto">
-                            <span class="fs-3">April 14, 2024</span>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-                <!-- Comment Row -->
-                <div class="comment-row hstack align-items-start gap-6 py-9 border-bottom">
-                   <span class="round flex-shrink-0">
-                   <img src="../assets/images/profile/user-6.jpg" class="rounded-circle" alt="user" width="44" height="44">
-                   </span>
-                   <div class="comment-text w-100">
-                      <h5 class="text-nowrap">
-                         Michael Jorden
-                      </h5>
-                      <p class="fs-3 mb-8">
-                         Lorem Ipsum is simply dummy text of the printing and
-                         type setting industry.
-                      </p>
-                      <div class="comment-footer d-md-flex align-items-center justify-content-between">
-                         <div class="hstack gap-6 mb-2 mb-md-0">
-                            <span class="
-                               badge
-                               bg-secondary-subtle
-                               text-secondary
-                               ">Approved</span>
-                            <ul class="action-icons list-unstyled mb-0 hstack gap-6">
-                               <li>
-                                  <a href="javascript:void(0)" class="d-flex fs-5">
-                                     <iconify-icon icon="solar:pen-new-square-linear"></iconify-icon>
-                                  </a>
-                               </li>
-                               <li>
-                                  <a href="javascript:void(0)" class="d-flex fs-5">
-                                     <iconify-icon icon="solar:check-circle-linear"></iconify-icon>
-                                  </a>
-                               </li>
-                               <li>
-                                  <a href="javascript:void(0)" class="d-flex fs-5">
-                                     <iconify-icon icon="solar:heart-linear"></iconify-icon>
-                                  </a>
-                               </li>
-                            </ul>
-                         </div>
-                         <div class="ms-auto">
-                            <span class="fs-3">April 14, 2024</span>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-                <!-- Comment Row -->
-                <div class="comment-row hstack align-items-start gap-6 pt-9">
-                   <span class="round flex-shrink-0">
-                   <img src="../assets/images/profile/user-12.jpg" class="rounded-circle" alt="user" width="44" height="44">
-                   </span>
-                   <div class="comment-text w-100">
-                      <h5 class="text-nowrap">
-                         Johnathan Doeting
-                      </h5>
-                      <p class="fs-3 mb-8">
-                         Lorem Ipsum is simply dummy text of the printing and
-                         type setting industry.
-                      </p>
-                      <div class="comment-footer d-md-flex align-items-center justify-content-between">
-                         <div class="hstack gap-6 mb-2 mb-md-0">
-                            <span class="
-                               badge
-                               bg-danger-subtle
-                               text-danger
-                               ">Rejected</span>
-                            <ul class="action-icons list-unstyled mb-0 hstack gap-6">
-                               <li>
-                                  <a href="javascript:void(0)" class="d-flex fs-5">
-                                     <iconify-icon icon="solar:pen-new-square-linear"></iconify-icon>
-                                  </a>
-                               </li>
-                               <li>
-                                  <a href="javascript:void(0)" class="d-flex fs-5">
-                                     <iconify-icon icon="solar:check-circle-linear"></iconify-icon>
-                                  </a>
-                               </li>
-                               <li>
-                                  <a href="javascript:void(0)" class="d-flex fs-5">
-                                     <iconify-icon icon="solar:heart-linear"></iconify-icon>
-                                  </a>
-                               </li>
-                            </ul>
-                         </div>
-                         <div class="ms-auto">
-                            <span class="fs-3">April 14, 2024</span>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-             </div>
-          </div>
-       </div>
-    </div>
-    <!-- Recent Comments -->
-    <div class="col-lg-4">
-       <div class="card">
-          <div class="card-body">
-             <div class="d-md-flex align-items-center justify-content-between mb-4">
-                <div class="mb-3 mb-md-0">
-                   <h4 class="card-title">Recent Comments</h4>
-                   <p class="card-subtitle">
-                      Latest Comments on users from Material
-                   </p>
-                </div>
-             </div>
-             <!-- ============================================================== -->
-             <!-- Comment widgets -->
-             <!-- ============================================================== -->
-             <div class="comment-widgets widgets">
-                <!-- Comment Row -->
-                <div class="comment-row hstack align-items-start gap-6 pb-9 border-bottom">
-                   <span class="round flex-shrink-0">
-                   <img src="../assets/images/profile/user-10.jpg" class="rounded-circle" alt="user" width="44" height="44">
-                   </span>
-                   <div class="comment-text w-100">
-                      <h5 class="text-nowrap">
-                         James Anderson
-                      </h5>
-                      <p class="fs-3 mb-8">
-                         Lorem Ipsum is simply dummy text of the printing and
-                         type setting industry.
-                      </p>
-                      <div class="comment-footer d-md-flex align-items-center justify-content-between">
-                         <div class="hstack gap-6 mb-2 mb-md-0">
-                            <span class="
-                               badge
-                               bg-warning-subtle
-                               text-warning
-                               ">Pending</span>
-                            <ul class="action-icons list-unstyled mb-0 hstack gap-6">
-                               <li>
-                                  <a href="javascript:void(0)" class="d-flex fs-5">
-                                     <iconify-icon icon="solar:pen-new-square-linear"></iconify-icon>
-                                  </a>
-                               </li>
-                               <li>
-                                  <a href="javascript:void(0)" class="d-flex fs-5">
-                                     <iconify-icon icon="solar:check-circle-linear"></iconify-icon>
-                                  </a>
-                               </li>
-                               <li>
-                                  <a href="javascript:void(0)" class="d-flex fs-5">
-                                     <iconify-icon icon="solar:heart-linear"></iconify-icon>
-                                  </a>
-                               </li>
-                            </ul>
-                         </div>
-                         <div class="ms-auto">
-                            <span class="fs-3">April 14, 2024</span>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-                <!-- Comment Row -->
-                <div class="comment-row hstack align-items-start gap-6 py-9 border-bottom">
-                   <span class="round flex-shrink-0">
-                   <img src="../assets/images/profile/user-6.jpg" class="rounded-circle" alt="user" width="44" height="44">
-                   </span>
-                   <div class="comment-text w-100">
-                      <h5 class="text-nowrap">
-                         Michael Jorden
-                      </h5>
-                      <p class="fs-3 mb-8">
-                         Lorem Ipsum is simply dummy text of the printing and
-                         type setting industry.
-                      </p>
-                      <div class="comment-footer d-md-flex align-items-center justify-content-between">
-                         <div class="hstack gap-6 mb-2 mb-md-0">
-                            <span class="
-                               badge
-                               bg-secondary-subtle
-                               text-secondary
-                               ">Approved</span>
-                            <ul class="action-icons list-unstyled mb-0 hstack gap-6">
-                               <li>
-                                  <a href="javascript:void(0)" class="d-flex fs-5">
-                                     <iconify-icon icon="solar:pen-new-square-linear"></iconify-icon>
-                                  </a>
-                               </li>
-                               <li>
-                                  <a href="javascript:void(0)" class="d-flex fs-5">
-                                     <iconify-icon icon="solar:check-circle-linear"></iconify-icon>
-                                  </a>
-                               </li>
-                               <li>
-                                  <a href="javascript:void(0)" class="d-flex fs-5">
-                                     <iconify-icon icon="solar:heart-linear"></iconify-icon>
-                                  </a>
-                               </li>
-                            </ul>
-                         </div>
-                         <div class="ms-auto">
-                            <span class="fs-3">April 14, 2024</span>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-                <!-- Comment Row -->
-                <div class="comment-row hstack align-items-start gap-6 pt-9">
-                   <span class="round flex-shrink-0">
-                   <img src="../assets/images/profile/user-12.jpg" class="rounded-circle" alt="user" width="44" height="44">
-                   </span>
-                   <div class="comment-text w-100">
-                      <h5 class="text-nowrap">
-                         Johnathan Doeting
-                      </h5>
-                      <p class="fs-3 mb-8">
-                         Lorem Ipsum is simply dummy text of the printing and
-                         type setting industry.
-                      </p>
-                      <div class="comment-footer d-md-flex align-items-center justify-content-between">
-                         <div class="hstack gap-6 mb-2 mb-md-0">
-                            <span class="
-                               badge
-                               bg-danger-subtle
-                               text-danger
-                               ">Rejected</span>
-                            <ul class="action-icons list-unstyled mb-0 hstack gap-6">
-                               <li>
-                                  <a href="javascript:void(0)" class="d-flex fs-5">
-                                     <iconify-icon icon="solar:pen-new-square-linear"></iconify-icon>
-                                  </a>
-                               </li>
-                               <li>
-                                  <a href="javascript:void(0)" class="d-flex fs-5">
-                                     <iconify-icon icon="solar:check-circle-linear"></iconify-icon>
-                                  </a>
-                               </li>
-                               <li>
-                                  <a href="javascript:void(0)" class="d-flex fs-5">
-                                     <iconify-icon icon="solar:heart-linear"></iconify-icon>
-                                  </a>
-                               </li>
-                            </ul>
-                         </div>
-                         <div class="ms-auto">
-                            <span class="fs-3">April 14, 2024</span>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-             </div>
-          </div>
-       </div>
-    </div>
-    <!-- To Do list -->
-    <div class="col-lg-4">
-       <div class="card">
-          <div class="card-body pb-4">
-             <div class="d-flex align-items-center justify-content-between">
-                <div>
-                   <h4 class="card-title">To Do list</h4>
-                   <p class="card-subtitle">
-                      List of your next task to complete
-                   </p>
-                </div>
-             </div>
-             <!-- -------------------------------------------------------------- -->
-             <!-- To do list widgets -->
-             <!-- -------------------------------------------------------------- -->
-             <div class="to-do-widget common-widget">
-                <!-- .modal for add task -->
-                <!-- /.modal -->
-                <ul class="list-task todo-list list-group mb-0" data-role="tasklist">
-                   <li class="list-group-item py-4 px-0 border-0 border-bottom" data-role="task">
-                      <div class="form-check form-check-inline w-100 me-0 mb-0 d-flex align-items-center justify-content-between">
-                         <div class="d-flex align-items-center">
-                            <input type="checkbox" class="form-check-input primary check-light-primary" id="inputSchedule" name="inputCheckboxesSchedule" />
-                            <div class="ms-3">
-                               <label for="inputSchedule" class="form-check-label hstack gap-1">
-                                  <h5 class="mb-0 todo-desc">Schedule meeting
-                                     with
-                                  </h5>
-                                  <span class="badge bg-primary-subtle text-primary lh-base">Today</span>
-                               </label>
-                               <p class="mb-0 fs-3 text-body mt-1">Phasellus
-                                  quis rutrum leo quis vulputate tortor...
-                               </p>
-                            </div>
-                         </div>
-                         <div class="round-56 rounded-1 overflow-hidden">
-                            <img src="../assets/images/blog/blog-img2.jpg" alt="user" class="img-fluid h-100">
-                         </div>
-                      </div>
-                   </li>
-                   <li class="list-group-item py-4 px-0 border-0 border-bottom" data-role="task">
-                      <div class="form-check form-check-inline w-100 me-0 mb-0 d-flex align-items-center justify-content-between">
-                         <div class="d-flex align-items-center">
-                            <input type="checkbox" class="form-check-input primary check-light-primary" id="inputSchedule2" name="inputCheckboxesSchedule" checked />
-                            <div class="ms-3">
-                               <label for="inputSchedule2" class="form-check-label hstack gap-1">
-                                  <h5 class="mb-0 todo-desc text-decoration-line-through">Forward
-                                     all tasks
-                                  </h5>
-                                  <span class="badge bg-secondary-subtle text-secondary lh-base">Yesterday</span>
-                               </label>
-                               <p class="mb-0 fs-3 text-body mt-1">Mauris
-                                  cursus scelerisque felis et ultricies...
-                               </p>
-                            </div>
-                         </div>
-                         <div class="round-56 rounded-1 overflow-hidden">
-                            <img src="../assets/images/blog/blog-img4.jpg" alt="user" class="img-fluid h-100">
-                         </div>
-                      </div>
-                   </li>
-                   <li class="list-group-item py-4 px-0 border-0 border-bottom" data-role="task">
-                      <div class="form-check form-check-inline w-100 me-0 mb-0 d-flex align-items-center justify-content-between">
-                         <div class="d-flex align-items-center">
-                            <input type="checkbox" class="form-check-input primary check-light-primary" id="inputSchedule3" name="inputCheckboxesSchedule" />
-                            <div class="ms-3">
-                               <label for="inputSchedule3" class="form-check-label hstack gap-1">
-                                  <h5 class="mb-0 todo-desc">Give Purchase
-                                     report to
-                                  </h5>
-                                  <span class="badge bg-danger-subtle text-danger lh-base">Tomorrow</span>
-                               </label>
-                               <p class="mb-0 fs-3 text-body mt-1">Vestibulum
-                                  non aliquet mi vitae mollis lorem...
-                               </p>
-                            </div>
-                         </div>
-                         <div class="round-56 rounded-1 overflow-hidden">
-                            <img src="../assets/images/blog/blog-img3.jpg" alt="user" class="img-fluid h-100">
-                         </div>
-                      </div>
-                   </li>
-                   <li class="list-group-item py-4 px-0 border-0 border-bottom" data-role="task">
-                      <div class="form-check form-check-inline w-100 me-0 mb-0 d-flex align-items-center justify-content-between">
-                         <div class="d-flex align-items-center">
-                            <input type="checkbox" class="form-check-input primary check-light-primary" id="inputSchedule4" name="inputCheckboxesSchedule" />
-                            <div class="ms-3">
-                               <label for="inputSchedule4" class="form-check-label hstack gap-1">
-                                  <h5 class="mb-0 todo-desc">Book flight for
-                                     holiday
-                                  </h5>
-                                  <span class="badge bg-warning-subtle text-warning lh-base">1
-                                  Week</span>
-                               </label>
-                               <p class="mb-0 fs-3 text-body mt-1">Aenean
-                                  interdum auctor massa ut scelerisque...
-                               </p>
-                            </div>
-                         </div>
-                         <div class="round-56 rounded-1 overflow-hidden">
-                            <img src="../assets/images/blog/blog-img1.jpg" alt="user" class="img-fluid h-100">
-                         </div>
-                      </div>
-                   </li>
-                </ul>
-             </div>
-          </div>
-       </div>
-    </div>
+      <h4 class="font-weight-medium mb-4">Atalhos de medicamentos</h4>
+
+      <div class="card">
+         <div class="card-body p-4 d-flex align-items-center gap-3">
+         <div>
+            <h4 class="card-title mb-1">Em estoque</h4>
+            <span class="fs-2 d-flex align-items-center">
+               Visualizar posição atual do estoque
+            </span>
+         </div>
+         <a href="{{ url_site }}/medicines/inventory" class="btn btn-primary py-1 px-2 ms-auto">Acessar </a>
+         </div>
+      </div>
+
+      <div class="card">
+         <div class="card-body p-4 d-flex align-items-center gap-3">
+         <div>
+            <h4 class="card-title mb-1">Novo lote</h4>
+            <span class="fs-2 d-flex align-items-center">
+               Adicionar novo lote
+            </span>
+         </div>
+         <a href="{{ url_site }}/medicines/inventory/new-batch" class="btn btn-primary py-1 px-2 ms-auto">Acessar </a>
+         </div>
+      </div>
+      <div class="card">
+         <div class="card-body p-4 d-flex align-items-center gap-3">
+         <div>
+            <h4 class="card-title mb-1">Aprovação</h4>
+            <span class="fs-2 d-flex align-items-center">
+               Pendentes de aprovação: {{ orders_pending}}
+            </span>
+         </div>
+         <a href="{{ url_site }}/medicines/inventory/order/overview-pending" class="btn btn-primary py-1 px-2 ms-auto">Acessar </a>
+         </div>
+      </div>
+      <div class="card">
+         <div class="card-body p-4 d-flex align-items-center gap-3">
+         <div>
+            <h4 class="card-title mb-1">Recebimento</h4>
+            <span class="fs-2 d-flex align-items-center">
+               Pendentes de recebimento:  {{ orders_receiving}}
+            </span>
+         </div>
+         <a href="{{ url_site }}/medicines/inventory/order/overview-receiving" class="btn btn-primary py-1 px-2 ms-auto">Acessar </a>
+         </div>
+      </div>
+   </div>
 </div>
 
 
@@ -457,19 +130,103 @@
 
 
 {% block javascript %}
+
+<script src="{{ url_assets }}/libs/apexcharts/dist/apexcharts.min.js"></script>
+
 <script>
 
+{% if notices|length > 0 %}
    var myModal = new bootstrap.Modal(document.getElementById("bs-example-modal-xlg"), {
       backdrop: true,
       keyboard: true,
       focus: true
    });
+   {% endif %}
+
+   
+  // -----------------------------------------------------------------------
+  // Our visitor
+  // -----------------------------------------------------------------------
+
+   var option_Our_Visitors = {
+      series: [{{ quantities['30'] }}, {{ quantities['60'] }}, {{ quantities['90'] }}, {{ quantities['other'] }}],
+      labels: ["Em 30 dias", "Em 60 dias", "Em 90 dias", "superior a 90 dias"],
+      chart: {
+         type: "donut",
+         height: 350,
+         fontFamily: "inherit",
+      },
+      dataLabels: {
+         enabled: false,
+      },
+      stroke: {
+         width: 0,
+      },
+      plotOptions: {
+         pie: {
+         expandOnClick: true,
+         donut: {
+            size: "83",
+            labels: {
+               show: true,
+               name: {
+               show: true,
+               offsetY: 7,
+               },
+               value: {
+               show: false,
+               },
+               total: {
+               show: true,
+               color: "#a1aab2",
+               fontSize: "13px",
+               label: "Medicamentos por vencer",
+               },
+            },
+         },
+         },
+      },
+      colors: ["var(--bs-red)", "var(--bs-orange)", "var(--bs-blue)", "var(--bs-green)"],
+      tooltip: {
+         show: true,
+         fillSeriesColor: false,
+      },
+      legend: {
+         show: false,
+      },
+      responsive: [
+         {
+         breakpoint: 1025,
+         options: {
+            chart: {
+               height: 270,
+            },
+         },
+         },
+         {
+         breakpoint: 426,
+         options: {
+            chart: {
+               height: 250,
+            },
+         },
+         },
+      ],
+   };
+
 
 (function(){
 
-{% if notices|length > 0 %}
-   myModal.show();
-{% endif %}
+   {% if notices|length > 0 %}
+      myModal.show();
+   {% endif %}
+
+   var chart_pie_donut = new ApexCharts(
+      document.querySelector("#our-visitors"),
+      option_Our_Visitors
+   );
+   chart_pie_donut.render();
+
  })();
 
  </script>

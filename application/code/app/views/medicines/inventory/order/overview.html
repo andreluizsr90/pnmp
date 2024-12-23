@@ -46,7 +46,7 @@
                   <tr>
                     <td class="w-30">
                       <p class="mb-0 fw-normal">{{ order.owner.name }}</p>
-                      {{ order.maker.name }}
+                      <span class="fs-2"><strong>Autor: </strong> {{ order.maker.name }}</span>
                     </td>
                     <td class="w-20">
                       <p class="mb-0 fw-normal">{{ order.created_at|mongoDate('d/m/Y') }}</p>
@@ -54,9 +54,12 @@
                     <td>
                       
                       {% for item in order.item %}
-                      <p class="mb-0 fw-normal">{{ item.medicine.code }}</p>
-                      <small>Quantidade: {{ item.quantity }}</small>
-                      <br/>
+                      <div class="hstack justify-content-between gap-6 py-6 border-bottom">
+                        <h6 class="mb-0">{{ item.medicine.name }} ({{ item.medicine.code }})</h6>
+                        <div class="hstack gap-6">
+                          <h6 class="mb-0">{{ item.quantity }}</h6>
+                        </div>
+                      </div>
                       {% endfor %}
                       
                     </td>

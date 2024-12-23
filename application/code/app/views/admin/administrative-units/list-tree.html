@@ -29,7 +29,7 @@
             {% for key,item in tree_titles %}
                 {% if key != (tree_titles|length - 1) %}
               <li class="breadcrumb-item">
-                    <a class="text-muted text-decoration-none" href="?id={{ item._id }}"> {{ item.name }}</a>
+                    <a class="text-muted text-decoration-none" href="?id={{ item.id }}"> {{ item.name }}</a>
               </li>
               {% endif %}
             {% endfor %}

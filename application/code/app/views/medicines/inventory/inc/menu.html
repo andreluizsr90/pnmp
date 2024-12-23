@@ -4,7 +4,7 @@
     </li>
     <li class="list-group-item border-0 p-0 mx-9">
       <a class="d-flex align-items-center gap-6 list-group-item-action text-dark px-3 py-8 mb-1 rounded-1" href="{{ route }}">
-        <i class="ti ti-inbox fs-5"></i>Visão geral 
+        <i class="ti ti-brand-walmart fs-5"></i>Visão geral 
       </a>
     </li>
     <li class="border-bottom my-3"></li>
@@ -14,7 +14,7 @@
     </li>
     <li class="list-group-item border-0 p-0 mx-9">
       <a class="d-flex align-items-center gap-6 list-group-item-action text-dark px-3 py-8 mb-1 rounded-1" href="{{ route }}/new-batch">
-        <i class="ti ti-inbox fs-5"></i>Novo lote
+        <i class="ti ti-folders fs-5"></i>Novo lote
       </a>
     </li>
     <li class="border-bottom my-3"></li>
@@ -26,25 +26,25 @@
         {% if 'INVENTORY_ORDER_CREATE'|hasRole %}
         <li class="list-group-item border-0 p-0 mx-9">
         <a class="d-flex align-items-center gap-6 list-group-item-action text-dark px-3 py-8 mb-1 rounded-1" href="{{ route }}/order">
-            <i class="ti ti-inbox fs-5"></i>Novo pedido
+            <i class="ti ti-folder fs-5"></i>Novo pedido
         </a>
         </li>
         {% endif %}
         {% if 'INVENTORY_ORDER_VIEW'|hasRole %}
         <li class="list-group-item border-0 p-0 mx-9">
         <a class="d-flex align-items-center gap-6 list-group-item-action text-dark px-3 py-8 mb-1 rounded-1" href="{{ route }}/order/overview">
-            <i class="ti ti-inbox fs-5"></i>Meus pedidos
+            <i class="ti ti-folder fs-5"></i>Meus pedidos
         </a>
         </li>
         {% endif %}
         <li class="list-group-item border-0 p-0 mx-9">
         <a class="d-flex align-items-center gap-6 list-group-item-action text-dark px-3 py-8 mb-1 rounded-1" href="{{ route }}/order/overview-pending">
-            <i class="ti ti-inbox fs-5"></i>Pendentes de aprovação
+            <i class="ti ti-folder fs-5"></i>Pendentes de aprovação
         </a>
         </li>
         <li class="list-group-item border-0 p-0 mx-9">
         <a class="d-flex align-items-center gap-6 list-group-item-action text-dark px-3 py-8 mb-1 rounded-1" href="{{ route }}/order/overview-receiving">
-            <i class="ti ti-inbox fs-5"></i>Pendentes de recebimento
+            <i class="ti ti-folder fs-5"></i>Pendentes de recebimento
         </a>
         </li>
         <li class="border-bottom my-3"></li>
@@ -54,7 +54,7 @@
     </li>
     <li class="list-group-item border-0 p-0 mx-9">
       <a class="d-flex align-items-center gap-6 list-group-item-action text-dark px-3 py-8 mb-1 rounded-1" href="{{ route }}/history">
-        <i class="ti ti-star fs-5"></i>Histórico de movimentações
+        <i class="ti ti-replace fs-5"></i>Histórico
       </a>
     </li>
     <li class="border-bottom my-3"></li>

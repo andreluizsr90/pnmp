@@ -54,36 +54,25 @@
                       <p class="mb-0 fw-normal">{{ mov.created_at|mongoDate('d/m/Y') }}</p>
                     </td>
                     <td>
-                      {% if mov.stocks_old %}
-                      <table>
-                        <tr>
-                          <td>Medicamento</td>
-                          <td>Quantidade</td>
-                        </tr>
                       {% for item in mov.stocks_old %}
-                        <tr>
-                          <td>{{ medicines[item.medicine_id].name }}</td>
-                          <td class="text-center">{{ item.quantity }}</td>
-                        </tr>
+                      <div class="hstack justify-content-between gap-6 py-6 border-bottom">
+                        <h6 class="mb-0">{{ medicines[item.medicine_id].name }} ({{ medicines[item.medicine_id].code }})</h6>
+                        <div class="hstack gap-6">
+                          <h6 class="mb-0">{{ item.quantity }}</h6>
+                        </div>
+                      </div>
                       {% endfor %}
-                    </table>
-                    {% endif %}
                     </td>
                     <td>
-                      {% if mov.stocks_new %}
-                      <table>
-                        <tr>
-                          <td>Medicamento</td>
-                          <td>Quantidade</td>
-                        </tr>
                       {% for item in mov.stocks_new %}
-                        <tr>
-                          <td>{{ medicines[item.medicine_id].name }}</td>
-                          <td class="text-center">{{ item.quantity }}</td>
-                        </tr>
+                      <div class="hstack justify-content-between gap-6 py-6 border-bottom">
+                        <h6 class="mb-0">{{ medicines[item.medicine_id].name }} ({{ medicines[item.medicine_id].code }})</h6>
+                        <div class="hstack gap-6">
+                          <h6 class="mb-0">{{ item.quantity }}</h6>
+                        </div>
+                      </div>
                       {% endfor %}
-                    </table>
-                    {% endif %}
+                      
                     </td>
                   </tr>
                   {% else %}
