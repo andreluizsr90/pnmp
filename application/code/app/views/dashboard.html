@@ -1,7 +1,476 @@
 {% extends "master/layout.html" %}
 
 {% block maincontent %}
+<div class="row">
+    <!-- Recent Comments -->
+    <div class="col-lg-4">
+       <div class="card">
+          <div class="card-body">
+             <div class="d-md-flex align-items-center justify-content-between mb-4">
+                <div class="mb-3 mb-md-0">
+                   <h4 class="card-title">Recent Comments</h4>
+                   <p class="card-subtitle">
+                      Latest Comments on users from Material
+                   </p>
+                </div>
+             </div>
+             <!-- ============================================================== -->
+             <!-- Comment widgets -->
+             <!-- ============================================================== -->
+             <div class="comment-widgets widgets">
+                <!-- Comment Row -->
+                <div class="comment-row hstack align-items-start gap-6 pb-9 border-bottom">
+                   <span class="round flex-shrink-0">
+                   <img src="../assets/images/profile/user-10.jpg" class="rounded-circle" alt="user" width="44" height="44">
+                   </span>
+                   <div class="comment-text w-100">
+                      <h5 class="text-nowrap">
+                         James Anderson
+                      </h5>
+                      <p class="fs-3 mb-8">
+                         Lorem Ipsum is simply dummy text of the printing and
+                         type setting industry.
+                      </p>
+                      <div class="comment-footer d-md-flex align-items-center justify-content-between">
+                         <div class="hstack gap-6 mb-2 mb-md-0">
+                            <span class="
+                               badge
+                               bg-warning-subtle
+                               text-warning
+                               ">Pending</span>
+                            <ul class="action-icons list-unstyled mb-0 hstack gap-6">
+                               <li>
+                                  <a href="javascript:void(0)" class="d-flex fs-5">
+                                     <iconify-icon icon="solar:pen-new-square-linear"></iconify-icon>
+                                  </a>
+                               </li>
+                               <li>
+                                  <a href="javascript:void(0)" class="d-flex fs-5">
+                                     <iconify-icon icon="solar:check-circle-linear"></iconify-icon>
+                                  </a>
+                               </li>
+                               <li>
+                                  <a href="javascript:void(0)" class="d-flex fs-5">
+                                     <iconify-icon icon="solar:heart-linear"></iconify-icon>
+                                  </a>
+                               </li>
+                            </ul>
+                         </div>
+                         <div class="ms-auto">
+                            <span class="fs-3">April 14, 2024</span>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+                <!-- Comment Row -->
+                <div class="comment-row hstack align-items-start gap-6 py-9 border-bottom">
+                   <span class="round flex-shrink-0">
+                   <img src="../assets/images/profile/user-6.jpg" class="rounded-circle" alt="user" width="44" height="44">
+                   </span>
+                   <div class="comment-text w-100">
+                      <h5 class="text-nowrap">
+                         Michael Jorden
+                      </h5>
+                      <p class="fs-3 mb-8">
+                         Lorem Ipsum is simply dummy text of the printing and
+                         type setting industry.
+                      </p>
+                      <div class="comment-footer d-md-flex align-items-center justify-content-between">
+                         <div class="hstack gap-6 mb-2 mb-md-0">
+                            <span class="
+                               badge
+                               bg-secondary-subtle
+                               text-secondary
+                               ">Approved</span>
+                            <ul class="action-icons list-unstyled mb-0 hstack gap-6">
+                               <li>
+                                  <a href="javascript:void(0)" class="d-flex fs-5">
+                                     <iconify-icon icon="solar:pen-new-square-linear"></iconify-icon>
+                                  </a>
+                               </li>
+                               <li>
+                                  <a href="javascript:void(0)" class="d-flex fs-5">
+                                     <iconify-icon icon="solar:check-circle-linear"></iconify-icon>
+                                  </a>
+                               </li>
+                               <li>
+                                  <a href="javascript:void(0)" class="d-flex fs-5">
+                                     <iconify-icon icon="solar:heart-linear"></iconify-icon>
+                                  </a>
+                               </li>
+                            </ul>
+                         </div>
+                         <div class="ms-auto">
+                            <span class="fs-3">April 14, 2024</span>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+                <!-- Comment Row -->
+                <div class="comment-row hstack align-items-start gap-6 pt-9">
+                   <span class="round flex-shrink-0">
+                   <img src="../assets/images/profile/user-12.jpg" class="rounded-circle" alt="user" width="44" height="44">
+                   </span>
+                   <div class="comment-text w-100">
+                      <h5 class="text-nowrap">
+                         Johnathan Doeting
+                      </h5>
+                      <p class="fs-3 mb-8">
+                         Lorem Ipsum is simply dummy text of the printing and
+                         type setting industry.
+                      </p>
+                      <div class="comment-footer d-md-flex align-items-center justify-content-between">
+                         <div class="hstack gap-6 mb-2 mb-md-0">
+                            <span class="
+                               badge
+                               bg-danger-subtle
+                               text-danger
+                               ">Rejected</span>
+                            <ul class="action-icons list-unstyled mb-0 hstack gap-6">
+                               <li>
+                                  <a href="javascript:void(0)" class="d-flex fs-5">
+                                     <iconify-icon icon="solar:pen-new-square-linear"></iconify-icon>
+                                  </a>
+                               </li>
+                               <li>
+                                  <a href="javascript:void(0)" class="d-flex fs-5">
+                                     <iconify-icon icon="solar:check-circle-linear"></iconify-icon>
+                                  </a>
+                               </li>
+                               <li>
+                                  <a href="javascript:void(0)" class="d-flex fs-5">
+                                     <iconify-icon icon="solar:heart-linear"></iconify-icon>
+                                  </a>
+                               </li>
+                            </ul>
+                         </div>
+                         <div class="ms-auto">
+                            <span class="fs-3">April 14, 2024</span>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+    <!-- Recent Comments -->
+    <div class="col-lg-4">
+       <div class="card">
+          <div class="card-body">
+             <div class="d-md-flex align-items-center justify-content-between mb-4">
+                <div class="mb-3 mb-md-0">
+                   <h4 class="card-title">Recent Comments</h4>
+                   <p class="card-subtitle">
+                      Latest Comments on users from Material
+                   </p>
+                </div>
+             </div>
+             <!-- ============================================================== -->
+             <!-- Comment widgets -->
+             <!-- ============================================================== -->
+             <div class="comment-widgets widgets">
+                <!-- Comment Row -->
+                <div class="comment-row hstack align-items-start gap-6 pb-9 border-bottom">
+                   <span class="round flex-shrink-0">
+                   <img src="../assets/images/profile/user-10.jpg" class="rounded-circle" alt="user" width="44" height="44">
+                   </span>
+                   <div class="comment-text w-100">
+                      <h5 class="text-nowrap">
+                         James Anderson
+                      </h5>
+                      <p class="fs-3 mb-8">
+                         Lorem Ipsum is simply dummy text of the printing and
+                         type setting industry.
+                      </p>
+                      <div class="comment-footer d-md-flex align-items-center justify-content-between">
+                         <div class="hstack gap-6 mb-2 mb-md-0">
+                            <span class="
+                               badge
+                               bg-warning-subtle
+                               text-warning
+                               ">Pending</span>
+                            <ul class="action-icons list-unstyled mb-0 hstack gap-6">
+                               <li>
+                                  <a href="javascript:void(0)" class="d-flex fs-5">
+                                     <iconify-icon icon="solar:pen-new-square-linear"></iconify-icon>
+                                  </a>
+                               </li>
+                               <li>
+                                  <a href="javascript:void(0)" class="d-flex fs-5">
+                                     <iconify-icon icon="solar:check-circle-linear"></iconify-icon>
+                                  </a>
+                               </li>
+                               <li>
+                                  <a href="javascript:void(0)" class="d-flex fs-5">
+                                     <iconify-icon icon="solar:heart-linear"></iconify-icon>
+                                  </a>
+                               </li>
+                            </ul>
+                         </div>
+                         <div class="ms-auto">
+                            <span class="fs-3">April 14, 2024</span>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+                <!-- Comment Row -->
+                <div class="comment-row hstack align-items-start gap-6 py-9 border-bottom">
+                   <span class="round flex-shrink-0">
+                   <img src="../assets/images/profile/user-6.jpg" class="rounded-circle" alt="user" width="44" height="44">
+                   </span>
+                   <div class="comment-text w-100">
+                      <h5 class="text-nowrap">
+                         Michael Jorden
+                      </h5>
+                      <p class="fs-3 mb-8">
+                         Lorem Ipsum is simply dummy text of the printing and
+                         type setting industry.
+                      </p>
+                      <div class="comment-footer d-md-flex align-items-center justify-content-between">
+                         <div class="hstack gap-6 mb-2 mb-md-0">
+                            <span class="
+                               badge
+                               bg-secondary-subtle
+                               text-secondary
+                               ">Approved</span>
+                            <ul class="action-icons list-unstyled mb-0 hstack gap-6">
+                               <li>
+                                  <a href="javascript:void(0)" class="d-flex fs-5">
+                                     <iconify-icon icon="solar:pen-new-square-linear"></iconify-icon>
+                                  </a>
+                               </li>
+                               <li>
+                                  <a href="javascript:void(0)" class="d-flex fs-5">
+                                     <iconify-icon icon="solar:check-circle-linear"></iconify-icon>
+                                  </a>
+                               </li>
+                               <li>
+                                  <a href="javascript:void(0)" class="d-flex fs-5">
+                                     <iconify-icon icon="solar:heart-linear"></iconify-icon>
+                                  </a>
+                               </li>
+                            </ul>
+                         </div>
+                         <div class="ms-auto">
+                            <span class="fs-3">April 14, 2024</span>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+                <!-- Comment Row -->
+                <div class="comment-row hstack align-items-start gap-6 pt-9">
+                   <span class="round flex-shrink-0">
+                   <img src="../assets/images/profile/user-12.jpg" class="rounded-circle" alt="user" width="44" height="44">
+                   </span>
+                   <div class="comment-text w-100">
+                      <h5 class="text-nowrap">
+                         Johnathan Doeting
+                      </h5>
+                      <p class="fs-3 mb-8">
+                         Lorem Ipsum is simply dummy text of the printing and
+                         type setting industry.
+                      </p>
+                      <div class="comment-footer d-md-flex align-items-center justify-content-between">
+                         <div class="hstack gap-6 mb-2 mb-md-0">
+                            <span class="
+                               badge
+                               bg-danger-subtle
+                               text-danger
+                               ">Rejected</span>
+                            <ul class="action-icons list-unstyled mb-0 hstack gap-6">
+                               <li>
+                                  <a href="javascript:void(0)" class="d-flex fs-5">
+                                     <iconify-icon icon="solar:pen-new-square-linear"></iconify-icon>
+                                  </a>
+                               </li>
+                               <li>
+                                  <a href="javascript:void(0)" class="d-flex fs-5">
+                                     <iconify-icon icon="solar:check-circle-linear"></iconify-icon>
+                                  </a>
+                               </li>
+                               <li>
+                                  <a href="javascript:void(0)" class="d-flex fs-5">
+                                     <iconify-icon icon="solar:heart-linear"></iconify-icon>
+                                  </a>
+                               </li>
+                            </ul>
+                         </div>
+                         <div class="ms-auto">
+                            <span class="fs-3">April 14, 2024</span>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+    <!-- To Do list -->
+    <div class="col-lg-4">
+       <div class="card">
+          <div class="card-body pb-4">
+             <div class="d-flex align-items-center justify-content-between">
+                <div>
+                   <h4 class="card-title">To Do list</h4>
+                   <p class="card-subtitle">
+                      List of your next task to complete
+                   </p>
+                </div>
+             </div>
+             <!-- -------------------------------------------------------------- -->
+             <!-- To do list widgets -->
+             <!-- -------------------------------------------------------------- -->
+             <div class="to-do-widget common-widget">
+                <!-- .modal for add task -->
+                <!-- /.modal -->
+                <ul class="list-task todo-list list-group mb-0" data-role="tasklist">
+                   <li class="list-group-item py-4 px-0 border-0 border-bottom" data-role="task">
+                      <div class="form-check form-check-inline w-100 me-0 mb-0 d-flex align-items-center justify-content-between">
+                         <div class="d-flex align-items-center">
+                            <input type="checkbox" class="form-check-input primary check-light-primary" id="inputSchedule" name="inputCheckboxesSchedule" />
+                            <div class="ms-3">
+                               <label for="inputSchedule" class="form-check-label hstack gap-1">
+                                  <h5 class="mb-0 todo-desc">Schedule meeting
+                                     with
+                                  </h5>
+                                  <span class="badge bg-primary-subtle text-primary lh-base">Today</span>
+                               </label>
+                               <p class="mb-0 fs-3 text-body mt-1">Phasellus
+                                  quis rutrum leo quis vulputate tortor...
+                               </p>
+                            </div>
+                         </div>
+                         <div class="round-56 rounded-1 overflow-hidden">
+                            <img src="../assets/images/blog/blog-img2.jpg" alt="user" class="img-fluid h-100">
+                         </div>
+                      </div>
+                   </li>
+                   <li class="list-group-item py-4 px-0 border-0 border-bottom" data-role="task">
+                      <div class="form-check form-check-inline w-100 me-0 mb-0 d-flex align-items-center justify-content-between">
+                         <div class="d-flex align-items-center">
+                            <input type="checkbox" class="form-check-input primary check-light-primary" id="inputSchedule2" name="inputCheckboxesSchedule" checked />
+                            <div class="ms-3">
+                               <label for="inputSchedule2" class="form-check-label hstack gap-1">
+                                  <h5 class="mb-0 todo-desc text-decoration-line-through">Forward
+                                     all tasks
+                                  </h5>
+                                  <span class="badge bg-secondary-subtle text-secondary lh-base">Yesterday</span>
+                               </label>
+                               <p class="mb-0 fs-3 text-body mt-1">Mauris
+                                  cursus scelerisque felis et ultricies...
+                               </p>
+                            </div>
+                         </div>
+                         <div class="round-56 rounded-1 overflow-hidden">
+                            <img src="../assets/images/blog/blog-img4.jpg" alt="user" class="img-fluid h-100">
+                         </div>
+                      </div>
+                   </li>
+                   <li class="list-group-item py-4 px-0 border-0 border-bottom" data-role="task">
+                      <div class="form-check form-check-inline w-100 me-0 mb-0 d-flex align-items-center justify-content-between">
+                         <div class="d-flex align-items-center">
+                            <input type="checkbox" class="form-check-input primary check-light-primary" id="inputSchedule3" name="inputCheckboxesSchedule" />
+                            <div class="ms-3">
+                               <label for="inputSchedule3" class="form-check-label hstack gap-1">
+                                  <h5 class="mb-0 todo-desc">Give Purchase
+                                     report to
+                                  </h5>
+                                  <span class="badge bg-danger-subtle text-danger lh-base">Tomorrow</span>
+                               </label>
+                               <p class="mb-0 fs-3 text-body mt-1">Vestibulum
+                                  non aliquet mi vitae mollis lorem...
+                               </p>
+                            </div>
+                         </div>
+                         <div class="round-56 rounded-1 overflow-hidden">
+                            <img src="../assets/images/blog/blog-img3.jpg" alt="user" class="img-fluid h-100">
+                         </div>
+                      </div>
+                   </li>
+                   <li class="list-group-item py-4 px-0 border-0 border-bottom" data-role="task">
+                      <div class="form-check form-check-inline w-100 me-0 mb-0 d-flex align-items-center justify-content-between">
+                         <div class="d-flex align-items-center">
+                            <input type="checkbox" class="form-check-input primary check-light-primary" id="inputSchedule4" name="inputCheckboxesSchedule" />
+                            <div class="ms-3">
+                               <label for="inputSchedule4" class="form-check-label hstack gap-1">
+                                  <h5 class="mb-0 todo-desc">Book flight for
+                                     holiday
+                                  </h5>
+                                  <span class="badge bg-warning-subtle text-warning lh-base">1
+                                  Week</span>
+                               </label>
+                               <p class="mb-0 fs-3 text-body mt-1">Aenean
+                                  interdum auctor massa ut scelerisque...
+                               </p>
+                            </div>
+                         </div>
+                         <div class="round-56 rounded-1 overflow-hidden">
+                            <img src="../assets/images/blog/blog-img1.jpg" alt="user" class="img-fluid h-100">
+                         </div>
+                      </div>
+                   </li>
+                </ul>
+             </div>
+          </div>
+       </div>
+    </div>
+</div>
 
-ok...
 
+{% if notices|length > 0 %}
+<!-- sample modal content -->
+<div class="modal fade" id="bs-example-modal-xlg" tabindex="-1" aria-labelledby="bs-example-modal-lg" aria-hidden="true">
+   <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+         <div class="modal-header d-flex align-items-center">
+            <h4 class="modal-title" id="myLargeModalLabel">
+               Avisos
+            </h4>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+            {% for notice in notices %}
+            <h4>
+               {{ notice.title }}
+            </h4>
+            
+            {{ notice.content|raw }}
+
+            <hr />
+            {% endfor %}
+         </div>
+         <div class="modal-footer">
+         <button type="button" class="btn bg-danger-subtle text-danger  waves-effect text-start" data-bs-dismiss="modal">
+            Fechar
+         </button>
+         </div>
+      </div>
+      <!-- /.modal-content -->
+   </div>
+   <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+{% endif %}
+
+{% endblock %}
+
+
+{% block javascript %}
+<script>
+
+   var myModal = new bootstrap.Modal(document.getElementById("bs-example-modal-xlg"), {
+      backdrop: true,
+      keyboard: true,
+      focus: true
+   });
+
+(function(){
+
+{% if notices|length > 0 %}
+   myModal.show();
+{% endif %}
+ })();
+
+ </script>
 {% endblock %}

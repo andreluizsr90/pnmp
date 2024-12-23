@@ -15,6 +15,14 @@
                 </a>
 
                 <ul aria-expanded="false" class="collapse first-level">
+                  {% if 'NOTICE_VIEW'|hasRole %}
+                  <li class="sidebar-item">
+                    <a href="{{ url_site }}/admin/notice" class="sidebar-link">
+                      <i class="ti ti-circle"></i>
+                      <span class="hide-menu">Avisos</span>
+                    </a>
+                  </li>
+                  {% endif %}
                   {% if 'UNIT_VIEW'|hasRole %}
                   <li class="sidebar-item">
                     <a href="{{ url_site }}/admin/administrative-units" class="sidebar-link">

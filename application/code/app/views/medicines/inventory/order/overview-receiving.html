@@ -1,0 +1,92 @@
+{% extends "master/layout.html" %}
+
+{% block maincontent %}
+
+{% include('inc/header-institution.html') with {
+  showChangeInstitution: true
+} %}
+
+<div class="card overflow-hidden chat-application">
+
+  <div class="d-flex align-items-center justify-content-between p-4 border-bottom">
+    <div>
+      <h4 class="font-weight-medium mb-0">Inventário</h4>  
+    </div>
+  </div>
+
+  <div class="d-flex w-100">
+    <div class="left-part border-end w-20 flex-shrink-0 d-none d-lg-block">
+      {% include('medicines/inventory/inc/menu.html') %}
+
+    </div>
+    <div class="d-flex w-100">
+      <div class="w-100">
+        <div class="chat-container h-100 w-100">
+          <div class="chat-box-inner-part h-100">
+            <div class="chatting-box app-email-chatting-box p-4">
+              <h4 class="fw-semibold text-dark mb-3">
+                Pedidos pendentes de recebimento
+              </h4>
+              <table class="table table-sm table-hover text-nowrap mb-0 align-middle">
+                <thead class="text-dark fs-4">
+                  <tr>
+                    <th>
+                      <h6 class="fs-4 fw-semibold mb-0">Requerente</h6>
+                    </th>
+                    <th>
+                      <h6 class="fs-4 fw-semibold mb-0">Data</h6>
+                    </th>
+                    <th>
+                      <h6 class="fs-4 fw-semibold mb-0">Informações</h6>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for order in orders %}
+                  <tr>
+                    <td class="w-30">
+                      <p class="mb-0 fw-normal">{{ order.owner.name }}</p>
+                      {{ order.maker.name }}
+                    </td>
+                    <td class="w-20">
+                      <p class="mb-0 fw-normal">{{ order.created_at|mongoDate('d/m/Y') }}</p>
+                    </td>
+                    <td>
+                      
+                      {% for item in order.item %}
+                      <p class="mb-0 fw-normal">{{ item.medicine.code }}</p>
+                      <small>Quantidade: {{ item.quantity }}</small>
+                      <br/>
+                      {% endfor %}
+                      
+                    </td>
+                    <td>
+                      
+                        <a href="{{ route }}/order/handle-receiving/{{ order._id }}" class="btn mb-1 btn-primary rounded-circle round-40 btn-sm d-inline-flex align-items-center justify-content-center">
+                            <i class="ti ti-player-play fs-4"></i>
+                        </a>
+                      
+                    </td>
+                  </tr>
+                  {% else %}
+                  <tr>
+                    <td colspan="4" class="text-center">
+                      -- Nenhum registro encontrado --
+                    </td>
+                  </tr>
+                  {% endfor %}
+      
+                </tbody>
+              </table>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+      
+  {% endblock %}

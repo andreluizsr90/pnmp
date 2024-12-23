@@ -9,14 +9,11 @@
           </div>
         </div>
         <div class="p-2">
-          
-
-          
+          {% if showChangeInstitution and 'UNIT_SWITCH'|hasRole %}
           <button class="btn btn-sm btn-outline-primary fw-semibold" data-bs-toggle="modal" data-bs-target="#change-institution">
             <small>Alterar Instituição</small> 
           </button>
-
-
+          {% endif %}
         </div>
       </div>
     </div>
@@ -25,6 +22,7 @@
 
 
 
+{% if showChangeInstitution and 'UNIT_SWITCH'|hasRole %}
   <!-- Modal -->
   <div class="modal fade" id="change-institution" tabindex="-1" aria-labelledby="bs-example-modal-lg" aria-hidden="true">
       <div class="modal-dialog modal-fullscreen">
@@ -116,3 +114,5 @@
     };
 
     </script>
+    
+    {% endif %}

@@ -1,0 +1,11 @@
+
+.form-validation label.text-danger {
+    font-size: 0.9em;
+    padding-top: 5px;
+}
+
+
+.form-validation label.required:after {
+    content:" *";
+    color: red;
+}

@@ -134,7 +134,8 @@
       "{{ url_site }}/api/administrative-units/parents-by-id", // URL API Unique
         "adminunit", // Local variable name
         "administrative-unit", // ID of the place to add field
-        "administrative_unit" // Field Name
+        "administrative_unit", // Field Name
+        true  // Is Required
       );
       adminunit.init('{{record.administrative_unit}}');
       
@@ -144,6 +145,7 @@
         "adminunitmedicine", // Local variable name
         "administrative-unit-medicine", // ID of the place to add field
         "administrative_unit-medicine", // Field Name
+        false,  // Is Required
         function(administrative_unit) { // CallbackFunction when get last level
 
           PnmpSelectFieldApi.init(

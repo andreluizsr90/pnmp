@@ -1,0 +1,68 @@
+{% extends "master/layout.html" %}
+
+{% block maincontent %}
+
+<div class="font-weight-medium shadow-none position-relative overflow-hidden mb-7">
+    <div class="card-body px-0">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h4 class="font-weight-medium  mb-0">Avisos: {{ record._id ? 'Atualizar' : 'Novo' }}</h4>
+        </div>
+        <div>
+          <div class="d-sm-flex d-none gap-3 no-block justify-content-end align-items-center">
+            <div class="d-flex gap-2">
+                <a href="{{ route }}" class="btn btn-danger">Cancelar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card w-100 position-relative overflow-hidden">
+    <div class="card-body p-4">
+                         
+      <div class="row">
+        <div class="col-md-10 mx-auto">
+          <form method="POST" class="mt-3 form-horizontal">
+            <div class="form-group row">
+                <label for="title" class="col-sm-3 col-form-label">Título</label>
+                <div class="col-sm-9">
+                    <input required name="title" type="text" class="form-control" id="title" value="{{ record.title }}" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="title" class="col-12 col-form-label">Conteúdo</label>
+                <div class="col-12">
+
+                  <textarea name="content" id="content">
+                    {{ record.content|raw }}
+                  </textarea>
+
+                </div>
+            </div>
+            
+            <div class="row my-3">
+                <div class="col-12 text-center">
+                  <a href="{{ route }}" class="btn btn-danger">Cancelar</a>
+                  <button type="submit" class="btn btn-dark">Salvar</button>
+                </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  {% endblock %}
+
+  {% block javascript %}
+  <script src="{{ url_assets }}/libs/tinymce_7.6.0/tinymce/js/tinymce/tinymce.min.js"></script>
+  <script>
+    tinymce.init({
+      selector: '#content'
+    });
+  </script>
+  {% endblock %}

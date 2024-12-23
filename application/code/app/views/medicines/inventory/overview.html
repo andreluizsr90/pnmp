@@ -2,7 +2,9 @@
 
 {% block maincontent %}
 
-{% include('inc/header-institution.html') %}
+{% include('inc/header-institution.html') with {
+  showChangeInstitution: true
+} %}
 
 <div class="card overflow-hidden chat-application">
 
@@ -14,50 +16,18 @@
 
   <div class="d-flex w-100">
     <div class="left-part border-end w-20 flex-shrink-0 d-none d-lg-block">
-      <ul class="list-group mh-n100">
-        <li class="fw-semibold text-dark text-uppercase mx-9 my-3 px-3 fs-2">
-          LOTES
-        </li>
-        <li class="list-group-item border-0 p-0 mx-9">
-          <a class="d-flex align-items-center gap-6 list-group-item-action text-dark px-3 py-8 mb-1 rounded-1" href="{{ route }}/new-batch">
-            <i class="ti ti-inbox fs-5"></i>Novo lote
-          </a>
-        </li>
-        <li class="border-bottom my-3"></li>
-        <li class="fw-semibold text-dark text-uppercase mx-9 my-3 px-3 fs-2">
-          PEDIDOS
-        </li>
-        <li class="list-group-item border-0 p-0 mx-9">
-          <a class="d-flex align-items-center gap-6 list-group-item-action text-dark px-3 py-8 mb-1 rounded-1" href="javascript:void(0)">
-            <i class="ti ti-inbox fs-5"></i>Inbox
-          </a>
-        </li>
-        <li class="border-bottom my-3"></li>
-        <li class="fw-semibold text-dark text-uppercase mx-9 my-2 px-3 fs-2">
-          TRANSFERÊNCIAS
-        </li>
-        <li class="list-group-item border-0 p-0 mx-9">
-          <a class="d-flex align-items-center gap-6 list-group-item-action text-dark px-3 py-8 mb-1 rounded-1" href="javascript:void(0)">
-            <i class="ti ti-star fs-5"></i>Starred
-          </a>
-        </li>
-        <li class="border-bottom my-3"></li>
-        <li class="fw-semibold text-dark text-uppercase mx-9 my-2 px-3 fs-2">
-          DISPENSAÇÃO
-        </li>
-        <li class="list-group-item border-0 p-0 mx-9">
-          <a class="d-flex align-items-center gap-6 list-group-item-action text-dark px-3 py-8 mb-1 rounded-1" href="javascript:void(0)">
-            <i class="ti ti-star fs-5"></i>Starred
-          </a>
-        </li>
-      </ul>
+      
+      {% include('medicines/inventory/inc/menu.html') %}
+
     </div>
     <div class="d-flex w-100">
       <div class="w-100">
         <div class="chat-container h-100 w-100">
           <div class="chat-box-inner-part h-100">
             <div class="chatting-box app-email-chatting-box p-4">
-
+              <h4 class="fw-semibold text-dark mb-3">
+                Posição atual em estoque
+              </h4>
               <table class="table table-sm table-hover text-nowrap mb-0 align-middle">
                 <thead class="text-dark fs-4">
                   <tr>
@@ -108,6 +78,63 @@
                     </td>
                   </tr>
                   {% endfor %}
+                  {% else %}
+                  <tr>
+                    <td colspan="4" class="text-center">
+                      -- Nenhum registro encontrado --
+                    </td>
+                  </tr>
+                  {% endfor %}
+      
+                </tbody>
+              </table>
+
+              <h4 class="fw-semibold text-dark mb-3 mt-5">
+                Pedidos pendentes
+              </h4>
+              <table class="table table-sm table-hover text-nowrap mb-0 align-middle">
+                <thead class="text-dark fs-4">
+                  <tr>
+                    <th>
+                      <h6 class="fs-4 fw-semibold mb-0">Requerente</h6>
+                    </th>
+                    <th>
+                      <h6 class="fs-4 fw-semibold mb-0">Data</h6>
+                    </th>
+                    <th>
+                      <h6 class="fs-4 fw-semibold mb-0">Informações</h6>
+                    </th>
+                      
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for order in orders_pending %}
+                  <tr>
+                    <td class="w-30">
+                      <p class="mb-0 fw-normal">{{ order.owner.name }}</p>
+                      {{ order.maker.name }}
+                    </td>
+                    <td class="w-20">
+                      <p class="mb-0 fw-normal">{{ order.created_at|mongoDate('d/m/Y') }}</p>
+                    </td>
+                    <td>
+                      
+                      {% for item in order.item %}
+                      <p class="mb-0 fw-normal">{{ item.medicine.code }}</p>
+                      <small>Quantidade: {{ item.quantity }}</small>
+                      <br/>
+                      {% endfor %}
+                      
+                    </td>
+                    <td>
+                      
+                        <a href="{{ route }}/order/handle-pending/{{ order._id }}" class="btn mb-1 btn-primary rounded-circle round-40 btn-sm d-inline-flex align-items-center justify-content-center">
+                            <i class="ti ti-player-play fs-4"></i>
+                        </a>
+                      
+                    </td>
+                  </tr>
                   {% else %}
                   <tr>
                     <td colspan="4" class="text-center">

@@ -1,11 +1,12 @@
 class PnmpSelectFieldMultilevel {
-    constructor(urlParent, url, variableInstance, placeId, fieldName, callback = null) {
+    constructor(urlParent, url, variableInstance, placeId, fieldName, required = false, callback = null) {
       this.urlParent = urlParent;
       this.url = url;
       this.variableInstance = variableInstance;
       this.placeId = placeId;
       this.fieldName = fieldName;
       this.nextLevel = 0;
+      this.required = required;
       this.callback = callback;
     }
     
@@ -17,7 +18,7 @@ class PnmpSelectFieldMultilevel {
       return `
         <div class="row my-2" id="${this.fieldName}-${level}">
           <div class="col">
-            <select required data-level="${level}" name="${this.fieldName}[]" id="${this.fieldName}-${level}-field" class="form-control" onchange="${this.variableInstance}.fieldSelected(this)">
+            <select ${this.required ? 'required' : ''} data-level="${level}" name="${this.fieldName}[]" id="${this.fieldName}-${level}-field" class="form-control" onchange="${this.variableInstance}.fieldSelected(this)">
               <option value=''>-- Selecione --</option>
               ${options.join("")}
             </select>

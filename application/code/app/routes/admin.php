@@ -22,6 +22,11 @@
 			include(PATH_ROUTES . "/type/crud.php");
 		});
 
+		$router->group(['prefix' => 'notice'], function($router){
+			$ctrl = new App\Controller\Admin\Notice();
+			include(PATH_ROUTES . "/type/crud.php");
+		});
+
 		$router->group(['prefix' => 'administrative-units'], function($router){
 			$ctrl = new App\Controller\Admin\AdministrativeUnits();
 

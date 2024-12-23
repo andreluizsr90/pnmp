@@ -22,9 +22,24 @@ class Controller {
 			return HelperUtil::isUserAllowed($string);
 		}));
 
+		$this->twig->addFilter(new \Twig\TwigFilter('inRoles', function ($roles) {
+			
+			foreach ($roles as $role) {
+				if(HelperUtil::isUserAllowed($role)) {
+					return true;
+				}
+			}
+
+			return false;
+		}));
+
 		$this->twig->addFilter(new \Twig\TwigFilter('quantityUntilFinish', function ($string) {
 			$datediff = strtotime($string) - time();
 			return round($datediff / (60 * 60 * 24));
+		}));
+
+		$this->twig->addFilter(new \Twig\TwigFilter('mongoDate', function ($var, $format) {
+			return $var->toDateTime()->format($format);
 		}));
 
 		$this->roles = require(PATH_APP . "/resources/roles.php");

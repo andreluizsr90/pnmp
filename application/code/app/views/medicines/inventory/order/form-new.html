@@ -15,257 +15,354 @@
     </div>
 
     <div class="card-body p-4">
-                         
-      <form method="POST" class="mt-3 form-horizontal">
-        <div class="row">
-          <div class="col-md-4">
-            <div class="row">
-              <div class="col-12 border-bottom mb-4 pb-4">
-                <h5 class="font-weight-medium mb-0">Informação do Lote</h5>  
-              </div>
-            </div>
-            <div class="form-group my-1 row">
-                <label for="number" class="col-sm-4 col-form-label">Identificação:</label>
-                <div class="col-sm-8">
-                    <input required name="number" type="text" class="form-control" id="number" value="{{ record.number }}" />
-                </div>
-            </div>
-            <div class="form-group my-1 row">
-                <label for="fld_total_price_batch" class="col-sm-4 col-form-label">Preço total:</label>
-                <div class="col-sm-8">
-                  <input disabled name="fld_total_price_batch" type="text" class="form-control" id="fld_total_price_batch" />
-                </div>
+      <div class="mt-2">
+
+        <div class="d-table mx-auto">
+          <div class="text-center">
+            <small class="fs-2">Solicitação para:</small>  
+          </div>
+          <br />
+          <div class="d-flex">
+            <i class="ti ti-building fs-8 px-2 py-1"></i>
+            <div class="">
+              <h4 class="font-weight-medium mb-0">{{ supplier.name }}</h4>
+              <small class="fs-2">{{ supplier.address.city }} ({{ supplier.unit.name }})</small>  
             </div>
           </div>
-          <div class="col-md-8">
+        </div>
+      </div>
+      <div class="wizard-content">
+        <form method="post" action="" class="validation-wizard wizard-circle mt-3">
+          <!-- Step 1 -->
+          <h6>Seleção de medicamentos</h6>
+          <section>
             <div class="row">
-              <div class="col-12 border-bottom mb-4 pb-4">
-                <h5 class="font-weight-medium mb-0">Adicionar Medicamento ao Lote</h5>  
+              <div class="col-12">
+                <label class="required-quantity text-danger" style="display: none;">Não é possível avançar sem ao menos 1 item da lista preenchido.</label>
               </div>
-            </div>
-            <div class="form-group my-1 row">
-                <label for="fld_medicine" class="col-sm-4 col-form-label">Medicamento:</label>
-                <div class="col-sm-6">
-                  
-                    <select name="fld_medicine" id="fld_medicine" class="select2 form-control">
-                      <option value="">-- Selecione --</option>
+              <div class="col-12">
+                
+                <div class="table-responsive">
+                  <table class="table table-sm table-hover text-nowrap mb-0 align-middle">
+                    <thead class="text-dark fs-4">
+                      <tr>
+                        <th class="fs-4 fw-semibold mb-0">Medicamento</th>
+                        <th class="fs-4 fw-semibold mb-0 w-20 text-center">Qtde. disponível</th>
+                        <th class="fs-4 fw-semibold mb-0 w-20 text-center">Qtde. solicitada</th>
+                      </tr>
+                    </thead>
+                    <tbody>
                       {% for item in medicines %}
-                      <option value="{{ item._id }}"}>{{ item.code }} - {{ item.name }} - {{ lang.medicines_category[item.category] }} / {{ lang.medicines_dosage_unit[item.dosage_unit] }} / {{ lang.medicines_presentation[item.presentation] }}</option>
+                      <tr>
+                        <td class="py-2">
+                          <p class="mb-0 fw-normal">{{ item.name }} ({{ item.code }})</p>
+                          <small>{{ lang.medicines_category[item.category] }} / {{ lang.medicines_dosage_unit[item.dosage_unit] }} / {{ lang.medicines_presentation[item.presentation] }}</small>
+                        </td>
+                        <td class="text-center">
+                          <p class="mb-0 fw-normal">{{ stocks[item._id].quantity }}</p>
+                        </td>
+                        <td class="text-center">
+                          <input name="fld_quantity[{{ item._id }}]" type="number" step="1" min="0" value="0" class="form-control text-center fld_quantity" id="fld_quantity-{{ item._id }}" />
+                        </td>
+                      </tr>
+                      {% else %}
+                      <tr>
+                        <td colspan="4" class="text-center">
+                          -- Nenhum registro encontrado --
+                        </td>
+                      </tr>
                       {% endfor %}
-                    </select>
-                </div>
-            </div>
-            <div class="form-group my-1  row">
-                <label for="fld_laboratory" class="col-sm-4 col-form-label">Laboratório:</label>
-                <div class="col-sm-6">
-                  <input name="fld_laboratory" type="text" class="form-control" id="fld_laboratory" />
-                </div>
-            </div>
-            <div class="row my-1">
-              <div class="col-6">
-                <div class="form-group row">
-                    <label for="fld_valid" class="col-sm-5 col-form-label">Data de validade:</label>
-                    <div class="col-sm-7">
-                      <input name="fld_valid" type="date" class="form-control" id="fld_valid" />
-                    </div>
+          
+                    </tbody>
+                  </table>
+
                 </div>
               </div>
-              <div class="col-6">
-                <div class="form-group row">
-                    <label for="fld_quantity" class="col-sm-4 col-form-label">Quantidade:</label>
-                    <div class="col-sm-8">
-                      <input name="fld_quantity" type="number" step="1" min="1" class="form-control" id="fld_quantity" />
-                    </div>
+            </div>
+          </section>
+          <!-- Step 2 -->
+          <h6>Endereço de Envio</h6>
+          <section class="form-validation">
+            <div class="row">
+              <div class="col-md-8 mx-md-auto">
+                <div class="form-group row my-2">
+                  <label class="col-sm-4 col-form-label required" for="institution_name">Instituição receptora:</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control required" id="institution_name" name="institution_name" />
+                  </div>
+                </div>
+                <div class="form-group row my-2">
+                  <label class="col-sm-4 col-form-label required" for="cnpj">CNPJ:</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control required cnpj" id="cnpj" name="cnpj" />
+                  </div>
+                </div>
+                <div class="form-group row my-2">
+                  <label class="col-sm-4 col-form-label required" for="receiver_name">Responsável pelo recebimento:</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control required" id="receiver_name" name="receiver_name" />
+                  </div>
+                </div>
+                <div class="form-group row my-2">
+                  <label for="phone" class="col-sm-4 col-form-label">Telefones</label>
+                  <div class="col-sm-4" id="institution-phones">
+                  </div>
+                </div>
+                <div class="form-group row my-2">
+                  <label class="col-sm-4 col-form-label required" for="email">E-mail:</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control required" id="email" name="email" />
+                  </div>
                 </div>
               </div>
             </div>
             <div class="row">
-              <div class="col-6">
-                <div class="form-group row">
-                    <label for="fld_unit_price" class="col-sm-5 col-form-label">Preço unitário:</label>
-                    <div class="col-sm-7">
-                      <input name="fld_unit_price" type="text" class="form-control money" id="fld_unit_price" />
-                    </div>
+              <div class="col-md-8 mx-md-auto">
+                
+                <div id="institution-address">
+                  {% include 'admin/helpers/address.html' with { data: record.location } %}
                 </div>
-              </div>
-              <div class="col-6">
-                <div class="form-group row">
-                    <label for="fld_total_price" class="col-sm-4 col-form-label">Preço total:</label>
-                    <div class="col-sm-8">
-                      <input disabled name="fld_total_price" type="text" class="form-control" id="fld_total_price" />
-                    </div>
-                </div>
-              </div>
-            </div>
-            <div class="row mt-2">
-              <div class="col-12 text-end">
-                <button type="button" onclick="eraseMedicine()" class="btn btn-sm btn-outline-dark">Limpar Campos</button>
-                <button type="button" onclick="addMedicine()" class="btn btn-sm btn-dark">Adicionar</button>
-              </div>
-            </div>
 
-          </div>
-        </div>
-        <div class="row mt-5">
-          <div class="col-12">
+                <div class="form-group row my-2">
+                    <label for="city" class="col-sm-4 col-form-label">Unidade Administrativa:</label>
+                    <div class="col-sm-8" id="administrative-unit">
+                    </div>
+                </div>
+                
+              </div>
+            </div>
+          </section>
+          <!-- Step 3 -->
+          <h6>Confirmar pedido</h6>
+          <section>
             <div class="row">
-              <div class="col-12 border-bottom mb-4 pb-4">
-                <h5 class="font-weight-medium mb-0">Lista de medicamentos do Lote</h5>  
+              <div class="col-md-6 mx-md-auto">
+                
+                <div class="table-responsive">  
+
+                  <table class="table table-sm mb-0">
+                    <thead class="text-dark fs-4">
+                      <tr>
+                        <th colspan="2" class="fs-4 fw-semibold mb-0 w-20 text-center">Confirmação</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                          <td class="form-label text-end" style="width: 50%;">Instituição receptora:</td>
+                          <td class="confirm" id="institution_name-confirm"><span></span></td>
+                      </tr>
+                      <tr>
+                          <td class="form-label text-end">CNPJ:</td>
+                          <td class="confirm" id="cnpj-confirm"><span></span></td>
+                      </tr>
+                      <tr>
+                          <td class="form-label text-end">Responsável pelo recebimento:</td>
+                          <td class="confirm" id="receiver_name-confirm"><span></span></td>
+                      </tr>
+                      <tr>
+                          <td class="form-label text-end">Telefones:</td>
+                          <td class="confirm" id="phones-confirm"><span></span></td>
+                      </tr>
+                      <tr>
+                          <td class="form-label text-end">CEP:</td>
+                          <td class="confirm" id="postal_code-confirm"><span></span></td>
+                      </tr>
+                      <tr>
+                          <td class="form-label text-end">Endereço:</td>
+                          <td class="confirm" id="line_1-confirm"><span></span></td>
+                      </tr>
+                      <tr>
+                          <td class="form-label text-end">Endereço (Complemento):</td>
+                          <td class="confirm" id="line_2-confirm"><span></span></td>
+                      </tr>
+                      <tr>
+                          <td class="form-label text-end">Cidade:</td>
+                          <td class="confirm" id="city-confirm"><span></span></td>
+                      </tr>
+                      <tr>
+                          <td class="form-label text-end">Unidade Administrativa:</td>
+                          <td class="confirm" id="administrative_unit-confirm"><span></span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                
+                  <table class="table table-sm table-hover text-nowrap mt-4 align-middle">
+                    <thead class="text-dark fs-4">
+                      <tr>
+                        <th class="fs-4 fw-semibold mb-0" style="width: 50%;">Medicamento</th>
+                        <th class="fs-4 fw-semibold mb-0 w-20 text-center">Qtde. solicitada</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for item in medicines %}
+                      <tr>
+                        <td class="py-2 text-end">
+                          <p class="mb-0 fw-normal">{{ item.name }} ({{ item.code }})</p>
+                          <small>{{ lang.medicines_category[item.category] }} / {{ lang.medicines_dosage_unit[item.dosage_unit] }} / {{ lang.medicines_presentation[item.presentation] }}</small>
+                        </td>
+                        <td class="text-center">
+                          <label id="label-fld_quantity-{{ item._id }}-confirm">teste</label>
+                        </td>
+                      </tr>
+                      {% else %}
+                      <tr>
+                        <td colspan="2" class="text-center">
+                          -- Nenhum registro encontrado --
+                        </td>
+                      </tr>
+                      {% endfor %}
+          
+                    </tbody>
+                  </table>
+                </div>
+
               </div>
             </div>
-            <div class="table-responsive">  
-              <table class="table table-sm table-hover mb-0">
-              <thead>
-                  <tr>
-                      <th scope="col">Medicamento</th>
-                      <th scope="col">Laboratório</th>
-                      <th scope="col">Data de validade</th>
-                      <th scope="col">Quantidade recebida</th>
-                      <th scope="col">Preço unitário</th>
-                      <th scope="col">Preço total</th>
-                      <th scope="col"></th>
-                  </tr>
-              </thead>
-              <tbody id="medicinePlace">
-                  <tr id="no-rows">
-                    <td colspan="7" class="text-center">-- Sem medicamentos --</td>
-                  </tr>
-              </tbody>
-              </table>
-            </div>
-
-          </div>
-          <div class="col-12">
-            <div class="text-center mt-5">
-              <a href="{{ route }}" class="btn btn-danger">Cancelar</a>
-              <button type="submit" class="btn btn-dark">Salvar</button>
-            </div>
-          </div>
-        </div>
-    </form>
-
+          </section>
+        </form>
+      </div>
     </div>
   </div>
 
-  {% endblock %}
-  
-
+{% endblock %}
 
 {% block javascript %}
-<script>
-  const templateMedicineLine = (medicineName, medicineId, labName, validDate, quantity, unitPrice, totalPrice) => {
-    return `
-            <tr class="with-rows">
-              <td>${medicineName}</td>
-              <td>${labName}</td>
-              <td>${validDate}</td>
-              <td class="text-center">${quantity}</td>
-              <td>${unitPrice}</td>
-              <td>${totalPrice}</td>
-              <td class="text-center">
-                <a href="javascript:void(0);" onclick="removeMedicine(this)">
-                  <i class="ti ti-square-x fs-6 text-danger text-decoration-underline link-underline link-underline-opacity-0"></i>
-                </a>
-                <input type="hidden" name="medicine_id[]" value="${medicineId}" /> 
-                <input type="hidden" name="laboratory[]" value="${labName}" /> 
-                <input type="hidden" name="valid_date[]" value="${validDate}" /> 
-                <input type="hidden" name="quantity[]" value="${quantity}" /> 
-                <input type="hidden" name="unit_price[]" value="${unitPrice.replace(/[^\d,]/g,'').replace(',', '.')}" /> 
-              </td>
-            </tr>`;
-  }
+  <script src="{{ url_assets }}/libs/jquery-steps/build/jquery.steps.min.js"></script>
+  <script src="{{ url_assets }}/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+  <script type="text/javascript" src="{{ url_assets }}/libs/jquery-validation/dist/localization/messages_pt_BR.min.js"></script>
+  <script src="{{ url_assets }}/js/pnmp/PnmpAddressField.class.js" type="text/javascript"></script>
+  <script src="{{ url_assets }}/js/pnmp/PnmpPhoneField.class.js" type="text/javascript"></script>
+  <script src="{{ url_assets }}/js/pnmp/PnmpSelectFieldMultilevel.class.js?id=5" type="text/javascript"></script>
 
-  const calcTotal = () => {
-    let quantity = $('input[name="fld_quantity"]').val();
-    let price = $('input[name="fld_unit_price"]').val().replace(/[^\d,]/g,'').replace(',', '.');
-    let total = 0;
+  <script>
+    
 
-    if(quantity.length > 0 && price.length > 1) {
-      price = parseFloat(price);
-      total = price * parseInt(quantity);
-    }
+  var form = $(".validation-wizard").show();
 
-    let stringTotal = total.toFixed(2);
+  $(".validation-wizard").steps({
+    headerTag: "h6",
+    bodyTag: "section",
+    transitionEffect: "fade",
+    titleTemplate: '<span class="step">#index#</span> #title#',
+    labels: {
+      finish: "Confirmar!",
+    },
+    onStepChanging: function (event, currentIndex, newIndex) {
+      validationForm();
 
-    $('input[name="fld_total_price"]').val(stringTotal.replace('.', ','));
+      if(currentIndex < newIndex && currentIndex == 0) {
+        let total = 0;
+        $(".fld_quantity").each(function() {
+          let i = $(this);
+          total += i.val();
+          $("#label-" + i.attr('id') + "-confirm").text(i.val());
+        });
 
-    IMask(document.getElementById("fld_total_price"), moneyMaskOptions);
-  };
+        if(total == 0) {
+          $(".required-quantity").css('display','');
+          return false;
+        }
 
-  const removeMedicine = (obj) => {
-    $(obj).parent().parent().remove();
-    validateMedicineList();
-  };
+        $(".required-quantity").css('display','none');
+        return true;
+      }
 
-  const eraseMedicine = () => {
-    $('[name="fld_medicine"]').select2("destroy");
-    $('[name="fld_medicine"]').val("");
-    $('[name="fld_medicine"]').select2();
-    $('input[name="fld_laboratory"]').val("");
-    $('input[name="fld_valid"]').val("");
-    $('input[name="fld_quantity"]').val("");
-    $('input[name="fld_unit_price"]').val("");
-    $('input[name="fld_total_price"]').val("");
-  };
+      if(currentIndex < newIndex && currentIndex == 1) {
+        form.find("input").each(function() {
+          let i = $(this);
+          if(i.attr('name').indexOf('phones') !== -1) {
+            return;
+          }
+          $("#" + i.attr('name') + "-confirm span").text(i.val());
+        });
+         
+        form.find("input[name='phones[]']").each(function() {
+          let i = $(this);
+          $("#phones-confirm span").append(i.val() + "<br/>");
+        });
+         
+         form.find("select[name='administrative_unit[]']").each(function() {
+           let i = $(this).find(":selected");
+           $("#administrative_unit-confirm span").append(i.text() + "<br/>");
+         });
+      } else {
+        $(".confirm span").text("");
+        $("#phones-confirm span").text("");
+        $("#administrative_unit-confirm span").text("");
+      }
 
-  const addMedicine = () => {
-    let fld_medicine = $('[name="fld_medicine"]').val();
-    let fld_laboratory = $('input[name="fld_laboratory"]').val();
-    let fld_valid = $('input[name="fld_valid"]').val();
-    let fld_quantity = $('input[name="fld_quantity"]').val();
-    let fld_unit_price = $('input[name="fld_unit_price"]').val();
-    let fld_total_price = $('input[name="fld_total_price"]').val();
-    let medicineList = $('#medicinePlace');
+      if(currentIndex > newIndex) {
+        return true;
+      }
 
-    if(fld_medicine.length == 0 || fld_laboratory.length == 0 || fld_valid.length == 0 || fld_quantity.length == 0 || fld_unit_price.length == 0) {
-      Swal.fire({
-          icon: "error",
-          text: "Todos os campos são de preenchimento obrigatório",
-      });
-      return;
-    }
-
-    medicineList.append(templateMedicineLine($('[name="fld_medicine"] option:selected').text(), fld_medicine, fld_laboratory, fld_valid, fld_quantity, fld_unit_price, fld_total_price));
-
-    eraseMedicine();
-    validateMedicineList();
-  };
-
-  const validateMedicineList = () => {
-    if($('.with-rows').length == 0) {
-      $('#no-rows').removeClass("d-none");
-      $('button[type=submit]').attr("disabled", true);
-    } else {
-      $('#no-rows').addClass("d-none");
-      $('button[type=submit]').attr("disabled", false);
-    }
-
-    let total = 0;
-    $('.with-rows').each(function(inx, el) {
-      let quantity = $(el).find("input[name='quantity[]']").val();
-      let unit_price = parseFloat($(el).find("input[name='unit_price[]']").val());
       
-      total = total + (unit_price * parseInt(quantity));
+      form.find(".body:eq(" + newIndex + ") label.error").remove();
+      form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+      form.validate().settings.ignore = ":disabled,:hidden";
+
+      let valReturn = (currentIndex < newIndex && form.valid());
+
+      if(valReturn == false) {
+        $(".confirm span").text("");
+        $("#phones-confirm span").text("");
+        $("#administrative_unit-confirm span").text("");
+      }
+
+      return valReturn;
+    },
+    onFinishing: function (event, currentIndex) {
+      return (form.validate().settings.ignore = ":disabled"), form.valid();
+    },
+    onFinished: function (event, currentIndex) {
+      $(".validation-wizard").submit()
+    },
+  });
+
+  var validationForm = () => {
+    $(".validation-wizard").validate({
+      ignore: "input[type=hidden]",
+      errorClass: "text-danger",
+      successClass: "text-success",
+      highlight: function (element, errorClass) {
+        $(element).removeClass(errorClass);
+      },
+      unhighlight: function (element, errorClass) {
+        $(element).removeClass(errorClass);
+      },
+      errorPlacement: function (error, element) {
+        error.insertAfter(element);
+      },
+      rules: {
+        email: {
+          email: !0,
+        },
+      },
     });
-
-    let stringTotal = total.toFixed(2);
-
-    $('input[name="fld_total_price_batch"]').val(stringTotal.replace('.', ','));
-
-    IMask(document.getElementById("fld_total_price_batch"), moneyMaskOptions);
   }
 
+  
+    
   (function(){
-    $('[name="fld_valid"]').prop('min', function(){
-        return new Date().toJSON().split('T')[0];
-    });
+    validationForm();
 
-    $('input[name="fld_unit_price"], input[name="fld_quantity"]').keyup(function(){
-      calcTotal();
-    });
+    addressinstitution = PnmpAddressField.init("institution-address");
 
-    validateMedicineList();
+    phonesinstitution = PnmpPhoneField.init("institution-phones", "phones", "phonesinstitution");
+    {% if record.phones|length > 0  %}
+      phonesinstitution.loadData(['{{ record.phones|join("','")|raw }}'])
+    {% endif %}
+
+    adminunit = new PnmpSelectFieldMultilevel(
+    "{{ url_site }}/api/administrative-units/by-parent-id", // URL API Parent
+    "{{ url_site }}/api/administrative-units/parents-by-id", // URL API Unique
+      "adminunit", // Local variable name
+      "administrative-unit", // ID of the place to add field
+      "administrative_unit", // Field Name
+      true
+    );
+    adminunit.init('{{record.administrative_unit}}');
+
   })();
 
-</script>
+  </script>
 {% endblock %}

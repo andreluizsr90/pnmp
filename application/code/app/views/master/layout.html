@@ -13,6 +13,7 @@
       <link rel="stylesheet" href="{{ url_assets }}/libs/select2/dist/css/select2.min.css">
       <link rel="stylesheet" href="{{ url_assets }}/libs/jquery-toast-plugin/jquery.toast.css" />
       <link rel="stylesheet" href="{{ url_assets }}/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css" />
+      <link rel="stylesheet" href="{{ url_assets }}/css/custom.css" />
 
       <title>Plataforma de Notificação e Acompanhamento de Doentes</title>
       {% block stylesheet %}{% endblock %}
@@ -268,30 +269,12 @@
       <script src="{{ url_assets }}/libs/select2/dist/js/select2.full.min.js"></script>
       <script src="{{ url_assets }}/libs/select2/dist/js/select2.min.js"></script>
       <script src="{{ url_assets }}/libs/jquery-toast-plugin/jquery.toast.min.js"></script>    
-      <script src="{{ url_assets }}//libs/datatables.net/js/jquery.dataTables.min.js"></script>
+      <script src="{{ url_assets }}/libs/datatables.net/js/jquery.dataTables.min.js"></script>
       
       <script src="https://unpkg.com/imask"></script>
       
+      <script src="{{ url_assets }}/js/pnmp/pnmp.init.js"></script>
       <script>
-         
-      const moneyMaskOptions = {
-         mask: 'R$ num', // Display "R$" symbol before the number
-         blocks: {
-            num: {
-               // Use the Number mask type
-               mask: Number,
-               thousandsSeparator: '.',
-               radix: ',', // Decimal separator for Brazilian Real
-               scale: 2, // Number of decimal places
-               padFractionalZeros: true, // Pad with zeros if the user types less than 2 decimal places
-               signed: false, // No negative values for currency
-            }
-         },
-         // Optional: Use lazy placeholder to guide the user
-         lazy: false,
-         placeholderChar: '0'
-      };
-
       (function(){
          {% if flash %}
             {% if flash.type == 'success' %}
@@ -309,8 +292,6 @@
             });
             {% endif %}
          {% endif %}
-
-        $(".select2").select2();
 
         $(".confirm-delete").click((e) => {
             e.preventDefault();
@@ -330,15 +311,6 @@
             return false;
         });
 
-         $(".postal_code").each(function() {
-            IMask(this, { mask: '00000-000', lazy: false });
-         });
-
-         $(".money").each(function() {
-            IMask(this, moneyMaskOptions);
-         });
-
-         $(".dataTableSimple").DataTable();
       })();
 
       </script>

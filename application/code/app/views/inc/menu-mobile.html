@@ -16,6 +16,14 @@
               <!-- ---------------------------------- -->
               <!-- Dashboard -->
               <!-- ---------------------------------- -->
+              {% if 'NOTICE_VIEW'|hasRole %}
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ url_site }}/admin/notice" id="get-url">
+                  <iconify-icon icon="solar:screencast-2-linear" class="aside-icon"></iconify-icon>
+                  <span class="hide-menu">Avisos</span>
+                </a>
+              </li>
+              {% endif %}
               {% if 'UNIT_VIEW'|hasRole %}
               <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ url_site }}/admin/administrative-units" id="get-url">
