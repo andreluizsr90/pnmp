@@ -47,25 +47,43 @@
                 <tbody>
                   {% for mov in movments %}
                   <tr>
-                    <td class="w-30">
-                      <p class="mb-0 fw-normal">{{ mov.type }}</p>
+                    <td>
+                      <p class="mb-0 fw-normal">{{ lang.inventory_history[mov.type] }}</p>
                     </td>
-                    <td class="w-20">
+                    <td>
                       <p class="mb-0 fw-normal">{{ mov.created_at|mongoDate('d/m/Y') }}</p>
                     </td>
                     <td>
+                      {% if mov.stocks_old %}
+                      <table>
+                        <tr>
+                          <td>Medicamento</td>
+                          <td>Quantidade</td>
+                        </tr>
                       {% for item in mov.stocks_old %}
-                      <p class="mb-0 fw-normal">{{ item.medicine_id }}</p>
-                      <small>Quantidade: {{ item.quantity }}</small>
-                      <br/>
+                        <tr>
+                          <td>{{ medicines[item.medicine_id].name }}</td>
+                          <td class="text-center">{{ item.quantity }}</td>
+                        </tr>
                       {% endfor %}
+                    </table>
+                    {% endif %}
                     </td>
                     <td>
+                      {% if mov.stocks_new %}
+                      <table>
+                        <tr>
+                          <td>Medicamento</td>
+                          <td>Quantidade</td>
+                        </tr>
                       {% for item in mov.stocks_new %}
-                      <p class="mb-0 fw-normal">{{ item.medicine_id }}</p>
-                      <small>Quantidade: {{ item.quantity }}</small>
-                      <br/>
+                        <tr>
+                          <td>{{ medicines[item.medicine_id].name }}</td>
+                          <td class="text-center">{{ item.quantity }}</td>
+                        </tr>
                       {% endfor %}
+                    </table>
+                    {% endif %}
                     </td>
                   </tr>
                   {% else %}

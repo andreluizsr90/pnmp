@@ -29,6 +29,11 @@ return [
         'TREATMENT' => 'Tratamento',
         'MEDICINE_STORE' => 'Armazenamento de Medicamento'
     ],
+    'inventory_history' => [
+        'BATCH' => 'Inserão de Lote',
+        'ORDER_APPROVED' => 'Pedido Aprovado',
+        'ORDER_RECEIVED' => 'Pedido Recebido'
+    ],
     'user_view_type' => [
         'ALL' => 'Sem Restrição',
         'UNIT' => 'Unidade administrativa',

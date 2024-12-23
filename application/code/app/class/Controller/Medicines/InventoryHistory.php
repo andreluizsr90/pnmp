@@ -4,6 +4,7 @@ namespace App\Controller\Medicines;
 use App\Engine\Controller;
 use App\Model\InventoryHistory as InventoryHistoryMdl;
 use App\Model\Institution as InstitutionMdl;
+use App\Business\Inventory as InventoryBusiness;
 
 class InventoryHistory extends Controller {
     
@@ -19,6 +20,7 @@ class InventoryHistory extends Controller {
 
     function overview() {
 
+		$this->setVar('medicines', InventoryBusiness::allMedicinesByIdKey());
 		$this->setVar('movments', InventoryHistoryMdl::where([
             'institution_id' => $this->getVar('institution')["_id"]
         ]));

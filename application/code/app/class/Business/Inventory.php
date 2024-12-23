@@ -10,37 +10,16 @@ use App\Model\Medicine as MedicineMdl;
 
 class Inventory {
 
-    public static function registerBatch(BatchMdl $batch) {
 
-        $history = new InventoryHistoryMdl();
-        $history->batch()->attach($batch);
-        $history->type = InventoryHistoryMdl::$types['BATCH'];
-        $history->user_id = $_SESSION['user_account']["id"];
+    public static  function allMedicinesByIdKey() {
 
-        $institution = InstitutionMdl::first($batch->institution);
-        $history->institution()->attach($institution);
-
-        // Register new values
-        if(isset($institution->stocks) && is_array($institution->stocks)) {
-            $history->stocks_old = array_map(fn ($o) => clone $o, $institution->stocks); // Clone array
-            $stocks = $institution->stocks;
-        } else {
-            $stocks = [];
-        }
-        foreach ($batch->medicine()->get() as $stockPosition) {
-            $batchInfo = new \stdClass();
-            $batchInfo->batch_id = $batch->_id;
-            $batchInfo->medicine_id = $stockPosition->medicine_id;
-            $batchInfo->quantity = $stockPosition->quantity;
-
-            $stocks[] = $batchInfo;
+        $medicines = [];
+        foreach (MedicineMdl::all() as $line) {
+            $medicines[$line->_id] = $line;
         }
 
-        $institution->stocks = $stocks;
-        $institution->save();
-        
-        $history->stocks_new = $stocks;
-        $history->save();
+        return $medicines;
+
     }
 
     public static  function calcMedicines($institutionId, $onlyAvailable = true) {
@@ -81,6 +60,39 @@ class Inventory {
 
         return $medicineStocks;
 
+    }
+
+    public static function registerBatch(BatchMdl $batch) {
+
+        $history = new InventoryHistoryMdl();
+        $history->batch()->attach($batch);
+        $history->type = InventoryHistoryMdl::$types['BATCH'];
+        $history->user_id = $_SESSION['user_account']["id"];
+
+        $institution = InstitutionMdl::first($batch->institution);
+        $history->institution()->attach($institution);
+
+        // Register new values
+        if(isset($institution->stocks) && is_array($institution->stocks)) {
+            $history->stocks_old = array_map(fn ($o) => clone $o, $institution->stocks); // Clone array
+            $stocks = $institution->stocks;
+        } else {
+            $stocks = [];
+        }
+        foreach ($batch->medicine()->get() as $stockPosition) {
+            $batchInfo = new \stdClass();
+            $batchInfo->batch_id = $batch->_id;
+            $batchInfo->medicine_id = $stockPosition->medicine_id;
+            $batchInfo->quantity = $stockPosition->quantity;
+
+            $stocks[] = $batchInfo;
+        }
+
+        $institution->stocks = $stocks;
+        $institution->save();
+        
+        $history->stocks_new = $stocks;
+        $history->save();
     }
 
     public static function approveOrder(OrderMedicineMdl $order) {
