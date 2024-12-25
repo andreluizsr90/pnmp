@@ -34,16 +34,18 @@ class Auth extends Controller {
 			$this->flash(URL_SITE . $route, $this->getVar('lang')['user_invalid_login'], 'error');
 		}
 
+		$institution = $user->institution;
+
     	$_SESSION['user_account'] = [
 			'id' => $user->_id,
 			'name' => $user->name,
 			'email' => $user->email,
 			'view' => $user->profile->view_type,
-			'institution' => $user->institution->convertToArray(),
+			'institution' => !empty($institution) ? $user->institution->convertToArray() : ["_id" => 0],
 			'roles' => $user->profile->roles,
 		];
 
-    	$_SESSION['user_view'] = $user->institution->convertToArray();
+    	$_SESSION['user_view'] = !empty($institution) ? $user->institution->convertToArray() : ["_id" => 0];
 
     	header('Location: ' . URL_SITE);
 

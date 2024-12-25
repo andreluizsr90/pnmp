@@ -24,6 +24,10 @@ class Inventory {
 
     public static  function calcMedicines($institutionId, $onlyAvailable = true) {
 
+        if($institutionId == 0) {
+            return [];
+        }
+
         $medicineStocks = [];
         foreach (InstitutionMdl::first($institutionId)->stocks as $line) {
             
