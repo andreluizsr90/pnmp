@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../code/init.php';
+require __DIR__ . '/../src/init.php';
 
 echo $response;
 
