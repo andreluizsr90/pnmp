@@ -1,0 +1,241 @@
+{% extends "master/layout.html" %}
+
+{% block maincontent %}
+
+  {% include('inc/header-institution.html') %}
+
+  <div class="card w-100 position-relative overflow-hidden">
+
+    <div class="d-flex align-items-center justify-content-between p-4 border-bottom">
+      <div>
+        <h4 class="font-weight-medium mb-0">Nova transferência de medicamentos</h4>  
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <a href="{{ route }}" class="btn btn-danger">Cancelar</a>
+      </div>
+    </div>
+
+    <div class="card-body p-4">
+      <div class="wizard-content">
+        <form method="post" action="" class="validation-wizard wizard-circle mt-3">
+          <!-- Step 1 -->
+          <h6>Seleção de medicamentos</h6>
+          <section>
+            <div class="row">
+              <div class="col-12">
+                <div class="alert alert-danger text-danger required-quantity" role="alert" style="display: none;">
+                  <strong>Erro - </strong> Não é possível avançar sem ao menos 1 item da lista preenchido.
+                </div>
+              </div>
+              <div class="col-12">
+                
+                <div class="table-responsive">
+                  <table class="table table-sm table-hover text-nowrap mb-0 align-middle">
+                    <thead class="text-dark fs-4">
+                      <tr>
+                        <th class="fs-4 fw-semibold mb-0">Medicamento</th>
+                        <th class="fs-4 fw-semibold mb-0 w-20 text-center">Qtde. disponível</th>
+                        <th class="fs-4 fw-semibold mb-0 w-20 text-center">Qtde. solicitada</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for item in medicines %}
+                      <tr>
+                        <td class="py-2">
+                          <p class="mb-0 fw-normal">{{ item.name }} ({{ item.code }})</p>
+                          <small>{{ lang.medicines_category[item.category] }} / {{ lang.medicines_dosage_unit[item.dosage_unit] }} / {{ lang.medicines_presentation[item.presentation] }}</small>
+                        </td>
+                        <td class="text-center">
+                          <p class="mb-0 fw-normal">{{ stocks[item._id].quantity }}</p>
+                        </td>
+                        <td class="text-center">
+                          <input name="fld_quantity[{{ item._id }}]" type="number" step="1" min="0" value="0" class="form-control text-center fld_quantity" id="fld_quantity-{{ item._id }}" />
+                        </td>
+                      </tr>
+                      {% else %}
+                      <tr>
+                        <td colspan="4" class="text-center">
+                          -- Nenhum registro encontrado --
+                        </td>
+                      </tr>
+                      {% endfor %}
+          
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Step 2 -->
+          <h6>Instituição de Destino</h6>
+          <section class="form-validation">
+            <div class="row">
+              <div class="col-md-8 mx-md-auto">
+
+                <div class="form-group row my-2">
+                    <label for="city" class="col-sm-3 col-form-label">Observação:</label>
+                    <div class="col-sm-9">
+                      <textarea class="form-control required observation" required id="observation" name="observation"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group row my-2">
+                    <label for="city" class="col-sm-3 col-form-label">Instituição:</label>
+                    <div class="col-sm-9">
+                      <div id="administrative-unit">
+                      </div>
+                      <div id="institution">
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="alert alert-danger text-danger required-unit" role="alert" style="display: none;">
+                        <strong>Erro - </strong> Existem campos obrigatórios que devem ser preenchidos.
+                      </div>
+                    </div>
+                </div>
+                
+              </div>
+            </div>
+          </section>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block javascript %}
+  <script src="{{ url_assets }}/libs/jquery-steps/build/jquery.steps.min.js"></script>
+  <script src="{{ url_assets }}/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+  <script type="text/javascript" src="{{ url_assets }}/libs/jquery-validation/dist/localization/messages_pt_BR.min.js"></script>
+
+  <script src="{{ url_assets }}/js/pnmp/PnmpSelectFieldMultilevel.class.js?id=5" type="text/javascript"></script>
+  <script src="{{ url_assets }}/js/pnmp/PnmpSelectFieldApi.class.js" type="text/javascript"></script>
+
+  <script>
+    
+
+  var form = $(".validation-wizard").show();
+
+  $(".validation-wizard").steps({
+    headerTag: "h6",
+    bodyTag: "section",
+    transitionEffect: "fade",
+    titleTemplate: '<span class="step">#index#</span> #title#',
+    labels: {
+      next: 'Próximo',
+      previous: 'Anterior',
+      finish: "Confirmar!",
+    },
+    onStepChanging: function (event, currentIndex, newIndex) {
+      validationForm();    
+
+      if(currentIndex < newIndex && currentIndex == 0) {
+        let total = 0;
+        $(".fld_quantity").each(function() {
+          let i = $(this);
+          total += i.val();
+          $("#label-" + i.attr('id') + "-confirm").text(i.val());
+        });
+
+        if(total == 0) {
+          $(".required-quantity").css('display','');
+          return false;
+        }
+
+        $(".required-quantity").css('display','none');
+        return true;
+      }
+
+      let valReturn = (currentIndex < newIndex && form.valid());
+
+      return valReturn;
+    },
+    onFinishing: function (event, currentIndex) {    
+      $(".required-unit").css('display','none');
+      let errors = 0;  
+      form.find("select[name='administrative_unit[]']").each(function() {
+        let i = $(this);
+
+        if(i.val().length == 0) {
+          errors++;
+        }
+      });
+
+      if(errors > 0) {
+        $(".required-unit").css('display','');
+        return false;
+      }
+
+      return (form.validate().settings.ignore = ":disabled"), form.valid();
+    },
+    onFinished: function (event, currentIndex) { 
+      $(".validation-wizard").submit();
+    },
+  });
+
+  var validationForm = () => {
+    $(".validation-wizard").validate({
+      ignore: "input[type=hidden]",
+      errorClass: "text-danger",
+      successClass: "text-success",
+      highlight: function (element, errorClass) {
+        $(element).removeClass(errorClass);
+      },
+      unhighlight: function (element, errorClass) {
+        $(element).removeClass(errorClass);
+      },
+      errorPlacement: function (error, element) {
+        error.insertAfter(element);
+      },
+    });
+  }
+
+  
+  var adminunit;
+
+  var unitview = () => {
+      let unitSelected = '{{ record.unit_view_id }}';
+      let unitView = $("#unit_view_id");
+      unitView.html("");
+      unitView.append('<option value="">-- Selecione --</option>');
+
+      $("#administrative-unit option:selected").each(function(index, el) {
+        let elTag = $(el);
+        unitView.append('<option value="'+ elTag.val() +'" '+ (elTag.val() == unitSelected ? 'selected' : '' ) +' >'+ elTag.text() +'</option>');
+      });
+    };
+    
+    (function(){
+      validationForm();
+      
+      adminunit = new PnmpSelectFieldMultilevel(
+      "{{ url_site }}/api/administrative-units/by-parent-id", // URL API Parent
+      "{{ url_site }}/api/administrative-units/parents-by-id", // URL API Unique
+        "adminunit", // Local variable name
+        "administrative-unit", // ID of the place to add field
+        "administrative_unit", // Field Name
+        true,  // Is Required
+        function(administrative_unit) { // CallbackFunction when get last level
+
+          PnmpSelectFieldApi.init(
+            "{{ url_site }}/api/institutions/by-filter", // URL API
+            "institution", // ID of the place to add field
+            "institution_id", // Field Name
+            {"administrative_unit": administrative_unit},
+            true, // Is Required
+            false
+          );
+
+        }
+      );
+      adminunit.alwaysExecute = function() {
+        $(".required-unit").css('display','none');
+      };
+      adminunit.init();
+      
+    })();
+
+  </script>
+{% endblock %}

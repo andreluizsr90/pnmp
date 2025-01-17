@@ -1,7 +1,7 @@
 <?php
 namespace App\Model;
 
-class OrderMedicineQuantity extends \Mongolid\Model\AbstractModel {
+class ItemMedicineQuantity extends \Mongolid\Model\AbstractModel {
 	
     protected $collection = null;
 

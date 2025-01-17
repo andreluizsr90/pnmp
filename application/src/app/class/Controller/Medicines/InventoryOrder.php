@@ -1,30 +1,20 @@
 <?php
 namespace App\Controller\Medicines;
 
-use App\Engine\Controller;
 use App\Business\Inventory as InventoryBusiness;
-use App\Model\Medicine as MedicineMdl;
-use App\Model\Institution as InstitutionMdl;
-use App\Model\OrderMedicine as OrderMedicineMdl;
-use App\Model\OrderMedicineQuantity as OrderMedicineQuantityMdl;
-use App\Model\UserAccount as UserAccountMdl;
+use App\Model\{
+    Medicine as MedicineMdl,
+    Institution as InstitutionMdl,
+    OrderMedicine as OrderMedicineMdl,
+    ItemMedicineQuantity as ItemMedicineQuantityMdl,
+    UserAccount as UserAccountMdl
+};
 
-class InventoryOrder extends Controller {
+class InventoryOrder extends InventoryBase {
     
 	public $routeToReturn = "/medicines/inventory";
 	public $route = "/medicines/inventory/order";
 	public $path = "medicines/inventory/order";
-
-    function __construct() {
-        parent::__construct();
-        
-		$this->setVar('institutions_change', InstitutionMdl::byParentAdministrativeUnit());
-
-    }
-
-    /*
-        ######### Order
-    */
 
     function overview() {
 
@@ -67,7 +57,7 @@ class InventoryOrder extends Controller {
                 continue;
             }
 
-            $item = new OrderMedicineQuantityMdl();
+            $item = new ItemMedicineQuantityMdl();
             $item->medicine_id = (int) $key;
             $item->quantity = (int) $value;
 
@@ -130,7 +120,7 @@ class InventoryOrder extends Controller {
                 continue;
             }
 
-            $item = new OrderMedicineQuantityMdl();
+            $item = new ItemMedicineQuantityMdl();
             $item->medicine_id = (int) $key;
             $item->quantity = (int) $value;
 

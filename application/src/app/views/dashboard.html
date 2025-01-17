@@ -54,6 +54,7 @@
          </div>
       </div>
 
+      {% if 'INVENTORY_ORDER_CREATE'|hasRole %}
       <div class="card">
          <div class="card-body p-4 d-flex align-items-center gap-3">
          <div>
@@ -65,28 +66,33 @@
          <a href="{{ url_site }}/medicines/inventory/new-batch" class="btn btn-primary py-1 px-2 ms-auto">Acessar </a>
          </div>
       </div>
+      {% endif %}
+      {% if 'INVENTORY_ORDER_APPROVE'|hasRole %}
       <div class="card">
          <div class="card-body p-4 d-flex align-items-center gap-3">
          <div>
             <h4 class="card-title mb-1">Aprovação</h4>
             <span class="fs-2 d-flex align-items-center">
-               Pendentes de aprovação: {{ orders_pending}}
+               Pendentes de aprovação: {{ orders_pending }}
             </span>
          </div>
          <a href="{{ url_site }}/medicines/inventory/order/overview-pending" class="btn btn-primary py-1 px-2 ms-auto">Acessar </a>
          </div>
       </div>
+      {% endif %}
+      {% if 'INVENTORY_ORDER_RECEIVE'|hasRole %}
       <div class="card">
          <div class="card-body p-4 d-flex align-items-center gap-3">
          <div>
             <h4 class="card-title mb-1">Recebimento</h4>
             <span class="fs-2 d-flex align-items-center">
-               Pendentes de recebimento:  {{ orders_receiving}}
+               Pendentes de recebimento:  {{ orders_receiving }}
             </span>
          </div>
          <a href="{{ url_site }}/medicines/inventory/order/overview-receiving" class="btn btn-primary py-1 px-2 ms-auto">Acessar </a>
          </div>
       </div>
+      {% endif %}
    </div>
 </div>
 

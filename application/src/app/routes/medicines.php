@@ -70,6 +70,36 @@
 					return $ctrl->getResponse();
 				});
 			});
+
+
+			$router->group(['prefix' => 'transfer'], function($router){
+				$ctrl = new App\Controller\Medicines\InventoryTransfer();
+	
+				$router->get('/', function() use ($ctrl) {
+					$ctrl->newTransfer();
+					return $ctrl->getResponse();
+				});
+	
+				$router->post('/', function() use ($ctrl) {
+					$ctrl->saveNewTransfer();
+					return $ctrl->getResponse();
+				});
+	
+				$router->get('/overview', function() use ($ctrl) {
+					$ctrl->overview();
+					return $ctrl->getResponse();
+				});
+	
+				$router->get('/overview-receiving', function() use ($ctrl) {
+					$ctrl->overviewReceivingTransfer();
+					return $ctrl->getResponse();
+				});
+	
+				$router->get('/handle-receiving/{id}', function(int $id) use ($ctrl) {
+					$ctrl->handleReceivingTransfer($id);
+					return $ctrl->getResponse();
+				});
+			});
             
 		});
 

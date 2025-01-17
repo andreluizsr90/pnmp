@@ -19,7 +19,7 @@
     </li>
     <li class="border-bottom my-3"></li>
     {% endif %}
-    {% if ['INVENTORY_ORDER_VIEW','INVENTORY_ORDER_CREATE']|inRoles %}
+    {% if ['INVENTORY_ORDER_VIEW','INVENTORY_ORDER_CREATE','INVENTORY_ORDER_APPROVE','INVENTORY_ORDER_RECEIVE']|inRoles %}
     <li class="fw-semibold text-dark text-uppercase mx-9 my-3 px-3 fs-2">
       PEDIDOS
     </li>
@@ -37,16 +37,47 @@
         </a>
         </li>
         {% endif %}
+        {% if 'INVENTORY_ORDER_APPROVE'|hasRole %}
         <li class="list-group-item border-0 p-0 mx-9">
         <a class="d-flex align-items-center gap-6 list-group-item-action text-dark px-3 py-8 mb-1 rounded-1" href="{{ route }}/order/overview-pending">
-            <i class="ti ti-folder fs-5"></i>Pendentes de aprovação
+            <i class="ti ti-folder fs-5"></i>Pendentes de aprovação {{ (orders_pending ? '<span class="badge text-bg-danger">'~orders_pending~'</span>')|raw }}
         </a>
         </li>
+        {% endif %}
+        {% if 'INVENTORY_ORDER_RECEIVE'|hasRole %}
         <li class="list-group-item border-0 p-0 mx-9">
         <a class="d-flex align-items-center gap-6 list-group-item-action text-dark px-3 py-8 mb-1 rounded-1" href="{{ route }}/order/overview-receiving">
-            <i class="ti ti-folder fs-5"></i>Pendentes de recebimento
+            <i class="ti ti-folder fs-5"></i>Pendentes de recebimento {{ (orders_receiving ? '<span class="badge text-bg-danger">'~orders_receiving~'</span>')|raw }}
         </a>
         </li>
+        {% endif %}
+        <li class="border-bottom my-3"></li>
+    {% endif %}
+    {% if ['INVENTORY_TRANSFER_VIEW','INVENTORY_TRANSFER_CREATE','INVENTORY_TRANSFER_RECEIVE']|inRoles %}
+    <li class="fw-semibold text-dark text-uppercase mx-9 my-3 px-3 fs-2">
+      TRANSFERÊNCIAS
+    </li>
+        {% if 'INVENTORY_TRANSFER_CREATE'|hasRole %}
+        <li class="list-group-item border-0 p-0 mx-9">
+        <a class="d-flex align-items-center gap-6 list-group-item-action text-dark px-3 py-8 mb-1 rounded-1" href="{{ route }}/transfer">
+            <i class="ti ti-folder fs-5"></i>Nova transferência
+        </a>
+        </li>
+        {% endif %}
+        {% if 'INVENTORY_TRANSFER_VIEW'|hasRole %}
+        <li class="list-group-item border-0 p-0 mx-9">
+        <a class="d-flex align-items-center gap-6 list-group-item-action text-dark px-3 py-8 mb-1 rounded-1" href="{{ route }}/transfer/overview">
+            <i class="ti ti-folder fs-5"></i>Minhas transferências
+        </a>
+        </li>
+        {% endif %}
+        {% if 'INVENTORY_TRANSFER_RECEIVE'|hasRole %}
+        <li class="list-group-item border-0 p-0 mx-9">
+        <a class="d-flex align-items-center gap-6 list-group-item-action text-dark px-3 py-8 mb-1 rounded-1" href="{{ route }}/transfer/overview-receiving">
+            <i class="ti ti-folder fs-5"></i>Pendentes de recebimento {{ (transfers_pending ? '<span class="badge text-bg-danger">'~transfers_pending~'</span>')|raw }}
+        </a>
+        </li>
+        {% endif %}
         <li class="border-bottom my-3"></li>
     {% endif %}
     <li class="fw-semibold text-dark text-uppercase mx-9 my-2 px-3 fs-2">

@@ -10,6 +10,10 @@ return [
     'field_duplicated' => 'Duplicado! Já existe um registro com %s: %s',
     'inventory_no_supplier' => 'Instituição não possui Fornecedor para realizar essa ação.',
     'yes' => 'Sim',
+    'general_status' => [
+        'OPEN' => 'Criado',
+        'DONE' => 'Finalizado'
+    ],
     'medicines_category' => [
         'ORAL' => 'Oral',
         'INJECTABLE' => 'Injetável',
@@ -32,7 +36,9 @@ return [
     'inventory_history' => [
         'BATCH' => 'Inserão de Lote',
         'ORDER_APPROVED' => 'Pedido Aprovado',
-        'ORDER_RECEIVED' => 'Pedido Recebido'
+        'ORDER_RECEIVED' => 'Pedido Recebido',
+        'TRANSFER_CREATED' => 'Transferência Criada',
+        'TRANSFER_RECEIVED' => 'Transferência Recebido'
     ],
     'user_view_type' => [
         'ALL' => 'Sem Restrição',
@@ -66,13 +72,16 @@ return [
         'UNIT_UPD' => 'Atualizar unidade administrativa',
         'UNIT_DEL' => 'Remover unidade administrativa',
         'UNIT_IMPORT' => 'Importar unidades administrativas',
-        'UNIT_SWITCH' => 'Alterar de instituição',
+        'UNIT_SWITCH' => 'Mudar de instituição',
         'INVENTORY_BATCH_CREATE' => 'Criar Batch',
         'INVENTORY_ORDER_VIEW' => 'Visualizar Pedidos',
         'INVENTORY_ORDER_CREATE' => 'Criar Pedido',
         'INVENTORY_ORDER_CANCEL' => 'Cancelar Pedido',
         'INVENTORY_ORDER_APPROVE' => 'Aprovar Pedido',
-        'INVENTORY_ORDER_SEND' => 'Notificar Envio de Pedido',
         'INVENTORY_ORDER_RECEIVE' => 'Notificar Recebimento de Pedido',
+        'INVENTORY_TRANSFER_VIEW' => 'Visualizar Transferências',
+        'INVENTORY_TRANSFER_CREATE' => 'Criar Transferência',
+        'INVENTORY_TRANSFER_CANCEL' => 'Cancelar Transferência',
+        'INVENTORY_TRANSFER_RECEIVE' => 'Notificar Recebimento de Transferência'
     ]
 ];

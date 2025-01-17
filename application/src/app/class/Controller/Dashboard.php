@@ -48,7 +48,7 @@ class Dashboard extends Controller {
         ])->count());
 
 		$this->setVar('orders_receiving', OrderMedicineMdl::where([
-            'institution_supplier' => $this->getVar('institution')["_id"],
+            'institution_owner' => $this->getVar('institution')["_id"],
             'status' => OrderMedicineMdl::$allowedStatus['APPROVED']
         ])->count());
 

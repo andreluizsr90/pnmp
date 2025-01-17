@@ -1,12 +1,15 @@
 <?php
 namespace App\Business;
 
-use App\Model\Batch as BatchMdl;
-use App\Model\Institution as InstitutionMdl;
-use App\Model\InventoryBatchInformation as InventoryBatchInformationMdl;
-use App\Model\InventoryHistory as InventoryHistoryMdl;
-use App\Model\OrderMedicine as OrderMedicineMdl;
-use App\Model\Medicine as MedicineMdl;
+use App\Model\{
+    Batch as BatchMdl,
+    Institution as InstitutionMdl,
+    InventoryBatchInformation as InventoryBatchInformationMdl,
+    InventoryHistory as InventoryHistoryMdl,
+    OrderMedicine as OrderMedicineMdl,
+    TransferMedicine as TransferMedicineMdl,
+    Medicine as MedicineMdl
+};
 
 class Inventory {
 
@@ -200,6 +203,112 @@ class Inventory {
         
         $institution_supplier->stocks_locked = $lockedStocks;
         $institution_supplier->save();
+        
+        $history->stocks_new = $stocks;
+        $history->save();
+    }
+
+    public static function createTransfer(TransferMedicineMdl $transfer) {
+
+        $history = new InventoryHistoryMdl();
+        $history->transfer()->attach($transfer);
+        $history->type = InventoryHistoryMdl::$types['TRANSFER_CREATED'];
+        $history->user_id = $_SESSION['user_account']["id"];
+
+        $institution = InstitutionMdl::first($transfer->institution_owner);
+        $history->institution()->attach($institution);
+
+        $history->stocks_old = array_map(fn ($o) => clone $o, $institution->stocks); // Clone array
+
+        // Register new values
+        $stocks = $institution->stocks;
+        $stocksLocked = [];
+
+        foreach ($transfer->item()->get() as $aprovedItem) {
+            $quantityToRemove = $aprovedItem->quantity;
+            foreach ($stocks as $sKey => $inStock) {
+                if($quantityToRemove > 0 && $inStock->medicine_id == $aprovedItem->medicine_id) {
+                        
+                    $stockPosition = new \stdClass();
+                    $stockPosition->batch_id = $inStock->batch_id;
+                    $stockPosition->medicine_id = $inStock->medicine_id;
+                    $stockPosition->transfer_id = $transfer->_id;
+
+                    if($inStock->quantity > $quantityToRemove) {
+                        $stockPosition->quantity = $quantityToRemove;
+                        $inStock->quantity -= $quantityToRemove;
+                        $quantityToRemove = 0;
+                    } else {
+                        $stockPosition->quantity = $inStock->quantity;
+                        $inStock->quantity -= $inStock->quantity;
+                        $quantityToRemove -= $inStock->quantity;  
+                    }
+
+                    $stocksLocked[] = $stockPosition;
+                }
+            }
+        }
+
+        $institution->stocks_locked = $stocksLocked;
+        $institution->stocks = $stocks;
+        $institution->save();
+        
+        $history->stocks_new = $stocks;
+        $history->save();
+    }
+
+    public static function receiveTransfer(TransferMedicineMdl $transfer) {
+
+        $history = new InventoryHistoryMdl();
+        $history->transfer()->attach($transfer);
+        $history->type = InventoryHistoryMdl::$types['TRANSFER_RECEIVED'];
+        $history->user_id = $_SESSION['user_account']["id"];
+
+        $institutionDestination = InstitutionMdl::first($transfer->institution_destination);
+        $history->institution()->attach($institutionDestination);
+
+        if(isset($institutionDestination->stocks) && is_array($institutionDestination->stocks)) {
+            $history->stocks_old = array_map(fn ($o) => clone $o, $institutionDestination->stocks); // Clone array
+            $stocks = $institutionDestination->stocks;
+        } else {
+            $stocks = [];
+        }
+        
+        $institutionOrigin = InstitutionMdl::first($transfer->institution_owner);
+        $lockedStocks = array_map(fn ($o) => clone $o, $institutionOrigin->stocks_locked); // Clone array
+
+        foreach ($lockedStocks as $lKey => $aprovedItem) {
+            if($aprovedItem->transfer_id != $transfer->_id) {
+                continue;
+            }
+
+            $quantityToAdd = $aprovedItem->quantity;
+            $notExistsBatch = true;
+            foreach ($stocks as $sKey => $inStock) {
+                if($quantityToAdd > 0) {
+                    if($inStock->medicine_id == $aprovedItem->medicine_id && $inStock->batch_id == $aprovedItem->batch_id) {
+                        $stocks[$sKey]->quantity += $quantityToAdd;
+                        $notExistsBatch = false;
+                    }
+                }
+            }
+
+            if($notExistsBatch) {
+                $stockPosition = new \stdClass();
+                $stockPosition->batch_id = $aprovedItem->batch_id;
+                $stockPosition->medicine_id = $aprovedItem->medicine_id;
+                $stockPosition->quantity = $quantityToAdd;
+                $stocks[] = $stockPosition;
+            }
+
+            unset($lockedStocks[$lKey]);
+        }
+        
+        $institutionDestination->stocks = $stocks;
+        $institutionDestination->save();
+        
+        $institutionOrigin->stocks_locked = $lockedStocks;
+        $institutionOrigin->save();
         
         $history->stocks_new = $stocks;
         $history->save();

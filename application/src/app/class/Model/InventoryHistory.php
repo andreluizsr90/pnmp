@@ -9,6 +9,8 @@ class InventoryHistory extends BaseModel {
         'BATCH' => 'BATCH',
         'ORDER_APPROVED' => 'ORDER_APPROVED',
         'ORDER_RECEIVED' => 'ORDER_RECEIVED',
+        'TRANSFER_CREATED' => 'TRANSFER_CREATED',
+        'TRANSFER_RECEIVED' => 'TRANSFER_RECEIVED'
     ];
 	
 	protected $collection = 'inventory_history';
@@ -26,6 +28,11 @@ class InventoryHistory extends BaseModel {
     public function order()
     {
         return $this->referencesOne(OrderMedicine::class, 'order_id');
+    }
+
+    public function transfer()
+    {
+        return $this->referencesOne(TransferMedicine::class, 'transfer_id');
     }
 	
 }

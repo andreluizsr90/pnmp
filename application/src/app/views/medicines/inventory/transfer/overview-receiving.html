@@ -25,7 +25,7 @@
           <div class="chat-box-inner-part h-100">
             <div class="chatting-box app-email-chatting-box p-4">
               <h4 class="fw-semibold text-dark mb-3">
-                Histórico de movimentações
+                Transferências pendentes de recebimento
               </h4>
               <table class="table table-sm table-hover text-nowrap mb-0 align-middle">
                 <thead class="text-dark fs-4">
@@ -42,11 +42,11 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for order in orders %}
+                  {% for order in transfers %}
                   <tr>
                     <td class="w-30">
                       <p class="mb-0 fw-normal">{{ order.owner.name }}</p>
-                      <span class="fs-2"><strong>Autor: </strong> {{ order.maker.name }}</span>
+                      {{ order.maker.name }}
                     </td>
                     <td class="w-20">
                       <p class="mb-0 fw-normal">{{ order.created_at|mongoDate('d/m/Y') }}</p>
@@ -54,10 +54,20 @@
                     <td>
                       
                       {% for item in order.item %}
-                      <p class="mb-0 fw-normal">{{ item.medicine.code }}</p>
-                      <small>Quantidade: {{ item.quantity }}</small>
-                      <br/>
+                      <div class="hstack justify-content-between gap-6 py-6 border-bottom">
+                        <h6 class="mb-0">{{ item.medicine.name }} ({{ item.medicine.code }})</h6>
+                        <div class="hstack gap-6">
+                          <h6 class="mb-0">{{ item.quantity }}</h6>
+                        </div>
+                      </div>
                       {% endfor %}
+                      
+                    </td>
+                    <td>
+                      
+                        <a href="{{ route }}/transfer/handle-receiving/{{ order._id }}" class="btn mb-1 btn-primary rounded-circle round-40 btn-sm d-inline-flex align-items-center justify-content-center">
+                            <i class="ti ti-player-play fs-4"></i>
+                        </a>
                       
                     </td>
                   </tr>

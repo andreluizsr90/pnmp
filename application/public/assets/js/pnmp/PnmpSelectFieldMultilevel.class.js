@@ -8,6 +8,7 @@ class PnmpSelectFieldMultilevel {
       this.nextLevel = 0;
       this.required = required;
       this.callback = callback;
+      this.alwaysExecute = null;
     }
     
     template(level, data, selected) { 
@@ -75,13 +76,18 @@ class PnmpSelectFieldMultilevel {
           }
         }
       }).always(function(){
+
+        if(cls.alwaysExecute != null) {
+          cls.alwaysExecute();
+        }
+
         $(prefixFieldId + "-loading").addClass("d-none");
         $(prefixNextFieldId + "-field").select2();
       });
       
     }
 
-    init(selected = null) {
+    init(selected = '') {
       $("#" + this.placeId).html("");
       if(selected.length == 0) {
         this.selectLevel(0);
@@ -133,6 +139,11 @@ class PnmpSelectFieldMultilevel {
           }
         }
       }).always(function(){
+
+        if(cls.alwaysExecute != null) {
+          cls.alwaysExecute();
+        }
+        
         $(prefixFieldId + "-loading").addClass("d-none");
         $(prefixNextFieldId + "-field").select2();
       });

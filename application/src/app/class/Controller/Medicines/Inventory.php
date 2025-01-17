@@ -1,34 +1,25 @@
 <?php
 namespace App\Controller\Medicines;
 
-use App\Engine\Controller;
 use App\Business\Inventory as InventoryBusiness;
-use App\Model\Medicine as MedicineMdl;
-use App\Model\Institution as InstitutionMdl;
-use App\Model\Batch as BatchMdl;
-use App\Model\BatchMedicine as BatchMedicineMdl;
-use App\Model\OrderMedicine as OrderMedicineMdl;
+use App\Model\{
+    Medicine as MedicineMdl,
+    Institution as InstitutionMdl,
+    Batch as BatchMdl,
+    BatchMedicine as BatchMedicineMdl,
+    OrderMedicine as OrderMedicineMdl
+};
 
-class Inventory extends Controller {
+class Inventory extends InventoryBase {
     
 	public $route = "/medicines/inventory";
 	public $path = "medicines/inventory";
-
-    function __construct() {
-        parent::__construct();
-        
-		$this->setVar('institutions_change', InstitutionMdl::byParentAdministrativeUnit());
-
-    }
 
     function overview() {
 
         $medicineStocks = InventoryBusiness::calcMedicines($this->getVar('institution')["_id"], false);
 		$this->setVar('stocks', $medicineStocks);
-		$this->setVar('orders_pending', OrderMedicineMdl::where([
-            'institution_supplier' => $this->getVar('institution')["_id"],
-            'status' => OrderMedicineMdl::$allowedStatus['OPEN']
-        ]));
+
     	$this->setResponse($this->path . '/overview.html');
 
     }

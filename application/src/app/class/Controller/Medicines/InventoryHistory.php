@@ -1,22 +1,16 @@
 <?php
 namespace App\Controller\Medicines;
 
-use App\Engine\Controller;
-use App\Model\InventoryHistory as InventoryHistoryMdl;
-use App\Model\Institution as InstitutionMdl;
 use App\Business\Inventory as InventoryBusiness;
+use App\Model\{
+    InventoryHistory as InventoryHistoryMdl,
+    Institution as InstitutionMdl
+};
 
-class InventoryHistory extends Controller {
+class InventoryHistory extends InventoryBase {
     
 	public $route = "/medicines/inventory";
 	public $path = "medicines/inventory/history";
-
-    function __construct() {
-        parent::__construct();
-        
-		$this->setVar('institutions_change', InstitutionMdl::byParentAdministrativeUnit());
-
-    }
 
     function overview() {
 
