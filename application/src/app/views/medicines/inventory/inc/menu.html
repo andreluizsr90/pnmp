@@ -7,18 +7,14 @@
         <i class="ti ti-brand-walmart fs-5"></i>Visão geral 
       </a>
     </li>
-    <li class="border-bottom my-3"></li>
     {% if 'INVENTORY_BATCH_CREATE'|hasRole %}
-    <li class="fw-semibold text-dark text-uppercase mx-9 my-3 px-3 fs-2">
-      LOTES
-    </li>
     <li class="list-group-item border-0 p-0 mx-9">
       <a class="d-flex align-items-center gap-6 list-group-item-action text-dark px-3 py-8 mb-1 rounded-1" href="{{ route }}/new-batch">
         <i class="ti ti-folders fs-5"></i>Novo lote
       </a>
     </li>
-    <li class="border-bottom my-3"></li>
     {% endif %}
+    <li class="border-bottom my-3"></li>
     {% if ['INVENTORY_ORDER_VIEW','INVENTORY_ORDER_CREATE','INVENTORY_ORDER_APPROVE','INVENTORY_ORDER_RECEIVE']|inRoles %}
     <li class="fw-semibold text-dark text-uppercase mx-9 my-3 px-3 fs-2">
       PEDIDOS
@@ -75,6 +71,26 @@
         <li class="list-group-item border-0 p-0 mx-9">
         <a class="d-flex align-items-center gap-6 list-group-item-action text-dark px-3 py-8 mb-1 rounded-1" href="{{ route }}/transfer/overview-receiving">
             <i class="ti ti-folder fs-5"></i>Pendentes de recebimento {{ (transfers_pending ? '<span class="badge text-bg-danger">'~transfers_pending~'</span>')|raw }}
+        </a>
+        </li>
+        {% endif %}
+        <li class="border-bottom my-3"></li>
+    {% endif %}
+    {% if ['INVENTORY_DISPENSATION_VIEW','INVENTORY_DISPENSATION_CREATE']|inRoles %}
+    <li class="fw-semibold text-dark text-uppercase mx-9 my-3 px-3 fs-2">
+      DISPENSAÇÕES
+    </li>
+        {% if 'INVENTORY_DISPENSATION_CREATE'|hasRole %}
+        <li class="list-group-item border-0 p-0 mx-9">
+        <a class="d-flex align-items-center gap-6 list-group-item-action text-dark px-3 py-8 mb-1 rounded-1" href="{{ route }}/dispensation">
+            <i class="ti ti-folder fs-5"></i>Nova dispensação
+        </a>
+        </li>
+        {% endif %}
+        {% if 'INVENTORY_DISPENSATION_VIEW'|hasRole %}
+        <li class="list-group-item border-0 p-0 mx-9">
+        <a class="d-flex align-items-center gap-6 list-group-item-action text-dark px-3 py-8 mb-1 rounded-1" href="{{ route }}/dispensation/overview">
+            <i class="ti ti-folder fs-5"></i>Minhas dispensações
         </a>
         </li>
         {% endif %}

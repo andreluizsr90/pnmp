@@ -8,6 +8,7 @@ use App\Model\{
     InventoryHistory as InventoryHistoryMdl,
     OrderMedicine as OrderMedicineMdl,
     TransferMedicine as TransferMedicineMdl,
+    DispensationMedicine as DispensationMedicineMdl,
     Medicine as MedicineMdl
 };
 
@@ -143,7 +144,7 @@ class Inventory {
             }
         }
 
-        $institution->stocks_locked = $stocksLocked;
+        $institution->stocks_locked_order = $stocksLocked;
         $institution->stocks = $stocks;
         $institution->save();
         
@@ -169,7 +170,7 @@ class Inventory {
         }
         
         $institution_supplier = InstitutionMdl::first($order->institution_supplier);
-        $lockedStocks = array_map(fn ($o) => clone $o, $institution_supplier->stocks_locked); // Clone array
+        $lockedStocks = array_map(fn ($o) => clone $o, $institution_supplier->stocks_locked_order); // Clone array
 
         foreach ($lockedStocks as $lKey => $aprovedItem) {
             if($aprovedItem->order_id != $order->_id) {
@@ -201,12 +202,59 @@ class Inventory {
         $institution->stocks = $stocks;
         $institution->save();
         
-        $institution_supplier->stocks_locked = $lockedStocks;
+        $institution_supplier->stocks_locked_order = $lockedStocks;
         $institution_supplier->save();
         
         $history->stocks_new = $stocks;
         $history->save();
     }
+
+    /*
+    public static function refuseOrder(OrderMedicineMdl $order) {
+
+        $history = new InventoryHistoryMdl();
+        $history->order()->attach($order);
+        $history->type = InventoryHistoryMdl::$types['ORDER_REFUSED'];
+        $history->user_id = $_SESSION['user_account']["id"];
+
+        $institution = InstitutionMdl::first($order->institution_supplier);
+        $history->institution()->attach($institution);
+
+        $history->stocks_old = array_map(fn ($o) => clone $o, $institution->stocks); // Clone array
+        $lockedStocks = array_map(fn ($o) => clone $o, $institution->stocks_locked_order); // Clone array
+        $stocks = $institution->stocks;
+        
+        foreach ($lockedStocks as $lKey => $lockedItem) {
+            $quantityToAdd = $lockedItem->quantity;
+            $notExistsBatch = true;
+            foreach ($stocks as $sKey => $inStock) {
+                if($quantityToAdd > 0) {
+                    if($inStock->medicine_id == $lockedItem->medicine_id && $inStock->batch_id == $lockedItem->batch_id) {
+                        $stocks[$sKey]->quantity += $quantityToAdd;
+                        $notExistsBatch = false;
+                    }
+                }
+            }
+
+            if($notExistsBatch) {
+                $stockPosition = new \stdClass();
+                $stockPosition->batch_id = $lockedItem->batch_id;
+                $stockPosition->medicine_id = $lockedItem->medicine_id;
+                $stockPosition->quantity = $quantityToAdd;
+                $stocks[] = $stockPosition;
+            }
+
+            unset($lockedStocks[$lKey]);
+        }
+        
+        $institution->stocks = $stocks;
+        $institution->stocks_locked_order = $lockedStocks;
+        $institution->save();
+        
+        $history->stocks_new = $stocks;
+        $history->save();
+    }
+    */
 
     public static function createTransfer(TransferMedicineMdl $transfer) {
 
@@ -249,7 +297,7 @@ class Inventory {
             }
         }
 
-        $institution->stocks_locked = $stocksLocked;
+        $institution->stocks_locked_transfer = $stocksLocked;
         $institution->stocks = $stocks;
         $institution->save();
         
@@ -275,7 +323,7 @@ class Inventory {
         }
         
         $institutionOrigin = InstitutionMdl::first($transfer->institution_owner);
-        $lockedStocks = array_map(fn ($o) => clone $o, $institutionOrigin->stocks_locked); // Clone array
+        $lockedStocks = array_map(fn ($o) => clone $o, $institutionOrigin->stocks_locked_transfer); // Clone array
 
         foreach ($lockedStocks as $lKey => $aprovedItem) {
             if($aprovedItem->transfer_id != $transfer->_id) {
@@ -307,8 +355,53 @@ class Inventory {
         $institutionDestination->stocks = $stocks;
         $institutionDestination->save();
         
-        $institutionOrigin->stocks_locked = $lockedStocks;
+        $institutionOrigin->stocks_locked_transfer = $lockedStocks;
         $institutionOrigin->save();
+        
+        $history->stocks_new = $stocks;
+        $history->save();
+    }
+
+    public static function createDispensation(DispensationMedicineMdl $dispensation) {
+
+        $history = new InventoryHistoryMdl();
+        $history->dispensation()->attach($dispensation);
+        $history->type = InventoryHistoryMdl::$types['DISPENSATION_CREATED'];
+        $history->user_id = $_SESSION['user_account']["id"];
+
+        $institution = InstitutionMdl::first($dispensation->institution_owner);
+        $history->institution()->attach($institution);
+
+        $history->stocks_old = array_map(fn ($o) => clone $o, $institution->stocks); // Clone array
+
+        // Register new values
+        $stocks = $institution->stocks;
+
+        foreach ($dispensation->item()->get() as $aprovedItem) {
+            $quantityToRemove = $aprovedItem->quantity;
+            foreach ($stocks as $sKey => $inStock) {
+                if($quantityToRemove > 0 && $inStock->medicine_id == $aprovedItem->medicine_id) {
+                        
+                    $stockPosition = new \stdClass();
+                    $stockPosition->batch_id = $inStock->batch_id;
+                    $stockPosition->medicine_id = $inStock->medicine_id;
+                    $stockPosition->dispensation_id = $dispensation->_id;
+
+                    if($inStock->quantity > $quantityToRemove) {
+                        $stockPosition->quantity = $quantityToRemove;
+                        $inStock->quantity -= $quantityToRemove;
+                        $quantityToRemove = 0;
+                    } else {
+                        $stockPosition->quantity = $inStock->quantity;
+                        $inStock->quantity -= $inStock->quantity;
+                        $quantityToRemove -= $inStock->quantity;  
+                    }
+                }
+            }
+        }
+
+        $institution->stocks = $stocks;
+        $institution->save();
         
         $history->stocks_new = $stocks;
         $history->save();

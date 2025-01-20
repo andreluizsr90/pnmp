@@ -167,6 +167,10 @@
                           <td class="confirm" id="phones-confirm"><span></span></td>
                       </tr>
                       <tr>
+                          <td class="form-label text-end">Email:</td>
+                          <td class="confirm" id="email-confirm"><span></span></td>
+                      </tr>
+                      <tr>
                           <td class="form-label text-end">CEP:</td>
                           <td class="confirm" id="postal_code-confirm"><span></span></td>
                       </tr>
@@ -293,6 +297,7 @@
       } else {
         $(".confirm span").text("");
         $("#phones-confirm span").text("");
+        $("#email-confirm span").text("");
         $("#administrative_unit-confirm span").text("");
       }
 
@@ -310,6 +315,7 @@
       if(valReturn == false) {
         $(".confirm span").text("");
         $("#phones-confirm span").text("");
+        $("#email-confirm span").text("");
         $("#administrative_unit-confirm span").text("");
       }
 

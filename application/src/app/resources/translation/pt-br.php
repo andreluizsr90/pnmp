@@ -10,6 +10,14 @@ return [
     'field_duplicated' => 'Duplicado! Já existe um registro com %s: %s',
     'inventory_no_supplier' => 'Instituição não possui Fornecedor para realizar essa ação.',
     'yes' => 'Sim',
+    'enum' => [
+        'order_medicine_status' => [
+            'OPEN' => 'Criado',
+            'APPROVED' => 'Aprovado',
+            'DONE' => 'Finalizado',
+            'CANCELED' => 'Cancelado'
+        ],
+    ],
     'general_status' => [
         'OPEN' => 'Criado',
         'DONE' => 'Finalizado'
@@ -82,6 +90,8 @@ return [
         'INVENTORY_TRANSFER_VIEW' => 'Visualizar Transferências',
         'INVENTORY_TRANSFER_CREATE' => 'Criar Transferência',
         'INVENTORY_TRANSFER_CANCEL' => 'Cancelar Transferência',
-        'INVENTORY_TRANSFER_RECEIVE' => 'Notificar Recebimento de Transferência'
+        'INVENTORY_TRANSFER_RECEIVE' => 'Notificar Recebimento de Transferência',
+        'INVENTORY_DISPENSATION_VIEW' => 'Visualizar Dispensações',
+        'INVENTORY_DISPENSATION_CREATE' => 'Realizar Dispensação'
     ]
 ];

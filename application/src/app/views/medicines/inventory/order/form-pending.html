@@ -7,11 +7,62 @@
   <div class="card w-100 position-relative overflow-hidden">
 
     <div class="d-flex align-items-center justify-content-between p-4 border-bottom">
-      <div>
+      <div class="d-flex">
         <h4 class="font-weight-medium mb-0">Pedido de medicamentos nº {{ order._id }}</h4>  
+        <a href="{{ route }}/order/overview-pending" class="btn btn-sm btn-outline-warning fw-semibold ms-2"><small>Voltar</small> </a>
       </div>
       <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-refuse">
+          <small>Recusar pedido</small> 
+        </button>
       </div>
+    </div>
+
+    <div id="modal-refuse" class="modal fade" tabindex="-1" aria-labelledby="modal-refuse" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+          <div class="modal-header d-flex align-items-center">
+            <h4 class="modal-title" id="myModalLabel">
+              Recusar pedido de mendicamento
+            </h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form method="post" action="">
+          <div class="modal-body">
+            
+            <table class="table table-sm mb-0">
+              <thead class="text-dark fs-4">
+                <tr>
+                  <th class="fs-4 fw-semibold mb-0 w-20 text-center">Justificativa:</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                    <td class="confirm">
+                      <div class="form-group row my-2">
+                        <div class="col-12">
+                          <textarea class="form-control required justification" required id="justification" name="justification"></textarea>
+                        </div>
+                      </div>
+                    </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">
+              Confirmar
+            </button>
+            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">
+              Cancelar
+            </button>
+          </div>
+        </form>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
     </div>
 
     <div class="card-body p-4">
@@ -29,6 +80,54 @@
               <small class="fs-2">{{ order.owner.address.city }} ({{ order.owner.unit.name }})</small>
             </div>
           </div>
+          <br />
+          <div class="text-center">
+            <small class="fs-2">Informações da solicitação:</small>  
+          </div>
+          <br />
+          
+          <table class="table table-sm mb-0">
+            <tbody>
+              <tr>
+                  <td class="form-label text-end" style="width: 50%;">Instituição receptora:</td>
+                  <td id="institution_name-confirm">{{ order.delivery_institution_name}}</td>
+              </tr>
+              <tr>
+                  <td class="form-label text-end">CNPJ:</td>
+                  <td id="cnpj-confirm">{{ order.delivery_cnpj}}</td>
+              </tr>
+              <tr>
+                  <td class="form-label text-end">Responsável pelo recebimento:</td>
+                  <td id="receiver_name-confirm">{{ order.delivery_name}}</td>
+              </tr>
+              <tr>
+                  <td class="form-label text-end">Telefones:</td>
+                  <td id="phones-confirm">
+                    {{ order.delivery_phones|join('<br/>')}}
+                  </td>
+              </tr>
+              <tr>
+                  <td class="form-label text-end">Email:</td>
+                  <td id="email-confirm">{{ order.delivery_email}}</td>
+              </tr>
+              <tr>
+                  <td class="form-label text-end">CEP:</td>
+                  <td id="postal_code-confirm">{{ order.delivery_address.postal_code}}</td>
+              </tr>
+              <tr>
+                  <td class="form-label text-end">Endereço:</td>
+                  <td id="line_1-confirm">{{ order.delivery_address.line_1}}</td>
+              </tr>
+              <tr>
+                  <td class="form-label text-end">Endereço (Complemento):</td>
+                  <td id="line_2-confirm">{{ order.delivery_address.line_2}}</td>
+              </tr>
+              <tr>
+                  <td class="form-label text-end">Cidade:</td>
+                  <td id="city-confirm">{{ order.delivery_address.city}}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
       <div class="wizard-content">

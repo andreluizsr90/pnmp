@@ -100,6 +100,26 @@
 					return $ctrl->getResponse();
 				});
 			});
+
+
+			$router->group(['prefix' => 'dispensation'], function($router){
+				$ctrl = new App\Controller\Medicines\InventoryDispensation();
+	
+				$router->get('/', function() use ($ctrl) {
+					$ctrl->newDispensation();
+					return $ctrl->getResponse();
+				});
+	
+				$router->post('/', function() use ($ctrl) {
+					$ctrl->saveNewDispensation();
+					return $ctrl->getResponse();
+				});
+	
+				$router->get('/overview', function() use ($ctrl) {
+					$ctrl->overview();
+					return $ctrl->getResponse();
+				});
+			});
             
 		});
 

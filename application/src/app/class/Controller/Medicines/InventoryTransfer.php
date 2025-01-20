@@ -58,6 +58,7 @@ class InventoryTransfer extends InventoryBase {
         $transferMedicine->maker()->attach(UserAccountMdl::first($this->getVar('user')["id"]));
         $transferMedicine->owner()->attach(InstitutionMdl::first($this->getVar('institution')["_id"]));
         $transferMedicine->destination()->attach(InstitutionMdl::first((int) $_POST["institution_id"]));
+        $transferMedicine->observation = $_POST["observation"];
 
         foreach ($_POST["fld_quantity"] as $key => $value) {
             if($value == 0) {

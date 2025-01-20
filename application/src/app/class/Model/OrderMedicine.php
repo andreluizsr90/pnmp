@@ -4,13 +4,6 @@ namespace App\Model;
 use App\Model\Internal\BaseModel;
 
 class OrderMedicine extends BaseModel {
-
-	public static $allowedStatus = [
-        'OPEN' => 'OPEN',
-        'APPROVED' => 'APPROVED',
-        'DONE' => 'DONE',
-        'CANCELED' => 'CANCELED',
-    ];
 	
 	protected $collection = 'order_medicine';
 
@@ -47,6 +40,11 @@ class OrderMedicine extends BaseModel {
     public function receiver()
     {
         return $this->referencesOne(UserAccount::class, 'user_account_receiver');
+    }
+
+    public function canceller()
+    {
+        return $this->referencesOne(UserAccount::class, 'user_account_canceled');
     }
 	
 }

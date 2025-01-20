@@ -2,10 +2,13 @@
 namespace App\Controller;
 
 use App\Engine\Controller;
-use App\Model\Notice as NoticeMdl;
-use App\Model\Institution as InstitutionMdl;
 use App\Business\Inventory as InventoryBusiness;
-use App\Model\OrderMedicine as OrderMedicineMdl;
+use App\Model\{
+	Notice as NoticeMdl,
+	Institution as InstitutionMdl,
+	OrderMedicine as OrderMedicineMdl
+};
+use App\Model\Enum\OrderMedicineStatus;
 
 class Dashboard extends Controller {
 
@@ -44,12 +47,12 @@ class Dashboard extends Controller {
 
 		$this->setVar('orders_pending', OrderMedicineMdl::where([
             'institution_supplier' => $this->getVar('institution')["_id"],
-            'status' => OrderMedicineMdl::$allowedStatus['OPEN']
+            'status' => OrderMedicineStatus::OPEN
         ])->count());
 
 		$this->setVar('orders_receiving', OrderMedicineMdl::where([
             'institution_owner' => $this->getVar('institution')["_id"],
-            'status' => OrderMedicineMdl::$allowedStatus['APPROVED']
+            'status' => OrderMedicineStatus::APPROVED
         ])->count());
 
 		$this->setResponse('dashboard.html');
