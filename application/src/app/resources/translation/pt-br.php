@@ -23,7 +23,8 @@ return [
     ],
     'medicines_msg' => [
         'inventory_no_supplier' => 'Instituição não possui Fornecedor para realizar essa ação.',
-        'inventory_no_order' => 'Pedido náo localizado ou a situaçao foi alterada.',
+        'inventory_no_order' => 'Pedido não localizado ou a situaçao foi alterada.',
+        'inventory_exists_order_open' => 'Já existe um pedido de medicamento em andamento. Não será possível iniciar um novo pedido.',
     ],
     'medicines_category' => [
         'ORAL' => 'Oral',

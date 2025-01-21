@@ -9,3 +9,18 @@
     content:" *";
     color: red;
 }
+
+.phone-place ul {
+    list-style: none !important;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+.phone-place ul li {
+    padding: 8px 16px;
+}
+
+.phone-place ul li .text-danger {
+    cursor: pointer;
+}
+

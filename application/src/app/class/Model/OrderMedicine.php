@@ -2,6 +2,7 @@
 namespace App\Model;
 
 use App\Model\Internal\BaseModel;
+use App\Model\Enum\OrderMedicineStatus;
 
 class OrderMedicine extends BaseModel {
 	
@@ -45,6 +46,14 @@ class OrderMedicine extends BaseModel {
     public function canceller()
     {
         return $this->referencesOne(UserAccount::class, 'user_account_canceled');
+    }
+
+    public static function hasByStatus($institutionId, OrderMedicineStatus $status)
+    {
+		return OrderMedicine::where([
+            'institution_owner' => $institutionId,
+            'status' => $status
+        ])->count() > 0;
     }
 	
 }

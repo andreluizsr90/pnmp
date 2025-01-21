@@ -35,6 +35,10 @@ class InventoryOrder extends InventoryBase {
             $this->flash(URL_SITE . '/' . $this->routeToReturn, $this->getVar('lang')['medicines_msg']['inventory_no_supplier'], 'error');
         }
 
+        if(OrderMedicineMdl::hasByStatus($this->getVar('institution')["_id"], OrderMedicineStatus::OPEN)) {
+            $this->flash(URL_SITE . '/' . $this->routeToReturn, $this->getVar('lang')['medicines_msg']['inventory_exists_order_open'], 'error');
+        }
+
         $medicineStocks = InventoryBusiness::calcMedicines($this->getVar('institution')["_id"], false);
 		$this->setVar('stocks', $medicineStocks);
 
