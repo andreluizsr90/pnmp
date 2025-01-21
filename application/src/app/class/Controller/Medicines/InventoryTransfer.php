@@ -9,6 +9,7 @@ use App\Model\{
     ItemMedicineQuantity as ItemMedicineQuantityMdl,
     UserAccount as UserAccountMdl
 };
+use App\Model\Enum\TransferMedicineStatus;
 
 class InventoryTransfer extends InventoryBase {
     
@@ -36,6 +37,11 @@ class InventoryTransfer extends InventoryBase {
         $medicineStocks = InventoryBusiness::calcMedicines($this->getVar('institution')["_id"], false);
 		$this->setVar('stocks', $medicineStocks);
 
+        if(count($medicineStocks) == 0) {
+            $this->flash(URL_SITE . '/' . $this->routeToReturn, $this->getVar('lang')['medicines_msg']['inventory_no_stocks'], 'error');
+            exit;
+        }
+
 		$this->setVar('supplier', InstitutionMdl::first($this->getVar('institution')["institution_supplier"]));
 		$this->setVar('medicines', MedicineMdl::all());
     	$this->setVar('route', $this->routeToReturn);
@@ -48,21 +54,32 @@ class InventoryTransfer extends InventoryBase {
         $this->checkRole('INVENTORY_TRANSFER_CREATE');
         
         if($_POST["institution_id"] == $this->getVar('institution')["_id"]) {
-            $message = "mesma unidade";
-            $this->flash(URL_SITE . '/' . $this->route, $message, 'error');
+            $this->flash(URL_SITE . '/' . $this->route, $this->getVar('lang')['medicines_msg']['inventory_transfer_same_unit'], 'error');
             exit;
         }
 
+        $institution = InstitutionMdl::first($this->getVar('institution')["_id"]);
+
         $transferMedicine = new TransferMedicineMdl();
-        $transferMedicine->status = TransferMedicineMdl::$allowedStatus['OPEN'];    
+        $transferMedicine->status = TransferMedicineStatus::OPEN;    
         $transferMedicine->maker()->attach(UserAccountMdl::first($this->getVar('user')["id"]));
-        $transferMedicine->owner()->attach(InstitutionMdl::first($this->getVar('institution')["_id"]));
+        $transferMedicine->owner()->attach($institution);
         $transferMedicine->destination()->attach(InstitutionMdl::first((int) $_POST["institution_id"]));
         $transferMedicine->observation = $_POST["observation"];
 
+        $existsTransfer = false;
         foreach ($_POST["fld_quantity"] as $key => $value) {
             if($value == 0) {
                 continue;
+            }
+
+            if(!isset($institution->stocks[$key])) {
+                continue;
+            }
+
+            if($institution->stocks[$key] < $value) {
+                $this->flash(URL_SITE . '/' . $this->route, $this->getVar('lang')['medicines_msg']['inventory_no_stocks'], 'error');
+                exit;
             }
 
             $item = new ItemMedicineQuantityMdl();
@@ -70,6 +87,8 @@ class InventoryTransfer extends InventoryBase {
             $item->quantity = (int) $value;
 
             $transferMedicine->item()->add($item);
+
+            $existsTransfer = false;
         }
 
         try {
@@ -90,7 +109,7 @@ class InventoryTransfer extends InventoryBase {
 
 		$this->setVar('transfers', TransferMedicineMdl::where([
             'institution_destination' => $this->getVar('institution')["_id"],
-            'status' => TransferMedicineMdl::$allowedStatus['OPEN']
+            'status' => TransferMedicineStatus::OPEN
         ]));
 
     	$this->setVar('route', $this->routeToReturn);
@@ -103,11 +122,15 @@ class InventoryTransfer extends InventoryBase {
 
         $transferMedicine = TransferMedicineMdl::where([
             'institution_destination' => $this->getVar('institution')["_id"],
-            'status' => TransferMedicineMdl::$allowedStatus['OPEN'],
+            'status' => TransferMedicineStatus::OPEN,
             '_id' => $id
         ])->first();
 
-        $transferMedicine->status = TransferMedicineMdl::$allowedStatus['DONE'];
+        if(empty($transferMedicine) || OrderMedicineStatus::from($transferMedicine->status) != TransferMedicineStatus::OPEN) {
+            $this->flash(URL_SITE . '/' . $this->routeToReturn, $this->getVar('lang')['medicines_msg']['inventory_no_order'], 'error');
+        }
+
+        $transferMedicine->status = TransferMedicineStatus::DONE;
         $transferMedicine->received_at = new \MongoDB\BSON\UTCDateTime();
         $transferMedicine->receiver()->attach(UserAccountMdl::first($this->getVar('user')["id"]));
 
@@ -125,4 +148,3 @@ class InventoryTransfer extends InventoryBase {
     }
 
 }
-

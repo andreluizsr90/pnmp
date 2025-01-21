@@ -7,7 +7,10 @@ use App\Model\{
     OrderMedicine as OrderMedicineMdl,
     TransferMedicine as TransferMedicineMdl
 };
-use App\Model\Enum\OrderMedicineStatus;
+use App\Model\Enum\{
+    OrderMedicineStatus,
+    TransferMedicineStatus
+};
 
 class InventoryBase extends Controller {
 
@@ -29,7 +32,7 @@ class InventoryBase extends Controller {
 
             $this->setVar('transfers_pending', TransferMedicineMdl::where([
                 'institution_destination' => $this->getVar('institution')["_id"],
-                'status' => TransferMedicineMdl::$allowedStatus['OPEN']
+                'status' => TransferMedicineStatus::OPEN
             ])->count());
         }
 

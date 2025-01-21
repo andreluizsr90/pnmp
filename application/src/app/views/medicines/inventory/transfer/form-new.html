@@ -34,7 +34,7 @@
                     <thead class="text-dark fs-4">
                       <tr>
                         <th class="fs-4 fw-semibold mb-0">Medicamento</th>
-                        <th class="fs-4 fw-semibold mb-0 w-20 text-center">Qtde. disponível</th>
+                        <th class="fs-4 fw-semibold mb-0 w-20 text-center">Em estoque</th>
                         <th class="fs-4 fw-semibold mb-0 w-20 text-center">Qtde. solicitada</th>
                       </tr>
                     </thead>
@@ -46,7 +46,7 @@
                           <small>{{ lang.medicines_category[item.category] }} / {{ lang.medicines_dosage_unit[item.dosage_unit] }} / {{ lang.medicines_presentation[item.presentation] }}</small>
                         </td>
                         <td class="text-center">
-                          <p class="mb-0 fw-normal">{{ stocks[item._id].quantity }}</p>
+                          <p class="mb-0 fw-normal">{{ stocks[item._id].quantity ?? 0 }}</p>
                         </td>
                         <td class="text-center">
                           <input name="fld_quantity[{{ item._id }}]" type="number" step="1" min="0" value="0" class="form-control text-center fld_quantity" id="fld_quantity-{{ item._id }}" />
