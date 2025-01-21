@@ -32,7 +32,7 @@ class InventoryOrder extends InventoryBase {
         $this->checkRole('INVENTORY_ORDER_CREATE');
 
         if(empty($this->getVar('institution')["institution_supplier"])) {
-            $this->flash(URL_SITE . '/' . $this->routeToReturn, $this->getVar('lang')['inventory_no_supplier'], 'error');
+            $this->flash(URL_SITE . '/' . $this->routeToReturn, $this->getVar('lang')['medicines_msg']['inventory_no_supplier'], 'error');
         }
 
         $medicineStocks = InventoryBusiness::calcMedicines($this->getVar('institution')["_id"], false);
@@ -130,8 +130,7 @@ class InventoryOrder extends InventoryBase {
         ])->first();
 
         if(empty($orderMedicine) || OrderMedicineStatus::from($orderMedicine->status) != OrderMedicineStatus::OPEN) {
-            $message = "Pedido não localizado!";
-            $this->flash(URL_SITE . '/' . $this->route, $message, 'error');
+            $this->flash(URL_SITE . '/' . $this->routeToReturn, $this->getVar('lang')['medicines_msg']['inventory_no_order'], 'error');
         }
 
         if(isset($_POST["justification"]) && !empty($_POST["justification"])) {

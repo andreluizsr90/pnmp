@@ -64,11 +64,11 @@
                 <td>{{ unit.name }} ({{ unit.code }})</td>
                 <td>
                   {% if item._id != institution._id %}
-                  <button onclick="changeInstitution('{{ item._id }}')" type="button" class="btn mb-1 btn-primary rounded-circle round-40 btn-sm d-inline-flex align-items-center justify-content-center">
-                    <i class="ti ti-player-play fs-4"></i>
+                  <button onclick="changeInstitution('{{ item._id }}')" type="button" class="btn pt-2 px-3 w-100 btn-sm btn-outline-primary fw-semibold">
+                    <i class="ti ti-arrow-right fs-4"></i>
                   </button>
                   {% else %}
-                  <span class="badge text-bg-success">atual</span>
+                  <span class="badge text-bg-success">Atual</span>
                   {% endif %}
                 </td>
               </tr>

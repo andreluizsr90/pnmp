@@ -32,8 +32,14 @@ class Inventory {
             return [];
         }
 
+        $institution = InstitutionMdl::first($institutionId);
+
+        if(empty($institution) || !isset($institution->stocks)) {
+            return [];
+        }
+
         $medicineStocks = [];
-        foreach (InstitutionMdl::first($institutionId)->stocks as $line) {
+        foreach ($institution->stocks as $line) {
             
             if(!array_key_exists($line->medicine_id, $medicineStocks)) {
                 $medicineStocks[$line->medicine_id] = [

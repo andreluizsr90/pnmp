@@ -46,7 +46,7 @@
                   <tr>
                     <td class="w-30">
                       <p class="mb-0 fw-normal">{{ order.owner.name }}</p>
-                      {{ order.maker.name }}
+                      <span class="fs-2"><strong>Autor: </strong> {{ order.maker.name }}</span><br />
                     </td>
                     <td class="w-20">
                       <p class="mb-0 fw-normal">{{ order.created_at|mongoDate('d/m/Y') }}</p>
@@ -63,10 +63,10 @@
                       {% endfor %}
                       
                     </td>
-                    <td>
-                      
-                        <a href="{{ route }}/order/handle-pending/{{ order._id }}" class="btn mb-1 btn-primary rounded-circle round-40 btn-sm d-inline-flex align-items-center justify-content-center">
-                            <i class="ti ti-player-play fs-4"></i>
+                    <td class="text-center">
+
+                        <a href="{{ route }}/order/handle-pending/{{ order._id }}" class="btn pt-2 w-100 btn-sm btn-outline-primary fw-semibold">
+                            <i class="ti ti-arrow-right fs-4"></i>
                         </a>
                       
                     </td>

@@ -8,7 +8,6 @@ return [
     'user_no_permission' => 'Sem permissão para executar essa ação.',
     'field_required' => 'O campo %s é de preenchimento obrigatório.',
     'field_duplicated' => 'Duplicado! Já existe um registro com %s: %s',
-    'inventory_no_supplier' => 'Instituição não possui Fornecedor para realizar essa ação.',
     'yes' => 'Sim',
     'enum' => [
         'order_medicine_status' => [
@@ -21,6 +20,10 @@ return [
     'general_status' => [
         'OPEN' => 'Criado',
         'DONE' => 'Finalizado'
+    ],
+    'medicines_msg' => [
+        'inventory_no_supplier' => 'Instituição não possui Fornecedor para realizar essa ação.',
+        'inventory_no_order' => 'Pedido náo localizado ou a situaçao foi alterada.',
     ],
     'medicines_category' => [
         'ORAL' => 'Oral',
