@@ -67,17 +67,22 @@ class InventoryTransfer extends InventoryBase {
         $transferMedicine->destination()->attach(InstitutionMdl::first((int) $_POST["institution_id"]));
         $transferMedicine->observation = $_POST["observation"];
 
+        
+        //var_dump($institution->stocks);
+
         $existsTransfer = false;
         foreach ($_POST["fld_quantity"] as $key => $value) {
             if($value == 0) {
                 continue;
             }
 
-            if(!isset($institution->stocks[$key])) {
+            $stocks = (array_filter($institution->stocks, fn($batch) => $batch->medicine_id == $key));
+            if(count($stocks) == 0) {
                 continue;
             }
 
-            if($institution->stocks[$key] < $value) {
+            $availableQuantity = array_reduce($stocks, fn($sum, $element) => $element->quantity + $sum, 0);
+            if($availableQuantity < $value) {
                 $this->flash(URL_SITE . '/' . $this->route, $this->getVar('lang')['medicines_msg']['inventory_no_stocks'], 'error');
                 exit;
             }
@@ -126,7 +131,7 @@ class InventoryTransfer extends InventoryBase {
             '_id' => $id
         ])->first();
 
-        if(empty($transferMedicine) || OrderMedicineStatus::from($transferMedicine->status) != TransferMedicineStatus::OPEN) {
+        if(empty($transferMedicine) || TransferMedicineStatus::from($transferMedicine->status) != TransferMedicineStatus::OPEN) {
             $this->flash(URL_SITE . '/' . $this->routeToReturn, $this->getVar('lang')['medicines_msg']['inventory_no_order'], 'error');
         }
 
